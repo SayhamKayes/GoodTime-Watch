@@ -3,6 +3,7 @@ import { WatchProduct } from '../types';
 import { ALL_PRODUCTS } from '../data/goodtime';
 import { generateProductWhatsAppLink } from '../utils/whatsapp';
 import { MessageCircle, Search, Eye, Sparkles, Filter } from 'lucide-react';
+import { isProductNewArrival } from '../utils/productUtils';
 
 interface NewArrivalsSectionProps {
   products?: WatchProduct[];
@@ -168,7 +169,7 @@ export const NewArrivalsSection: React.FC<NewArrivalsSectionProps> = ({
 
                 {/* Badges */}
                 <div className="absolute top-3 left-3 flex flex-col gap-1 z-10">
-                  {product.isNew && (
+                  {isProductNewArrival(product) && (
                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#c5a059] text-black tracking-wider uppercase">
                       New Arrival
                     </span>
