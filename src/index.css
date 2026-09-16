@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@layer base {
+  a, button, [role="button"] {
+    cursor: pointer !important;
+  }
+}
+
+@layer utilities {
+  .font-serif-luxury {
+    font-family: 'Cinzel', Georgia, serif;
+  }
+
+  .font-display-luxury {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .font-sans-modern {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .font-bangla {
+    font-family: 'Hind Siliguri', sans-serif;
+  }
+}
+
+/* Custom luxury subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #07080b;
+}
+::-webkit-scrollbar-thumb {
+  background: #242b35;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c5a059;
+}
+

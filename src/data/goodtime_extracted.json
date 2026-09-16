@@ -1,0 +1,2024 @@
+{
+  "site": {
+    "name": "Goodtime Watch SG",
+    "domain": "https://goodtimewatchsg.com/",
+    "email": "goodtimewatchsg@gmail.com",
+    "phoneDisplay": "01327-426905",
+    "phoneIntl": "+8801327426905",
+    "whatsapp": "https://wa.me/8801327426905",
+    "social": [
+      {
+        "id": "facebook",
+        "label": "Facebook",
+        "href": "#"
+      },
+      {
+        "id": "instagram",
+        "label": "Instagram",
+        "href": "#"
+      },
+      {
+        "id": "youtube",
+        "label": "YouTube",
+        "href": "#"
+      }
+    ],
+    "announcement": "Complimentary Shipping on Selected Orders"
+  },
+  "brands": [
+    {
+      "id": "rolex",
+      "name": "Rolex",
+      "mark": "ROLEX",
+      "markStyle": "serif",
+      "tagline": "An icon of enduring prestige",
+      "story": "Rolex needs little introduction — its name is synonymous with timeless design and peerless recognition. Our catalogue features a select number of Rolex references, subject to availability.",
+      "heroImage": "1547996160-81dfa63595aa"
+    },
+    {
+      "id": "omega",
+      "name": "OMEGA",
+      "mark": "OMEGA",
+      "markStyle": "sans",
+      "tagline": "Precision meets heritage",
+      "story": "From the Moonwatch to the depths of the ocean, OMEGA has defined Swiss precision for over a century. A cornerstone of our luxury selection.",
+      "heroImage": "1636639818651-d97365346a5c",
+      "panel": {
+        "title": "Precision Meets Heritage",
+        "copy": "Swiss watchmaking with a legacy written in space, sea and sport."
+      }
+    },
+    {
+      "id": "tissot",
+      "name": "Tissot",
+      "mark": "TISSOT",
+      "markStyle": "sans",
+      "tagline": "Swiss quality, accessible luxury",
+      "story": "Tissot brings Swiss craftsmanship to everyday wear — from the cult-favourite PRX to timeless dress pieces.",
+      "heroImage": "1522312346375-d1a52e2b99b3"
+    },
+    {
+      "id": "seiko",
+      "name": "Seiko",
+      "mark": "SEIKO",
+      "markStyle": "sans",
+      "tagline": "Japanese watchmaking excellence",
+      "story": "From the beloved Presage to the legendary Prospex, Seiko delivers heritage, innovation and remarkable value.",
+      "heroImage": "1633869699811-cd4f63049b36",
+      "panel": {
+        "title": "Japanese Watchmaking Excellence",
+        "copy": "Heritage, innovation and value from Japan's most storied manufacture."
+      }
+    },
+    {
+      "id": "g-shock",
+      "name": "G-SHOCK",
+      "mark": "G-SHOCK",
+      "markStyle": "sans-bold",
+      "tagline": "Built for the bold",
+      "story": "Engineered for absolute toughness, G-SHOCK has been the definitive adventure watch since 1983.",
+      "heroImage": "1576420469977-7275a9dc1ccc",
+      "panel": {
+        "title": "Built for the Bold",
+        "copy": "Shock-resistant engineering with unmistakable street presence."
+      }
+    },
+    {
+      "id": "casio",
+      "name": "Casio",
+      "mark": "CASIO",
+      "markStyle": "sans",
+      "tagline": "Reliable icons for every day",
+      "story": "From the retro charm of the Vintage series to the refined Edifice line, Casio is everyday dependability.",
+      "heroImage": "1630452561211-f2914f5a2f68"
+    },
+    {
+      "id": "citizen",
+      "name": "Citizen",
+      "mark": "CITIZEN",
+      "markStyle": "sans",
+      "tagline": "Innovation powered by light",
+      "story": "Citizen pioneered light-powered precision. Eco-Drive and the Promaster series remain favourites worldwide.",
+      "heroImage": "1600003014755-ba31aa59c4b6"
+    },
+    {
+      "id": "orient",
+      "name": "Orient",
+      "mark": "ORIENT",
+      "markStyle": "serif",
+      "tagline": "Automatic value, made in-house",
+      "story": "Orient crafts in-house automatic movements at remarkable prices — the Bambino is a modern classic.",
+      "heroImage": "1524805444758-089113d48a6d"
+    },
+    {
+      "id": "fossil",
+      "name": "Fossil",
+      "mark": "FOSSIL",
+      "markStyle": "sans",
+      "tagline": "American design, everyday style",
+      "story": "Fossil blends American design with accessible prices — from minimal dials to chronograph classics.",
+      "heroImage": "1542496658-e33a6d0d50f6"
+    },
+    {
+      "id": "tudor",
+      "name": "Tudor",
+      "mark": "TUDOR",
+      "markStyle": "serif",
+      "tagline": "Born to dare",
+      "story": "Tudor pairs tool-watch heritage with modern Swiss engineering. The Black Bay is a contemporary icon.",
+      "heroImage": "1639736922209-793b59a41572"
+    },
+    {
+      "id": "tag-heuer",
+      "name": "TAG Heuer",
+      "mark": "TAG HEUER",
+      "markStyle": "sans-bold",
+      "tagline": "The spirit of motor racing",
+      "story": "TAG Heuer's racing DNA runs through the Carrera and Aquaracer — bold, precise and unmistakable.",
+      "heroImage": "1600003014637-ff82a275e191"
+    },
+    {
+      "id": "longines",
+      "name": "Longines",
+      "mark": "LONGINES",
+      "markStyle": "serif",
+      "tagline": "Elegance is an attitude",
+      "story": "Longines has stood for refined Swiss elegance since 1832 — the Master Collection is its signature.",
+      "heroImage": "1587925358603-c2eea5305bbc"
+    },
+    {
+      "id": "cartier",
+      "name": "Cartier",
+      "mark": "CARTIER",
+      "markStyle": "serif",
+      "tagline": "The jeweller of kings",
+      "story": "Cartier's Tank and Santos defined the wristwatch as an object of design. A select few references pass through our collection.",
+      "heroImage": "1786052348000-58d9171b9eee"
+    },
+    {
+      "id": "breitling",
+      "name": "Breitling",
+      "mark": "BREITLING",
+      "markStyle": "sans-bold",
+      "tagline": "Instruments for professionals",
+      "story": "Breitling builds instruments for the skies and seas — the Navitimer and Superocean remain benchmarks.",
+      "heroImage": "1609587312208-cea54be969e7"
+    },
+    {
+      "id": "grand-seiko",
+      "name": "Grand Seiko",
+      "mark": "GRAND SEIKO",
+      "markStyle": "sans",
+      "tagline": "The nature of time",
+      "story": "Grand Seiko's Zaratsu-polished cases and hand-finished dials represent the pinnacle of Japanese watchmaking.",
+      "heroImage": "1620625515032-6ed0c1790c75"
+    },
+    {
+      "id": "hamilton",
+      "name": "Hamilton",
+      "mark": "HAMILTON",
+      "markStyle": "serif",
+      "tagline": "American spirit, Swiss precision",
+      "story": "From the silver screen to the battlefield, Hamilton's Khaki and Jazzmaster lines are legends of utility and style.",
+      "heroImage": "1700130007227-92e7040d22b7"
+    },
+    {
+      "id": "rado",
+      "name": "Rado",
+      "mark": "RADO",
+      "markStyle": "sans",
+      "tagline": "Master of materials",
+      "story": "Rado's pioneering use of high-tech ceramics makes its Captain Cook and True lines instantly recognisable.",
+      "heroImage": "1682510306438-d2ead349aab3"
+    },
+    {
+      "id": "michael-kors",
+      "name": "Michael Kors",
+      "mark": "MICHAEL KORS",
+      "markStyle": "sans",
+      "tagline": "Glamour for every day",
+      "story": "Michael Kors timepieces bring runway glamour to everyday wrists — gold tones, bold dials, unmistakable presence.",
+      "heroImage": "1772949399823-dcd1678fcce7"
+    },
+    {
+      "id": "emporio-armani",
+      "name": "Emporio Armani",
+      "mark": "EMPORIO ARMANI",
+      "markStyle": "sans",
+      "tagline": "Italian fashion, refined",
+      "story": "Emporio Armani translates Italian tailoring into timepieces of understated confidence.",
+      "heroImage": "1772949400424-c64bfb7bdbd2"
+    }
+  ],
+  "products": [
+    {
+      "id": "rolex-submariner-date",
+      "brandId": "rolex",
+      "name": "Submariner",
+      "model": "Date 41mm",
+      "reference": "126610LN",
+      "price": 1450000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Oystersteel",
+      "strapMaterial": "Oystersteel",
+      "dialColor": "Black",
+      "caseSizeMm": 41,
+      "waterResistance": "300m",
+      "images": [
+        "1547996160-81dfa63595aa",
+        "1639736922209-793b59a41572"
+      ],
+      "availability": "Enquire",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": true,
+      "styles": [
+        "Diver",
+        "Classic"
+      ],
+      "tags": [
+        "diver",
+        "automatic"
+      ],
+      "description": "The archetypal dive watch — a black dial, ceramic bezel and Oyster bracelet that has defined the genre for decades.",
+      "rating": 4.9,
+      "reviewsCount": 12
+    },
+    {
+      "id": "rolex-datejust-36",
+      "brandId": "rolex",
+      "name": "Datejust",
+      "model": "36",
+      "reference": "126234",
+      "price": 1250000,
+      "compareAtPrice": null,
+      "gender": "unisex",
+      "movement": "Automatic",
+      "caseMaterial": "Oystersteel",
+      "strapMaterial": "Oystersteel",
+      "dialColor": "Blue",
+      "caseSizeMm": 36,
+      "waterResistance": "100m",
+      "images": [
+        "1730757679771-b53e798846cf",
+        "1639006570490-79c0c53f1080"
+      ],
+      "availability": "Enquire",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Classic",
+        "Elegant"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "Elegance distilled — the Datejust 36 pairs a sunray blue dial with the celebrated Jubilee-style bracelet.",
+      "rating": 4.9,
+      "reviewsCount": 8
+    },
+    {
+      "id": "omega-speedmaster-professional",
+      "brandId": "omega",
+      "name": "Speedmaster",
+      "model": "Professional",
+      "reference": "310.30.42.50.01.001",
+      "price": 1050000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Manual Winding",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Black",
+      "caseSizeMm": 42,
+      "waterResistance": "50m",
+      "images": [
+        "1636639818651-d97365346a5c",
+        "1600003014637-ff82a275e191"
+      ],
+      "availability": "In Stock",
+      "isNew": true,
+      "isBestSeller": true,
+      "isLuxury": true,
+      "styles": [
+        "Chronograph",
+        "Classic"
+      ],
+      "tags": [
+        "chronograph",
+        "sport"
+      ],
+      "description": "The Moonwatch. A black dial, tachymeter bezel and legendary hand-wound movement — the definitive chronograph.",
+      "rating": 4.9,
+      "reviewsCount": 21
+    },
+    {
+      "id": "omega-seamaster-diver-300m",
+      "brandId": "omega",
+      "name": "Seamaster",
+      "model": "Diver 300M",
+      "reference": "210.30.42.20.01.001",
+      "price": 980000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Black",
+      "caseSizeMm": 42,
+      "waterResistance": "300m",
+      "images": [
+        "1659461279680-a9cfd7e75bf4",
+        "1633869699811-cd4f63049b36"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": true,
+      "styles": [
+        "Diver",
+        "Sport"
+      ],
+      "tags": [
+        "diver",
+        "automatic"
+      ],
+      "description": "A professional diver with 300m water resistance, helium escape valve and laser-etched wave dial.",
+      "rating": 4.8,
+      "reviewsCount": 15
+    },
+    {
+      "id": "omega-seamaster-aqua-terra",
+      "brandId": "omega",
+      "name": "Seamaster",
+      "model": "Aqua Terra",
+      "reference": "220.10.41.21.02.001",
+      "price": 890000,
+      "compareAtPrice": null,
+      "gender": "unisex",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Silver",
+      "caseSizeMm": 41,
+      "waterResistance": "150m",
+      "images": [
+        "1623998021661-dc7555b2213d",
+        "1620625515032-6ed0c1790c75"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Dress",
+        "Classic"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "Teak-patterned dial, co-axial automatic movement and 150m water resistance — the everyday luxury watch.",
+      "rating": 4.8,
+      "reviewsCount": 9
+    },
+    {
+      "id": "omega-constellation",
+      "brandId": "omega",
+      "name": "Constellation",
+      "model": "Co-Axial 29mm",
+      "reference": "131.20.29.20.55.001",
+      "price": 750000,
+      "compareAtPrice": null,
+      "gender": "women",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel & Gold",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "White",
+      "caseSizeMm": 29,
+      "waterResistance": "50m",
+      "images": [
+        "1602268394804-6a31d350d862",
+        "1751437774882-deeea4352018"
+      ],
+      "availability": "In Stock",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Elegant",
+        "Classic"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "A refined ladies' Constellation with a white dial, gold accents and the signature claw bezel.",
+      "rating": 4.8,
+      "reviewsCount": 6
+    },
+    {
+      "id": "tudor-black-bay-58",
+      "brandId": "tudor",
+      "name": "Black Bay",
+      "model": "58",
+      "reference": "79030B",
+      "price": 480000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Black",
+      "caseSizeMm": 39,
+      "waterResistance": "200m",
+      "images": [
+        "1639736922209-793b59a41572",
+        "1642025425263-0127eeca3bc0"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": true,
+      "styles": [
+        "Diver",
+        "Sport"
+      ],
+      "tags": [
+        "diver",
+        "automatic"
+      ],
+      "description": "The modern diver's benchmark — 39mm case, gilt accents and in-house automatic movement.",
+      "rating": 4.8,
+      "reviewsCount": 11
+    },
+    {
+      "id": "tudor-black-bay-chrono",
+      "brandId": "tudor",
+      "name": "Black Bay",
+      "model": "Chrono",
+      "reference": "79360N",
+      "price": 520000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Fabric",
+      "dialColor": "Black",
+      "caseSizeMm": 41,
+      "waterResistance": "200m",
+      "images": [
+        "1609587312208-cea54be969e7",
+        "1657900791906-4b7e8bfcb0d7"
+      ],
+      "availability": "Enquire",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Chronograph",
+        "Sport"
+      ],
+      "tags": [
+        "chronograph",
+        "automatic"
+      ],
+      "description": "A chronograph with genuine racing pedigree — column-wheel movement and snowflake hands.",
+      "rating": 4.7,
+      "reviewsCount": 5
+    },
+    {
+      "id": "tag-heuer-carrera",
+      "brandId": "tag-heuer",
+      "name": "Carrera",
+      "model": "Chronograph",
+      "reference": "CBN2A1A",
+      "price": 420000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Silver",
+      "caseSizeMm": 42,
+      "waterResistance": "100m",
+      "images": [
+        "1600003014637-ff82a275e191",
+        "1622434641406-a158123450f9"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": true,
+      "styles": [
+        "Chronograph",
+        "Sport"
+      ],
+      "tags": [
+        "chronograph",
+        "automatic"
+      ],
+      "description": "Motorsport heritage in a modern package — a silver dial chronograph with 100m water resistance.",
+      "rating": 4.7,
+      "reviewsCount": 8
+    },
+    {
+      "id": "tag-heuer-aquaracer",
+      "brandId": "tag-heuer",
+      "name": "Aquaracer",
+      "model": "Professional 300",
+      "reference": "WBP2110",
+      "price": 380000,
+      "compareAtPrice": 410000,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Rubber",
+      "dialColor": "Black",
+      "caseSizeMm": 43,
+      "waterResistance": "300m",
+      "images": [
+        "1595520407624-66b24f015830",
+        "1659461278051-699550cc6aec"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Diver",
+        "Sport"
+      ],
+      "tags": [
+        "diver",
+        "automatic"
+      ],
+      "description": "A professional-grade diver with a black dial, rubber strap and 300m rating.",
+      "rating": 4.6,
+      "reviewsCount": 6
+    },
+    {
+      "id": "longines-master-collection",
+      "brandId": "longines",
+      "name": "Master Collection",
+      "model": "Chronograph",
+      "reference": "L2.773.4",
+      "price": 320000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Silver",
+      "caseSizeMm": 40,
+      "waterResistance": "30m",
+      "images": [
+        "1587925358603-c2eea5305bbc",
+        "1524805444758-089113d48a6d"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": true,
+      "styles": [
+        "Dress",
+        "Classic"
+      ],
+      "tags": [
+        "dress",
+        "chronograph",
+        "automatic"
+      ],
+      "description": "Longines' signature — a silver barleycorn dial chronograph with blued steel hands.",
+      "rating": 4.7,
+      "reviewsCount": 9
+    },
+    {
+      "id": "longines-conquest",
+      "brandId": "longines",
+      "name": "Conquest",
+      "model": "Automatic",
+      "reference": "L3.777.4",
+      "price": 280000,
+      "compareAtPrice": 310000,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Black",
+      "caseSizeMm": 41,
+      "waterResistance": "100m",
+      "images": [
+        "1548171916-c0dea7f94ca6",
+        "1777457900943-7fd2f7c42529"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Sport",
+        "Classic"
+      ],
+      "tags": [
+        "sport",
+        "automatic"
+      ],
+      "description": "A versatile sports watch with 100m water resistance and classic lines.",
+      "rating": 4.6,
+      "reviewsCount": 5
+    },
+    {
+      "id": "cartier-tank-must",
+      "brandId": "cartier",
+      "name": "Tank",
+      "model": "Must Large",
+      "reference": "WSTA0041",
+      "price": 780000,
+      "compareAtPrice": null,
+      "gender": "unisex",
+      "movement": "Quartz",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "White",
+      "caseSizeMm": 33,
+      "waterResistance": "30m",
+      "images": [
+        "1786052348000-58d9171b9eee",
+        "1772949400424-c64bfb7bdbd2"
+      ],
+      "availability": "Enquire",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": true,
+      "styles": [
+        "Classic",
+        "Elegant",
+        "Minimal"
+      ],
+      "tags": [
+        "dress"
+      ],
+      "description": "The definitive rectangular watch — Roman numerals, blue cabochon crown, timeless line.",
+      "rating": 4.9,
+      "reviewsCount": 7
+    },
+    {
+      "id": "cartier-santos",
+      "brandId": "cartier",
+      "name": "Santos",
+      "model": "De Cartier",
+      "reference": "WSSA0030",
+      "price": 820000,
+      "compareAtPrice": null,
+      "gender": "unisex",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Black",
+      "caseSizeMm": 40,
+      "waterResistance": "100m",
+      "images": [
+        "1772949399884-01ec45bc5763",
+        "1670404160620-a3a86428560e"
+      ],
+      "availability": "Enquire",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Classic",
+        "Statement"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "The watch that started it all in 1904 — square case, exposed screws, effortless presence.",
+      "rating": 4.9,
+      "reviewsCount": 4
+    },
+    {
+      "id": "breitling-navitimer",
+      "brandId": "breitling",
+      "name": "Navitimer",
+      "model": "B01 43",
+      "reference": "AB0138",
+      "price": 560000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Black",
+      "caseSizeMm": 43,
+      "waterResistance": "30m",
+      "images": [
+        "1723561230205-3a8f566f8ba9",
+        "1609587312208-cea54be969e7"
+      ],
+      "availability": "In Stock",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Chronograph",
+        "Classic"
+      ],
+      "tags": [
+        "chronograph",
+        "automatic"
+      ],
+      "description": "The pilot's chronograph with the famous circular slide rule — an aviation legend.",
+      "rating": 4.8,
+      "reviewsCount": 6
+    },
+    {
+      "id": "breitling-superocean",
+      "brandId": "breitling",
+      "name": "Superocean",
+      "model": "Automatic 42",
+      "reference": "A17366",
+      "price": 520000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Rubber",
+      "dialColor": "Black",
+      "caseSizeMm": 42,
+      "waterResistance": "500m",
+      "images": [
+        "1659461279680-a9cfd7e75bf4",
+        "1595520407624-66b24f015830"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Diver",
+        "Sport"
+      ],
+      "tags": [
+        "diver",
+        "automatic"
+      ],
+      "description": "500m of water resistance in a bold, professional dive package.",
+      "rating": 4.7,
+      "reviewsCount": 4
+    },
+    {
+      "id": "grand-seiko-snowflake",
+      "brandId": "grand-seiko",
+      "name": "Snowflake",
+      "model": "SBGA211",
+      "reference": "SBGA211",
+      "price": 520000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Spring Drive",
+      "caseMaterial": "Titanium",
+      "strapMaterial": "Titanium",
+      "dialColor": "White",
+      "caseSizeMm": 41,
+      "waterResistance": "100m",
+      "images": [
+        "1620625515032-6ed0c1790c75",
+        "1657900785870-dd29fa61c84f"
+      ],
+      "availability": "Low Stock",
+      "isNew": true,
+      "isBestSeller": true,
+      "isLuxury": true,
+      "styles": [
+        "Dress",
+        "Minimal"
+      ],
+      "tags": [
+        "dress"
+      ],
+      "description": "The famous Snowflake — a hand-finished white dial over titanium, powered by Spring Drive.",
+      "rating": 4.9,
+      "reviewsCount": 10
+    },
+    {
+      "id": "grand-seiko-heritage-gmt",
+      "brandId": "grand-seiko",
+      "name": "Heritage",
+      "model": "GMT SBGM221",
+      "reference": "SBGM221",
+      "price": 460000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Ivory",
+      "caseSizeMm": 39,
+      "waterResistance": "30m",
+      "images": [
+        "1657900785870-dd29fa61c84f",
+        "1682510306438-d2ead349aab3"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Dress",
+        "Classic"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "An ivory-dialled GMT dress watch with Zaratsu-polished case — understated perfection.",
+      "rating": 4.8,
+      "reviewsCount": 5
+    },
+    {
+      "id": "seiko-presage-cocktail",
+      "brandId": "seiko",
+      "name": "Presage",
+      "model": "Cocktail Time",
+      "reference": "SRPB41",
+      "price": 42000,
+      "compareAtPrice": null,
+      "gender": "unisex",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Blue",
+      "caseSizeMm": 40,
+      "waterResistance": "50m",
+      "images": [
+        "1523170335258-f5ed11844a49",
+        "1604242692760-2f7b0c26856d"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": false,
+      "styles": [
+        "Dress",
+        "Classic",
+        "Elegant"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "A sunburst blue dial inspired by Tokyo cocktail bars — the best dress watch under ৳50,000.",
+      "rating": 4.8,
+      "reviewsCount": 18
+    },
+    {
+      "id": "seiko-prospex-diver",
+      "brandId": "seiko",
+      "name": "Prospex",
+      "model": "Diver SRPD",
+      "reference": "SRPD55K1",
+      "price": 48000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Black",
+      "caseSizeMm": 42,
+      "waterResistance": "200m",
+      "images": [
+        "1633869699811-cd4f63049b36",
+        "1659461278051-699550cc6aec"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": false,
+      "styles": [
+        "Diver",
+        "Sport"
+      ],
+      "tags": [
+        "diver",
+        "automatic"
+      ],
+      "description": "A 200m automatic diver with lume that lasts all night — the enthusiast's first choice.",
+      "rating": 4.7,
+      "reviewsCount": 14
+    },
+    {
+      "id": "seiko-5-sports",
+      "brandId": "seiko",
+      "name": "Seiko 5",
+      "model": "Sports Automatic",
+      "reference": "SRPE55K1",
+      "price": 18500,
+      "compareAtPrice": 21500,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Black",
+      "caseSizeMm": 40,
+      "waterResistance": "100m",
+      "images": [
+        "1659461278051-699550cc6aec",
+        "1654527412602-9c47da3769df"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": false,
+      "styles": [
+        "Sport",
+        "Classic"
+      ],
+      "tags": [
+        "sport",
+        "automatic"
+      ],
+      "description": "The gateway automatic — 40mm case, 100m rating and legendary value.",
+      "rating": 4.6,
+      "reviewsCount": 22
+    },
+    {
+      "id": "seiko-presage-cocktail-rose",
+      "brandId": "seiko",
+      "name": "Presage",
+      "model": "Cocktail Time Rose",
+      "reference": "SRPE47J1",
+      "price": 45000,
+      "compareAtPrice": null,
+      "gender": "women",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Rose",
+      "caseSizeMm": 34,
+      "waterResistance": "50m",
+      "images": [
+        "1751437774882-deeea4352018",
+        "1760532467646-b9e466403862"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Elegant",
+        "Classic",
+        "Fashion"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "A 34mm rose-dial Presage with a textured \"cocktail\" dial — refined and distinctly feminine.",
+      "rating": 4.7,
+      "reviewsCount": 7
+    },
+    {
+      "id": "seiko-astron-gps",
+      "brandId": "seiko",
+      "name": "Astron",
+      "model": "GPS Solar",
+      "reference": "SSH093J1",
+      "price": 118000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Solar GPS",
+      "caseMaterial": "Titanium",
+      "strapMaterial": "Titanium",
+      "dialColor": "Blue",
+      "caseSizeMm": 40,
+      "waterResistance": "100m",
+      "images": [
+        "1777457900943-7fd2f7c42529",
+        "1657900791906-4b7e8bfcb0d7"
+      ],
+      "availability": "In Stock",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Sport",
+        "Classic"
+      ],
+      "tags": [
+        "sport",
+        "solar"
+      ],
+      "description": "GPS time correction anywhere on Earth, powered by light — Seiko's technological flagship.",
+      "rating": 4.6,
+      "reviewsCount": 4
+    },
+    {
+      "id": "tissot-prx-powermatic",
+      "brandId": "tissot",
+      "name": "PRX",
+      "model": "Powermatic 80",
+      "reference": "T137.407.11.041.00",
+      "price": 78000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Blue",
+      "caseSizeMm": 40,
+      "waterResistance": "100m",
+      "images": [
+        "1522312346375-d1a52e2b99b3",
+        "1620625515032-6ed0c1790c75"
+      ],
+      "availability": "In Stock",
+      "isNew": true,
+      "isBestSeller": true,
+      "isLuxury": false,
+      "styles": [
+        "Sport",
+        "Classic",
+        "Dress"
+      ],
+      "tags": [
+        "sport",
+        "automatic"
+      ],
+      "description": "The integrated-bracelet phenomenon — 80-hour power reserve and vintage 1978 charm.",
+      "rating": 4.8,
+      "reviewsCount": 16
+    },
+    {
+      "id": "tissot-le-locle",
+      "brandId": "tissot",
+      "name": "Le Locle",
+      "model": "Powermatic 80",
+      "reference": "T006.407.11.033.00",
+      "price": 62000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Silver",
+      "caseSizeMm": 39,
+      "waterResistance": "30m",
+      "images": [
+        "1700762118431-ee3a19c75ebc",
+        "1548171916-c0dea7f94ca6"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Dress",
+        "Classic"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "Named after Tissot's home town — a guilloché silver dial and leaf hands, pure Swiss classicism.",
+      "rating": 4.6,
+      "reviewsCount": 8
+    },
+    {
+      "id": "tissot-gentleman",
+      "brandId": "tissot",
+      "name": "Gentleman",
+      "model": "Powermatic 80",
+      "reference": "T127.407.11.031.00",
+      "price": 68000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Blue",
+      "caseSizeMm": 40,
+      "waterResistance": "100m",
+      "images": [
+        "1657900791906-4b7e8bfcb0d7",
+        "1777457900943-7fd2f7c42529"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Dress",
+        "Classic"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "A versatile everyday automatic — dress it up or down, it never looks out of place.",
+      "rating": 4.6,
+      "reviewsCount": 6
+    },
+    {
+      "id": "tissot-pr100-lady",
+      "brandId": "tissot",
+      "name": "PR 100",
+      "model": "Lady",
+      "reference": "T101.910.11.036.00",
+      "price": 45000,
+      "compareAtPrice": 52000,
+      "gender": "women",
+      "movement": "Quartz",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Mesh",
+      "dialColor": "Silver",
+      "caseSizeMm": 36,
+      "waterResistance": "100m",
+      "images": [
+        "1760532467646-b9e466403862",
+        "1506193095-80bc749473f2"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Elegant",
+        "Classic",
+        "Minimal"
+      ],
+      "tags": [
+        "dress"
+      ],
+      "description": "A refined 36mm ladies' quartz with a sleek mesh bracelet and 100m water resistance.",
+      "rating": 4.5,
+      "reviewsCount": 5
+    },
+    {
+      "id": "citizen-tsuyosa",
+      "brandId": "citizen",
+      "name": "Tsuyosa",
+      "model": "Automatic",
+      "reference": "NJ0150-81E",
+      "price": 36000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Black",
+      "caseSizeMm": 40,
+      "waterResistance": "50m",
+      "images": [
+        "1600003014755-ba31aa59c4b6",
+        "1620625515032-6ed0c1790c75"
+      ],
+      "availability": "In Stock",
+      "isNew": true,
+      "isBestSeller": true,
+      "isLuxury": false,
+      "styles": [
+        "Dress",
+        "Classic"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "Citizen's integrated-bracelet automatic — the best-value everyday watch in its class.",
+      "rating": 4.7,
+      "reviewsCount": 12
+    },
+    {
+      "id": "citizen-promaster-diver",
+      "brandId": "citizen",
+      "name": "Promaster",
+      "model": "Diver Eco-Drive",
+      "reference": "BN0151-09L",
+      "price": 42000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Eco-Drive (Solar)",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Rubber",
+      "dialColor": "Blue",
+      "caseSizeMm": 44,
+      "waterResistance": "200m",
+      "images": [
+        "1654527412602-9c47da3769df",
+        "1633869699811-cd4f63049b36"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Diver",
+        "Sport"
+      ],
+      "tags": [
+        "diver",
+        "solar"
+      ],
+      "description": "An ISO-certified 200m diver powered by any light — no battery changes, ever.",
+      "rating": 4.6,
+      "reviewsCount": 9
+    },
+    {
+      "id": "citizen-eco-drive-classic",
+      "brandId": "citizen",
+      "name": "Eco-Drive",
+      "model": "Classic",
+      "reference": "BM7431-51L",
+      "price": 28000,
+      "compareAtPrice": 32000,
+      "gender": "unisex",
+      "movement": "Eco-Drive (Solar)",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Gold",
+      "caseSizeMm": 38,
+      "waterResistance": "50m",
+      "images": [
+        "1604242692760-2f7b0c26856d",
+        "1600003014755-ba31aa59c4b6"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Classic",
+        "Elegant"
+      ],
+      "tags": [
+        "dress",
+        "solar"
+      ],
+      "description": "A slim, light-powered classic in gold tone — effortless and dependable.",
+      "rating": 4.5,
+      "reviewsCount": 7
+    },
+    {
+      "id": "orient-bambino",
+      "brandId": "orient",
+      "name": "Bambino",
+      "model": "Version 2",
+      "reference": "FAC00009N0",
+      "price": 22500,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "White",
+      "caseSizeMm": 40,
+      "waterResistance": "30m",
+      "images": [
+        "1524805444758-089113d48a6d",
+        "1548171916-c0dea7f94ca6"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": false,
+      "styles": [
+        "Dress",
+        "Classic"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "The beloved entry-level automatic dress watch — domed crystal, vintage proportions.",
+      "rating": 4.7,
+      "reviewsCount": 19
+    },
+    {
+      "id": "orient-kamasu",
+      "brandId": "orient",
+      "name": "Kamasu",
+      "model": "Diver",
+      "reference": "RA-AA0001B19B",
+      "price": 24500,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Red",
+      "caseSizeMm": 41,
+      "waterResistance": "200m",
+      "images": [
+        "1659461278051-699550cc6aec",
+        "1633869699811-cd4f63049b36"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Diver",
+        "Sport"
+      ],
+      "tags": [
+        "diver",
+        "automatic"
+      ],
+      "description": "Sapphire crystal, in-house movement, 200m rating — unbeatable at this price.",
+      "rating": 4.6,
+      "reviewsCount": 11
+    },
+    {
+      "id": "orient-sun-and-moon",
+      "brandId": "orient",
+      "name": "Sun & Moon",
+      "model": "Version 4",
+      "reference": "RA-AK0304N10B",
+      "price": 26000,
+      "compareAtPrice": null,
+      "gender": "unisex",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "White",
+      "caseSizeMm": 42,
+      "waterResistance": "50m",
+      "images": [
+        "1604242692760-2f7b0c26856d",
+        "1700762118431-ee3a19c75ebc"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Classic",
+        "Dress"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "A poetic day/night indicator over a guilloché dial — Orient's most charming complication.",
+      "rating": 4.6,
+      "reviewsCount": 8
+    },
+    {
+      "id": "hamilton-khaki-field",
+      "brandId": "hamilton",
+      "name": "Khaki Field",
+      "model": "Automatic 38mm",
+      "reference": "H70455533",
+      "price": 68000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Black",
+      "caseSizeMm": 38,
+      "waterResistance": "100m",
+      "images": [
+        "1700130007227-92e7040d22b7",
+        "1642025425263-0127eeca3bc0"
+      ],
+      "availability": "In Stock",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Sport",
+        "Classic"
+      ],
+      "tags": [
+        "field",
+        "automatic"
+      ],
+      "description": "The original military field watch — legible, rugged and endlessly versatile.",
+      "rating": 4.7,
+      "reviewsCount": 6
+    },
+    {
+      "id": "hamilton-jazzmaster",
+      "brandId": "hamilton",
+      "name": "Jazzmaster",
+      "model": "Viewmatic",
+      "reference": "H32515555",
+      "price": 75000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Silver",
+      "caseSizeMm": 40,
+      "waterResistance": "50m",
+      "images": [
+        "1642025421684-7881ee163b59",
+        "1682510306438-d2ead349aab3"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Dress",
+        "Classic"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "Smooth jazz in watch form — a silver guilloché dial under a sapphire crystal.",
+      "rating": 4.6,
+      "reviewsCount": 4
+    },
+    {
+      "id": "rado-captain-cook",
+      "brandId": "rado",
+      "name": "Captain Cook",
+      "model": "Automatic",
+      "reference": "R32500303",
+      "price": 260000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Automatic",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Green",
+      "caseSizeMm": 42,
+      "waterResistance": "300m",
+      "images": [
+        "1682510306438-d2ead349aab3",
+        "1633869699811-cd4f63049b36"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Diver",
+        "Sport"
+      ],
+      "tags": [
+        "diver",
+        "automatic"
+      ],
+      "description": "A green-dial dive icon reborn with modern materials and 300m capability.",
+      "rating": 4.7,
+      "reviewsCount": 5
+    },
+    {
+      "id": "rado-true-square",
+      "brandId": "rado",
+      "name": "True Square",
+      "model": "Open Heart",
+      "reference": "R27073702",
+      "price": 240000,
+      "compareAtPrice": null,
+      "gender": "unisex",
+      "movement": "Automatic",
+      "caseMaterial": "High-Tech Ceramic",
+      "strapMaterial": "Ceramic",
+      "dialColor": "Black",
+      "caseSizeMm": 38,
+      "waterResistance": "50m",
+      "images": [
+        "1642025421684-7881ee163b59",
+        "1620625515032-6ed0c1790c75"
+      ],
+      "availability": "In Stock",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Minimal",
+        "Statement"
+      ],
+      "tags": [
+        "dress",
+        "automatic"
+      ],
+      "description": "A monobloc ceramic square case with an open-heart dial — architecture for the wrist.",
+      "rating": 4.6,
+      "reviewsCount": 3
+    },
+    {
+      "id": "casio-vintage-a168",
+      "brandId": "casio",
+      "name": "Vintage",
+      "model": "A168",
+      "reference": "A168WA-1",
+      "price": 3200,
+      "compareAtPrice": null,
+      "gender": "unisex",
+      "movement": "Quartz Digital",
+      "caseMaterial": "Resin",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Digital",
+      "caseSizeMm": 36,
+      "waterResistance": "Water Resistant",
+      "images": [
+        "1630452561211-f2914f5a2f68",
+        "1605583972719-30bd2ca0705a"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": false,
+      "styles": [
+        "Classic",
+        "Minimal"
+      ],
+      "tags": [
+        "digital"
+      ],
+      "description": "The retro icon — a digital classic with an electro-luminescent backlight.",
+      "rating": 4.7,
+      "reviewsCount": 25
+    },
+    {
+      "id": "casio-edifice",
+      "brandId": "casio",
+      "name": "Edifice",
+      "model": "Chronograph",
+      "reference": "EFR-S108D",
+      "price": 14500,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Quartz",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Blue",
+      "caseSizeMm": 42,
+      "waterResistance": "100m",
+      "images": [
+        "1605583972719-30bd2ca0705a",
+        "1595520407624-66b24f015830"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Sport",
+        "Classic"
+      ],
+      "tags": [
+        "chronograph",
+        "sport"
+      ],
+      "description": "Slim, sharp and sapphire-crystalled — Casio's motorsport-inspired line.",
+      "rating": 4.5,
+      "reviewsCount": 9
+    },
+    {
+      "id": "casio-vintage-gold",
+      "brandId": "casio",
+      "name": "Vintage",
+      "model": "Gold A168",
+      "reference": "A168WG-9",
+      "price": 3500,
+      "compareAtPrice": 4500,
+      "gender": "unisex",
+      "movement": "Quartz Digital",
+      "caseMaterial": "Resin",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Digital",
+      "caseSizeMm": 36,
+      "waterResistance": "Water Resistant",
+      "images": [
+        "1604242692760-2f7b0c26856d",
+        "1630452561211-f2914f5a2f68"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Fashion",
+        "Statement"
+      ],
+      "tags": [
+        "digital"
+      ],
+      "description": "The gold-tone classic that became a fashion statement — retro in the best way.",
+      "rating": 4.6,
+      "reviewsCount": 13
+    },
+    {
+      "id": "gshock-ga2100-casioak",
+      "brandId": "g-shock",
+      "name": "GA-2100",
+      "model": "\"CasiOak\"",
+      "reference": "GA-2100-1A1",
+      "price": 18500,
+      "compareAtPrice": null,
+      "gender": "unisex",
+      "movement": "Quartz",
+      "caseMaterial": "Carbon Core Guard Resin",
+      "strapMaterial": "Resin",
+      "dialColor": "Black",
+      "caseSizeMm": 45,
+      "waterResistance": "200m",
+      "images": [
+        "1543956872-37cfc5474a71",
+        "1576420469977-7275a9dc1ccc"
+      ],
+      "availability": "In Stock",
+      "isNew": true,
+      "isBestSeller": true,
+      "isLuxury": false,
+      "styles": [
+        "Sport",
+        "Statement"
+      ],
+      "tags": [
+        "sport",
+        "digital"
+      ],
+      "description": "The \"CasiOak\" — octagonal bezel, carbon core, and slim 11.8mm profile.",
+      "rating": 4.8,
+      "reviewsCount": 20
+    },
+    {
+      "id": "gshock-dw5600",
+      "brandId": "g-shock",
+      "name": "DW-5600",
+      "model": "Classic",
+      "reference": "DW-5600E-1",
+      "price": 12500,
+      "compareAtPrice": null,
+      "gender": "unisex",
+      "movement": "Quartz Digital",
+      "caseMaterial": "Resin",
+      "strapMaterial": "Resin",
+      "dialColor": "Digital",
+      "caseSizeMm": 43,
+      "waterResistance": "200m",
+      "images": [
+        "1605583972719-30bd2ca0705a",
+        "1630452561211-f2914f5a2f68"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": false,
+      "styles": [
+        "Sport",
+        "Classic"
+      ],
+      "tags": [
+        "sport",
+        "digital"
+      ],
+      "description": "The original 1983 square — the definitive G-SHOCK and a design icon.",
+      "rating": 4.8,
+      "reviewsCount": 17
+    },
+    {
+      "id": "gshock-mudmaster",
+      "brandId": "g-shock",
+      "name": "Mudmaster",
+      "model": "GG-B100",
+      "reference": "GG-B100-1A3",
+      "price": 42000,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Quartz",
+      "caseMaterial": "Carbon Core Guard Resin",
+      "strapMaterial": "Resin",
+      "dialColor": "Black",
+      "caseSizeMm": 55,
+      "waterResistance": "200m",
+      "images": [
+        "1576420469891-b303889e81bf",
+        "1700130007227-92e7040d22b7"
+      ],
+      "availability": "Low Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Sport",
+        "Statement"
+      ],
+      "tags": [
+        "sport",
+        "digital",
+        "field"
+      ],
+      "description": "Mud-resistant, shock-proof, built for the wildest environments on Earth.",
+      "rating": 4.7,
+      "reviewsCount": 8
+    },
+    {
+      "id": "gshock-gma-s2100",
+      "brandId": "g-shock",
+      "name": "GMA-S2100",
+      "model": "\"CasiOak\" S",
+      "reference": "GMA-S2100-7A",
+      "price": 17500,
+      "compareAtPrice": null,
+      "gender": "women",
+      "movement": "Quartz",
+      "caseMaterial": "Carbon Core Guard Resin",
+      "strapMaterial": "Resin",
+      "dialColor": "White",
+      "caseSizeMm": 42,
+      "waterResistance": "200m",
+      "images": [
+        "1759166447139-b816226ca312",
+        "1576420469977-7275a9dc1ccc"
+      ],
+      "availability": "In Stock",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Sport",
+        "Fashion",
+        "Statement"
+      ],
+      "tags": [
+        "sport",
+        "digital"
+      ],
+      "description": "The compact CasiOak in white — full G-SHOCK toughness in a smaller frame.",
+      "rating": 4.6,
+      "reviewsCount": 6
+    },
+    {
+      "id": "fossil-grant-chronograph",
+      "brandId": "fossil",
+      "name": "Grant",
+      "model": "Chronograph",
+      "reference": "FS5151",
+      "price": 16500,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Quartz",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Brown",
+      "caseSizeMm": 44,
+      "waterResistance": "50m",
+      "images": [
+        "1542496658-e33a6d0d50f6",
+        "1539874754764-5a96559165b0"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Chronograph",
+        "Classic"
+      ],
+      "tags": [
+        "chronograph",
+        "dress"
+      ],
+      "description": "Fossil's signature chronograph — Roman numerals, brown leather, everyday character.",
+      "rating": 4.5,
+      "reviewsCount": 10
+    },
+    {
+      "id": "fossil-minimalist",
+      "brandId": "fossil",
+      "name": "Minimalist",
+      "model": "FS5453",
+      "reference": "FS5453",
+      "price": 14500,
+      "compareAtPrice": 16500,
+      "gender": "unisex",
+      "movement": "Quartz",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "White",
+      "caseSizeMm": 44,
+      "waterResistance": "50m",
+      "images": [
+        "1539874754764-5a96559165b0",
+        "1723561230205-3a8f566f8ba9"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": false,
+      "styles": [
+        "Minimal",
+        "Classic"
+      ],
+      "tags": [
+        "dress"
+      ],
+      "description": "Clean lines, slim case, zero clutter — minimalism done right.",
+      "rating": 4.5,
+      "reviewsCount": 14
+    },
+    {
+      "id": "fossil-carlie",
+      "brandId": "fossil",
+      "name": "Carlie",
+      "model": "Mini",
+      "reference": "ES4446",
+      "price": 15500,
+      "compareAtPrice": null,
+      "gender": "women",
+      "movement": "Quartz",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "White",
+      "caseSizeMm": 28,
+      "waterResistance": "30m",
+      "images": [
+        "1728759440467-d710b7073761",
+        "1506193095-80bc749473f2"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Elegant",
+        "Fashion",
+        "Minimal"
+      ],
+      "tags": [
+        "dress"
+      ],
+      "description": "A delicate 28mm ladies' piece with a mother-of-pearl-style dial.",
+      "rating": 4.4,
+      "reviewsCount": 8
+    },
+    {
+      "id": "michael-kors-bradshaw",
+      "brandId": "michael-kors",
+      "name": "Bradshaw",
+      "model": "Rose Gold",
+      "reference": "MK5896",
+      "price": 24500,
+      "compareAtPrice": null,
+      "gender": "women",
+      "movement": "Quartz",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Rose Gold",
+      "caseSizeMm": 43,
+      "waterResistance": "100m",
+      "images": [
+        "1772949399823-dcd1678fcce7",
+        "1772949399808-7020b02896b9"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": true,
+      "isLuxury": false,
+      "styles": [
+        "Fashion",
+        "Statement",
+        "Elegant"
+      ],
+      "tags": [
+        "fashion"
+      ],
+      "description": "Runway glamour with chronograph function — Michael Kors' most loved silhouette.",
+      "rating": 4.6,
+      "reviewsCount": 11
+    },
+    {
+      "id": "michael-kors-pyper",
+      "brandId": "michael-kors",
+      "name": "Pyper",
+      "model": "Gold",
+      "reference": "MK2895",
+      "price": 22500,
+      "compareAtPrice": null,
+      "gender": "women",
+      "movement": "Quartz",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "dialColor": "Gold",
+      "caseSizeMm": 38,
+      "waterResistance": "50m",
+      "images": [
+        "1772949399808-7020b02896b9",
+        "1751437774882-deeea4352018"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Fashion",
+        "Minimal",
+        "Elegant"
+      ],
+      "tags": [
+        "fashion"
+      ],
+      "description": "A sleek gold-tone three-hand with a clean dial — effortless everyday glamour.",
+      "rating": 4.5,
+      "reviewsCount": 7
+    },
+    {
+      "id": "emporio-armani-ar1954",
+      "brandId": "emporio-armani",
+      "name": "Classic",
+      "model": "AR1954",
+      "reference": "AR1954",
+      "price": 26500,
+      "compareAtPrice": null,
+      "gender": "men",
+      "movement": "Quartz",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Leather",
+      "dialColor": "Gold",
+      "caseSizeMm": 43,
+      "waterResistance": "50m",
+      "images": [
+        "1772949400424-c64bfb7bdbd2",
+        "1602268394804-6a31d350d862"
+      ],
+      "availability": "In Stock",
+      "isNew": false,
+      "isBestSeller": false,
+      "isLuxury": false,
+      "styles": [
+        "Dress",
+        "Fashion"
+      ],
+      "tags": [
+        "dress",
+        "fashion"
+      ],
+      "description": "Italian tailoring for the wrist — gold tone, black dial, quiet confidence.",
+      "rating": 4.5,
+      "reviewsCount": 5
+    }
+  ],
+  "reviews": [
+    {
+      "name": "Customer Name",
+      "product": "Seiko Presage Cocktail Time",
+      "text": "Sample review for demonstration — replace with a verified customer review of this product.",
+      "stars": 5,
+      "isPlaceholder": true
+    },
+    {
+      "name": "Customer Name",
+      "product": "G-SHOCK GA-2100",
+      "text": "Sample review for demonstration — replace with a verified customer review of this product.",
+      "stars": 5,
+      "isPlaceholder": true
+    },
+    {
+      "name": "Customer Name",
+      "product": "Tissot PRX Powermatic 80",
+      "text": "Sample review for demonstration — replace with a verified customer review of this product.",
+      "stars": 5,
+      "isPlaceholder": true
+    },
+    {
+      "name": "Customer Name",
+      "product": "Casio Vintage A168",
+      "text": "Sample review for demonstration — replace with a verified customer review of this product.",
+      "stars": 5,
+      "isPlaceholder": true
+    }
+  ],
+  "trustItems": [
+    {
+      "icon": "curated",
+      "title": "Curated Watch Selection",
+      "copy": "Every timepiece in our catalogue is chosen for its design, movement and lasting value."
+    },
+    {
+      "icon": "secure",
+      "title": "Secure Ordering",
+      "copy": "Orders are confirmed personally with you before dispatch — nothing ships without your approval."
+    },
+    {
+      "icon": "support",
+      "title": "Dedicated Customer Support",
+      "copy": "Reach us by phone, email or WhatsApp — a real person answers."
+    },
+    {
+      "icon": "delivery",
+      "title": "Nationwide Delivery",
+      "copy": "We deliver across Bangladesh. Timelines are confirmed with you at order."
+    },
+    {
+      "icon": "tracking",
+      "title": "Easy Order Tracking",
+      "copy": "Track your order anytime by phone or WhatsApp — simple and personal."
+    }
+  ]
+}

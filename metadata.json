@@ -1,0 +1,6 @@
+{
+  "name": "Goodtime Watch SG",
+  "description": "Curated destination for exceptional luxury timepieces in Bangladesh. Featuring New Arrivals, Upcoming releases, Sell & Exchange concierge, and Successfully Delivered gallery with client reviews.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
