@@ -16,25 +16,26 @@ export const WatchModal: React.FC<WatchModalProps> = ({ product, onClose }) => {
   const images = product.images.length > 0 ? product.images : [];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto">
+    <div className="fixed inset-0 z-[100] flex items-start md:items-center justify-center p-4 sm:p-6 py-16 md:py-6 bg-black/85 backdrop-blur-md overflow-y-auto">
+      
+      {/* Sticky Close Button - Fixed to viewport */}
+      <button
+        onClick={onClose}
+        aria-label="Close Modal"
+        className="fixed top-4 right-4 md:top-6 md:right-6 z-[110] p-2.5 rounded-full bg-black/80 text-slate-200 hover:text-white hover:bg-black border border-white/20 transition-all shadow-xl backdrop-blur-md"
+      >
+        <X className="w-5 h-5 sm:w-6 sm:h-6" />
+      </button>
+
       <div 
-        className="relative w-full max-w-4xl bg-[#0d1017] rounded-3xl border border-white/15 shadow-2xl overflow-hidden my-8"
+        className="relative w-full max-w-4xl bg-[#0d1017] rounded-3xl border border-white/15 shadow-2xl overflow-hidden max-h-none md:max-h-[85vh] flex flex-col md:flex-row mt-4 md:mt-0"
         onClick={(e) => e.stopPropagation()}
       >
-        
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          aria-label="Close Modal"
-          className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/60 text-slate-300 hover:text-white hover:bg-black/90 border border-white/10 transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
 
         <div className="grid grid-cols-1 md:grid-cols-2">
           
           {/* Left Column: Image Viewer */}
-          <div className="p-6 sm:p-8 bg-[#07090d] flex flex-col justify-between border-b md:border-b-0 md:border-r border-white/10">
+          <div className="p-6 sm:p-8 bg-[#07090d] flex flex-col justify-between border-b md:border-b-0 md:border-r border-white/10 shrink-0 md:w-1/2">
             
             {/* Main Active Image */}
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-black/50 border border-white/5 flex items-center justify-center">
@@ -91,7 +92,7 @@ export const WatchModal: React.FC<WatchModalProps> = ({ product, onClose }) => {
           </div>
 
           {/* Right Column: Details & Specs */}
-          <div className="p-6 sm:p-8 space-y-6 flex flex-col justify-between max-h-[85vh] overflow-y-auto">
+          <div className="p-6 sm:p-8 space-y-6 flex flex-col justify-between overflow-y-auto md:w-1/2">
             
             <div className="space-y-4">
               

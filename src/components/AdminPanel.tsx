@@ -1,37 +1,37 @@
 import React, { useState } from 'react';
 import { WatchProduct, UpcomingWatch, DeliveredWatch, NavigationTab } from '../types';
-import { 
-  getAdminPasscode, 
-  setAdminPasscode, 
-  validateAdminPassword, 
-  setAdminAuthenticated, 
-  saveStoredProducts, 
-  saveStoredUpcoming, 
-  saveStoredDelivered, 
-  resetAllCatalogData 
+import {
+  getAdminPasscode,
+  setAdminPasscode,
+  validateAdminPassword,
+  setAdminAuthenticated,
+  saveStoredProducts,
+  saveStoredUpcoming,
+  saveStoredDelivered,
+  resetAllCatalogData
 } from '../utils/storage';
-import { 
-  ShieldCheck, 
-  Lock, 
-  Unlock, 
-  Plus, 
-  Pencil, 
-  Trash2, 
-  RotateCcw, 
-  Check, 
-  AlertTriangle, 
-  X, 
-  Search, 
-  Eye, 
-  LogOut, 
-  ArrowLeft, 
-  Package, 
-  Plane, 
-  CheckCircle, 
-  Key, 
-  Download, 
-  Upload, 
-  Clock, 
+import {
+  ShieldCheck,
+  Lock,
+  Unlock,
+  Plus,
+  Pencil,
+  Trash2,
+  RotateCcw,
+  Check,
+  AlertTriangle,
+  X,
+  Search,
+  Eye,
+  LogOut,
+  ArrowLeft,
+  Package,
+  Plane,
+  CheckCircle,
+  Key,
+  Download,
+  Upload,
+  Clock,
   Sparkles,
   Tag
 } from 'lucide-react';
@@ -466,7 +466,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     return (
       <div className="min-h-[70vh] flex items-center justify-center p-4">
         <div className="max-w-md w-full rounded-3xl bg-gradient-to-b from-[#141824] to-[#090b10] border border-white/10 p-8 shadow-2xl space-y-6 relative overflow-hidden">
-          
+
           <div className="absolute -top-16 -right-16 w-48 h-48 bg-[#c5a059]/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="text-center space-y-3">
@@ -539,7 +539,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   // -------------------------------------------------------------
   return (
     <div className="space-y-8 pb-16">
-      
+
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-xl bg-[#c5a059] text-black font-semibold text-xs shadow-2xl flex items-center gap-2 animate-bounce">
@@ -586,11 +586,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       <div className="flex flex-wrap items-center gap-2 border-b border-white/10 pb-4">
         <button
           onClick={() => setActiveTab('products')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
-            activeTab === 'products'
+          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${activeTab === 'products'
               ? 'bg-[#c5a059] text-black shadow-md'
               : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-white/5'
-          }`}
+            }`}
         >
           <Package className="w-4 h-4" />
           <span>New Arrivals ({products.length})</span>
@@ -598,11 +597,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
         <button
           onClick={() => setActiveTab('upcoming')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
-            activeTab === 'upcoming'
+          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${activeTab === 'upcoming'
               ? 'bg-[#c5a059] text-black shadow-md'
               : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-white/5'
-          }`}
+            }`}
         >
           <Plane className="w-4 h-4" />
           <span>Upcoming Watches ({upcomingWatches.length})</span>
@@ -610,11 +608,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
         <button
           onClick={() => setActiveTab('delivered')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
-            activeTab === 'delivered'
+          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${activeTab === 'delivered'
               ? 'bg-[#c5a059] text-black shadow-md'
               : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-white/5'
-          }`}
+            }`}
         >
           <CheckCircle className="w-4 h-4" />
           <span>Delivered Archive ({deliveredWatches.length})</span>
@@ -622,11 +619,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
         <button
           onClick={() => setActiveTab('security')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
-            activeTab === 'security'
+          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${activeTab === 'security'
               ? 'bg-[#c5a059] text-black shadow-md'
               : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-white/5'
-          }`}
+            }`}
         >
           <Key className="w-4 h-4" />
           <span>Security & Backup</span>
@@ -921,7 +917,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* ------------------------------------------------------ */}
       {activeTab === 'security' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
+
           {/* Change Passcode Card */}
           <div className="rounded-2xl border border-white/10 bg-[#0d1017] p-6 space-y-5">
             <div className="space-y-1">
@@ -1043,9 +1039,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* MODAL: ADD / EDIT PRODUCT */}
       {/* ------------------------------------------------------ */}
       {isProductModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="max-w-2xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
-            
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-start md:items-center justify-center p-4 py-12 md:py-4 overflow-y-auto">
+          <div className="max-w-2xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6 max-h-[85vh] overflow-y-auto">
+
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div>
                 <h2 className="text-xl font-serif-luxury font-bold text-white">
@@ -1064,7 +1060,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             <form onSubmit={handleSaveProduct} className="space-y-4 text-xs">
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="font-mono text-slate-300">Brand Name</label>
@@ -1259,8 +1255,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* MODAL: ADD / EDIT UPCOMING */}
       {/* ------------------------------------------------------ */}
       {isUpcomingModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="max-w-xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-start md:items-center justify-center p-4 py-12 md:py-4 overflow-y-auto">
+          <div className="max-w-xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6 max-h-[85vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <h2 className="text-xl font-serif-luxury font-bold text-white">
                 {editingUpcoming ? 'Edit Upcoming Watch' : 'Add Upcoming Watch to Transit'}
@@ -1380,8 +1376,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* MODAL: ADD / EDIT DELIVERED */}
       {/* ------------------------------------------------------ */}
       {isDeliveredModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="max-w-xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-start md:items-center justify-center p-4 py-12 md:py-4 overflow-y-auto">
+          <div className="max-w-xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6 max-h-[85vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <h2 className="text-xl font-serif-luxury font-bold text-white">
                 {editingDelivered ? 'Edit Delivered Review' : 'Add Delivered Watch Review'}
