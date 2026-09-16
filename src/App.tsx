@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationTab, WatchProduct, UpcomingWatch, DeliveredWatch } from './types';
 import { SITE_INFO } from './data/goodtime';
-import { getStoredProducts, getStoredUpcoming, getStoredDelivered } from './utils/storage';
+import { getStoredProducts, getStoredUpcoming, getStoredDelivered, autoMigrateUpcomingWatches } from './utils/storage';
 import { Header } from './components/Header';
 import { FrontPage } from './components/FrontPage';
 import { AboutSection } from './components/AboutSection';
@@ -19,9 +19,12 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<NavigationTab>('home');
   const [selectedProduct, setSelectedProduct] = useState<WatchProduct | null>(null);
 
+  // Run migration first
+  const initialData = React.useMemo(() => autoMigrateUpcomingWatches(), []);
+
   // Managed Catalog Datasets
-  const [products, setProducts] = useState<WatchProduct[]>(getStoredProducts);
-  const [upcomingWatches, setUpcomingWatches] = useState<UpcomingWatch[]>(getStoredUpcoming);
+  const [products, setProducts] = useState<WatchProduct[]>(initialData.products);
+  const [upcomingWatches, setUpcomingWatches] = useState<UpcomingWatch[]>(initialData.upcoming);
   const [deliveredWatches, setDeliveredWatches] = useState<DeliveredWatch[]>(getStoredDelivered);
 
   // URL Hash router support (e.g. #new-arrival)

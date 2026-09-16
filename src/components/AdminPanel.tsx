@@ -295,15 +295,24 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     } else {
       const newWatch: UpcomingWatch = {
         id: `upc_${Date.now()}`,
-        brand: upcomingForm.brand || '',
+        brand: upcomingForm.brand || upcomingForm.brandName || '',
+        brandId: upcomingForm.brandId || (upcomingForm.brandName || upcomingForm.brand || '').toLowerCase().replace(/\s+/g, '-'),
+        brandName: upcomingForm.brandName || upcomingForm.brand || '',
+        name: upcomingForm.name || '',
         model: upcomingForm.model || '',
         reference: upcomingForm.reference || 'Ref. N/A',
         expectedArrival: upcomingForm.expectedArrival || 'Next Week',
+        expectedArrivalDate: upcomingForm.expectedArrivalDate || new Date().toISOString().split('T')[0],
         statusBadge: upcomingForm.statusBadge || 'In Transit',
-        caseSize: upcomingForm.caseSize || '40mm',
+        caseSize: upcomingForm.caseSize || `${upcomingForm.caseSizeMm || 40}mm`,
+        caseSizeMm: upcomingForm.caseSizeMm || parseInt(upcomingForm.caseSize || '40') || 40,
         dialColor: upcomingForm.dialColor || 'Black',
         movement: upcomingForm.movement || 'Automatic',
-        image: upcomingForm.image || 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop',
+        caseMaterial: upcomingForm.caseMaterial || 'Stainless Steel',
+        strapMaterial: upcomingForm.strapMaterial || 'Stainless Steel',
+        gender: upcomingForm.gender || 'men',
+        image: upcomingForm.image || (upcomingForm.images && upcomingForm.images[0]) || 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop',
+        images: upcomingForm.images || (upcomingForm.image ? [upcomingForm.image] : []),
         description: upcomingForm.description || '',
         keyFeature: upcomingForm.keyFeature || 'Original Factory Box & Warranty'
       };
@@ -795,8 +804,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     <span className="text-[11px] font-mono text-slate-400 block">
                       Ref. {w.reference}
                     </span>
-                    <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-[#e6ca85] border border-white/10">
+                    <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-[#e6ca85] border border-white/10 mt-1">
                       ETA: {w.expectedArrival}
+                      {w.expectedArrivalDate && (
+                        <span className="ml-1 text-emerald-400">
+                          ({Math.max(0, Math.ceil((new Date(w.expectedArrivalDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)))} days left)
+                        </span>
+                      )}
                     </span>
                   </div>
                 </div>
@@ -1270,20 +1284,29 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             <form onSubmit={handleSaveUpcoming} className="space-y-4 text-xs">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="font-mono text-slate-300">Brand</label>
+                  <label className="font-mono text-slate-300">Brand Name</label>
                   <input
                     type="text"
                     required
-                    value={upcomingForm.brand || ''}
-                    onChange={(e) => setUpcomingForm({ ...upcomingForm, brand: e.target.value })}
-                    placeholder="e.g. Rolex"
+                    value={upcomingForm.brandName || upcomingForm.brand || ''}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setUpcomingForm({
+                        ...upcomingForm,
+                        brandName: val,
+                        brandId: val.toLowerCase().replace(/\s+/g, '-'),
+                        brand: val
+                      });
+                    }}
+                    placeholder="e.g. Rolex, OMEGA"
                     className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
                   />
                 </div>
+
                 <div className="space-y-1">
-                  <label className="font-mono text-slate-300">Model</label>
+                  <label className="font-mono text-slate-300">Model Name</label>
                   <input
                     type="text"
                     required
@@ -1295,9 +1318,21 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="font-mono text-slate-300">Reference</label>
+                  <label className="font-mono text-slate-300">Full Display Title</label>
+                  <input
+                    type="text"
+                    required
+                    value={upcomingForm.name || ''}
+                    onChange={(e) => setUpcomingForm({ ...upcomingForm, name: e.target.value })}
+                    placeholder="e.g. Rolex GMT-Master II"
+                    className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-mono text-slate-300">Reference Number</label>
                   <input
                     type="text"
                     value={upcomingForm.reference || ''}
@@ -1306,27 +1341,99 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
                   />
                 </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-1">
-                  <label className="font-mono text-slate-300">Expected Arrival (ETA)</label>
+                  <label className="font-mono text-slate-300">ETA Date (Auto-Move)</label>
+                  <input
+                    type="date"
+                    required
+                    value={upcomingForm.expectedArrivalDate || ''}
+                    onChange={(e) => setUpcomingForm({ ...upcomingForm, expectedArrivalDate: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-mono text-slate-300">ETA Display Text</label>
                   <input
                     type="text"
+                    required
                     value={upcomingForm.expectedArrival || ''}
                     onChange={(e) => setUpcomingForm({ ...upcomingForm, expectedArrival: e.target.value })}
-                    placeholder="e.g. End of March 2025"
+                    placeholder="e.g. Next Week"
+                    className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-mono text-slate-300">Status Badge</label>
+                  <select
+                    value={upcomingForm.statusBadge || 'In Transit'}
+                    onChange={(e) => setUpcomingForm({ ...upcomingForm, statusBadge: e.target.value as any })}
+                    className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
+                  >
+                    <option value="In Transit">In Transit</option>
+                    <option value="Arriving Soon">Arriving Soon</option>
+                    <option value="Batch Allocation">Batch Allocation</option>
+                    <option value="Pre-Booking Open">Pre-Booking Open</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="space-y-1">
+                  <label className="font-mono text-slate-300">Movement</label>
+                  <input
+                    type="text"
+                    value={upcomingForm.movement || ''}
+                    onChange={(e) => setUpcomingForm({ ...upcomingForm, movement: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-mono text-slate-300">Case Size (mm)</label>
+                  <input
+                    type="number"
+                    value={upcomingForm.caseSizeMm || parseInt(upcomingForm.caseSize || '40') || 40}
+                    onChange={(e) => setUpcomingForm({ ...upcomingForm, caseSizeMm: Number(e.target.value), caseSize: `${e.target.value}mm` })}
+                    className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-mono text-slate-300">Dial Color</label>
+                  <input
+                    type="text"
+                    value={upcomingForm.dialColor || ''}
+                    onChange={(e) => setUpcomingForm({ ...upcomingForm, dialColor: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
                   />
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <label className="font-mono text-slate-300">Status Badge</label>
-                <input
-                  type="text"
-                  value={upcomingForm.statusBadge || ''}
-                  onChange={(e) => setUpcomingForm({ ...upcomingForm, statusBadge: e.target.value })}
-                  placeholder="e.g. In Transit, Geneva Customs, Partner Vault"
-                  className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="font-mono text-slate-300">Case Material</label>
+                  <input
+                    type="text"
+                    value={upcomingForm.caseMaterial || ''}
+                    onChange={(e) => setUpcomingForm({ ...upcomingForm, caseMaterial: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-mono text-slate-300">Strap Material</label>
+                  <input
+                    type="text"
+                    value={upcomingForm.strapMaterial || ''}
+                    onChange={(e) => setUpcomingForm({ ...upcomingForm, strapMaterial: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
+                  />
+                </div>
               </div>
 
               <div className="space-y-1">
@@ -1334,10 +1441,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 <input
                   type="url"
                   required
-                  value={upcomingForm.image || ''}
-                  onChange={(e) => setUpcomingForm({ ...upcomingForm, image: e.target.value })}
-                  placeholder="https://..."
+                  value={upcomingForm.image || (upcomingForm.images && upcomingForm.images[0]) || ''}
+                  onChange={(e) => setUpcomingForm({ ...upcomingForm, image: e.target.value, images: [e.target.value] })}
                   className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="font-mono text-slate-300">Description</label>
+                <textarea
+                  rows={2}
+                  required
+                  value={upcomingForm.description || ''}
+                  onChange={(e) => setUpcomingForm({ ...upcomingForm, description: e.target.value })}
+                  className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none resize-none"
                 />
               </div>
 
