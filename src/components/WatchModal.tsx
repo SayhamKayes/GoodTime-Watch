@@ -31,7 +31,7 @@ export const WatchModal: React.FC<WatchModalProps> = ({ product, onClose }) => {
       </button>
 
       <div 
-        className="relative w-full max-w-4xl bg-[#0d1017] rounded-3xl border border-white/15 shadow-2xl overflow-hidden m-auto"
+        className="relative w-full max-w-4xl bg-[#0d1017] rounded-3xl border border-white/15 shadow-2xl overflow-y-auto max-h-[90vh] m-auto"
         onClick={(e) => e.stopPropagation()}
       >
 
