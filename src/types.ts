@@ -33,6 +33,7 @@ export interface WatchProduct {
   description: string;
   rating: number;
   reviewsCount: number;
+  dateAdded?: string; // Format YYYY-MM-DD
 }
 
 export interface UpcomingWatch {
@@ -40,7 +41,8 @@ export interface UpcomingWatch {
   brand: string;
   model: string;
   reference: string;
-  expectedArrival: string;
+  expectedArrival: string; // Display text
+  expectedArrivalDate?: string; // Logic date YYYY-MM-DD
   statusBadge: 'In Transit' | 'Arriving Soon' | 'Batch Allocation' | 'Pre-Booking Open';
   estimatedPriceBDT?: number;
   movement: string;
@@ -49,6 +51,19 @@ export interface UpcomingWatch {
   description: string;
   image: string;
   keyFeature: string;
+  
+  // Fields needed to seamlessly migrate to WatchProduct (optional for backward compatibility with mock data)
+  brandId?: string;
+  brandName?: string;
+  name?: string;
+  gender?: 'men' | 'women' | 'unisex';
+  caseMaterial?: string;
+  strapMaterial?: string;
+  caseSizeMm?: number;
+  waterResistance?: string;
+  images?: string[];
+  styles?: string[];
+  tags?: string[];
 }
 
 export interface DeliveredWatch {

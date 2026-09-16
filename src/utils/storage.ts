@@ -54,6 +54,59 @@ export const saveStoredUpcoming = (upcoming: UpcomingWatch[]): void => {
   }
 };
 
+// Auto-migrate upcoming watches to main catalog if date has passed
+export const autoMigrateUpcomingWatches = (): { products: WatchProduct[], upcoming: UpcomingWatch[] } => {
+  let products = getStoredProducts();
+  let upcoming = getStoredUpcoming();
+  const today = new Date().toISOString().split('T')[0];
+  let hasChanges = false;
+
+  const remainingUpcoming: UpcomingWatch[] = [];
+
+  upcoming.forEach(watch => {
+    if (watch.expectedArrivalDate && watch.expectedArrivalDate <= today) {
+      // Migrate to Main Catalog
+      hasChanges = true;
+      const newProduct: WatchProduct = {
+        id: `migrated_${watch.id}_${Date.now()}`,
+        brandId: watch.brandId || watch.brand.toLowerCase().replace(/\s+/g, '-'),
+        brandName: watch.brandName || watch.brand,
+        name: watch.name || `${watch.brand} ${watch.model}`,
+        model: watch.model,
+        reference: watch.reference,
+        gender: watch.gender || 'men',
+        movement: watch.movement,
+        caseMaterial: watch.caseMaterial || 'Stainless Steel',
+        strapMaterial: watch.strapMaterial || 'Stainless Steel',
+        dialColor: watch.dialColor,
+        caseSizeMm: watch.caseSizeMm || parseInt(watch.caseSize) || 40,
+        waterResistance: watch.waterResistance || '100m',
+        images: watch.images || [watch.image],
+        availability: 'In Stock',
+        isNew: true,
+        isBestSeller: false,
+        isLuxury: true,
+        styles: watch.styles || [],
+        tags: watch.tags || [],
+        description: watch.description,
+        rating: 5,
+        reviewsCount: 1,
+        dateAdded: watch.expectedArrivalDate // or today
+      };
+      products = [newProduct, ...products];
+    } else {
+      remainingUpcoming.push(watch);
+    }
+  });
+
+  if (hasChanges) {
+    saveStoredProducts(products);
+    saveStoredUpcoming(remainingUpcoming);
+  }
+
+  return { products, upcoming: remainingUpcoming };
+};
+
 // Load delivered watches or fallback
 export const getStoredDelivered = (): DeliveredWatch[] => {
   try {
