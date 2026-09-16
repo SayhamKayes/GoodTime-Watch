@@ -1039,8 +1039,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* MODAL: ADD / EDIT PRODUCT */}
       {/* ------------------------------------------------------ */}
       {isProductModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-start md:items-center justify-center p-4 py-12 md:py-4 overflow-y-auto">
-          <div className="max-w-2xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6 max-h-[85vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col p-4 py-12 md:py-4 overflow-y-auto" onClick={() => setIsProductModalOpen(false)}>
+          <div className="max-w-2xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6 max-h-[85vh] overflow-y-auto m-auto" onClick={(e) => e.stopPropagation()}>
 
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div>
@@ -1255,8 +1255,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* MODAL: ADD / EDIT UPCOMING */}
       {/* ------------------------------------------------------ */}
       {isUpcomingModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-start md:items-center justify-center p-4 py-12 md:py-4 overflow-y-auto">
-          <div className="max-w-xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6 max-h-[85vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col p-4 py-12 md:py-4 overflow-y-auto" onClick={() => setIsUpcomingModalOpen(false)}>
+          <div className="max-w-xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6 max-h-[85vh] overflow-y-auto m-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <h2 className="text-xl font-serif-luxury font-bold text-white">
                 {editingUpcoming ? 'Edit Upcoming Watch' : 'Add Upcoming Watch to Transit'}
@@ -1376,8 +1376,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* MODAL: ADD / EDIT DELIVERED */}
       {/* ------------------------------------------------------ */}
       {isDeliveredModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-start md:items-center justify-center p-4 py-12 md:py-4 overflow-y-auto">
-          <div className="max-w-xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6 max-h-[85vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col p-4 py-12 md:py-4 overflow-y-auto" onClick={() => setIsDeliveredModalOpen(false)}>
+          <div className="max-w-xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6 max-h-[85vh] overflow-y-auto m-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <h2 className="text-xl font-serif-luxury font-bold text-white">
                 {editingDelivered ? 'Edit Delivered Review' : 'Add Delivered Watch Review'}
@@ -1512,8 +1512,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* CONFIRMATION DIALOG FOR DELETE OR RESET */}
       {/* ------------------------------------------------------ */}
       {deleteConfirm && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="max-w-md w-full rounded-2xl bg-[#141824] border border-red-500/30 p-6 space-y-4">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col p-4" onClick={() => setDeleteConfirm(null)}>
+          <div className="max-w-md w-full rounded-2xl bg-[#141824] border border-red-500/30 p-6 space-y-4 m-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center gap-3 text-red-400">
               <AlertTriangle className="w-6 h-6 shrink-0" />
               <h3 className="font-serif-luxury text-base font-bold text-white">
