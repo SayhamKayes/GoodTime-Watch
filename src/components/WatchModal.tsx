@@ -16,7 +16,10 @@ export const WatchModal: React.FC<WatchModalProps> = ({ product, onClose }) => {
   const images = product.images.length > 0 ? product.images : [];
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-start md:items-center justify-center p-4 sm:p-6 py-16 md:py-6 bg-black/85 backdrop-blur-md overflow-y-auto">
+    <div 
+      className="fixed inset-0 z-[100] flex flex-col p-4 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto"
+      onClick={onClose}
+    >
       
       {/* Sticky Close Button - Fixed to viewport */}
       <button
@@ -28,14 +31,14 @@ export const WatchModal: React.FC<WatchModalProps> = ({ product, onClose }) => {
       </button>
 
       <div 
-        className="relative w-full max-w-4xl bg-[#0d1017] rounded-3xl border border-white/15 shadow-2xl overflow-hidden max-h-none md:max-h-[85vh] flex flex-col md:flex-row mt-4 md:mt-0"
+        className="relative w-full max-w-4xl bg-[#0d1017] rounded-3xl border border-white/15 shadow-2xl overflow-hidden m-auto"
         onClick={(e) => e.stopPropagation()}
       >
 
         <div className="grid grid-cols-1 md:grid-cols-2">
           
           {/* Left Column: Image Viewer */}
-          <div className="p-6 sm:p-8 bg-[#07090d] flex flex-col justify-between border-b md:border-b-0 md:border-r border-white/10 shrink-0 md:w-1/2">
+          <div className="p-6 sm:p-8 bg-[#07090d] flex flex-col justify-between border-b md:border-b-0 md:border-r border-white/10">
             
             {/* Main Active Image */}
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-black/50 border border-white/5 flex items-center justify-center">
@@ -92,7 +95,7 @@ export const WatchModal: React.FC<WatchModalProps> = ({ product, onClose }) => {
           </div>
 
           {/* Right Column: Details & Specs */}
-          <div className="p-6 sm:p-8 space-y-6 flex flex-col justify-between overflow-y-auto md:w-1/2">
+          <div className="p-6 sm:p-8 space-y-6 flex flex-col justify-between">
             
             <div className="space-y-4">
               
