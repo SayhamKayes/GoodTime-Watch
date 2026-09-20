@@ -34,6 +34,7 @@ export interface WatchProduct {
   rating: number;
   reviewsCount: number;
   dateAdded?: string; // Format YYYY-MM-DD
+  video360?: string; // Path or URL to 360 degree motion video (e.g. /360_motion_1.mp4)
 }
 
 export interface UpcomingWatch {
