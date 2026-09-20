@@ -2,17 +2,19 @@ import React, { useState, useMemo } from 'react';
 import { WatchProduct } from '../types';
 import { ALL_PRODUCTS } from '../data/goodtime';
 import { generateProductWhatsAppLink } from '../utils/whatsapp';
-import { MessageCircle, Search, Eye, Sparkles, Filter } from 'lucide-react';
+import { MessageCircle, Search, Eye, Sparkles, Filter, RotateCcw } from 'lucide-react';
 import { isProductNewArrival } from '../utils/productUtils';
 
 interface NewArrivalsSectionProps {
   products?: WatchProduct[];
   onSelectProduct: (product: WatchProduct) => void;
+  onOpen360?: (product: WatchProduct) => void;
 }
 
 export const NewArrivalsSection: React.FC<NewArrivalsSectionProps> = ({ 
   products = ALL_PRODUCTS,
-  onSelectProduct 
+  onSelectProduct,
+  onOpen360
 }) => {
   const [selectedBrand, setSelectedBrand] = useState<string>('all');
   const [selectedStyle, setSelectedStyle] = useState<string>('all');
@@ -192,6 +194,23 @@ export const NewArrivalsSection: React.FC<NewArrivalsSectionProps> = ({
                   </span>
                 </div>
 
+                {/* 360 Badge on Image if available */}
+                {product.video360 && (
+                  <div className="absolute bottom-3 left-3 z-10">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpen360?.(product);
+                      }}
+                      className="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-black/80 hover:bg-[#c5a059] text-[#e6ca85] hover:text-black border border-[#c5a059]/50 hover:border-[#c5a059] backdrop-blur-md flex items-center gap-1.5 shadow-xl transition-all cursor-pointer hover:scale-105 active:scale-95"
+                    >
+                      <RotateCcw className="w-3 h-3" />
+                      <span>360° View</span>
+                    </button>
+                  </div>
+                )}
+
                 {/* Quick View Overlay Icon */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
                   <span className="px-3 py-1.5 rounded-full bg-black/80 text-white text-xs border border-white/20 flex items-center gap-1.5 shadow-lg">
@@ -237,6 +256,21 @@ export const NewArrivalsSection: React.FC<NewArrivalsSectionProps> = ({
                     {product.waterResistance}
                   </span>
                 </div>
+
+                {/* 360 View Button under model details if available */}
+                {product.video360 && (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpen360?.(product);
+                    }}
+                    className="w-full py-2 px-3 rounded-xl bg-[#c5a059]/15 hover:bg-[#c5a059] text-[#e6ca85] hover:text-black border border-[#c5a059]/40 hover:border-[#c5a059] transition-all duration-300 flex items-center justify-center gap-2 text-xs font-mono font-medium tracking-wider uppercase shadow-md cursor-pointer group active:scale-95"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5 text-[#c5a059] group-hover:text-black group-hover:-rotate-90 transition-transform duration-500" />
+                    <span>360° Interactive View</span>
+                  </button>
+                )}
 
                 {/* Pricing & WhatsApp Action */}
                 <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
