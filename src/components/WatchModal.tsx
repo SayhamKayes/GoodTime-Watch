@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { WatchProduct } from '../types';
 import { generateProductWhatsAppLink } from '../utils/whatsapp';
-import { X, MessageCircle, ShieldCheck, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, MessageCircle, ShieldCheck, CheckCircle2, ChevronLeft, ChevronRight, RotateCcw } from 'lucide-react';
 
 interface WatchModalProps {
   product: WatchProduct | null;
   onClose: () => void;
+  onOpen360?: (product: WatchProduct) => void;
 }
 
-export const WatchModal: React.FC<WatchModalProps> = ({ product, onClose }) => {
+export const WatchModal: React.FC<WatchModalProps> = ({ product, onClose, onOpen360 }) => {
   if (!product) return null;
 
   const [activeImgIndex, setActiveImgIndex] = useState(0);
@@ -84,6 +85,17 @@ export const WatchModal: React.FC<WatchModalProps> = ({ product, onClose }) => {
                   </button>
                 ))}
               </div>
+            )}
+
+            {/* 360 Interactive View Trigger Button */}
+            {product.video360 && (
+              <button
+                onClick={() => onOpen360?.(product)}
+                className="mt-4 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#c5a059]/25 via-[#c5a059]/15 to-transparent hover:from-[#c5a059]/40 hover:via-[#c5a059]/25 border border-[#c5a059]/50 hover:border-[#c5a059]/80 text-[#e6ca85] hover:text-white transition-all duration-300 flex items-center justify-center gap-2.5 text-xs font-mono tracking-widest uppercase shadow-lg group cursor-pointer"
+              >
+                <RotateCcw className="w-4 h-4 text-[#c5a059] group-hover:-rotate-90 transition-transform duration-500" />
+                <span>Discover in 360° View</span>
+              </button>
             )}
 
             {/* Authenticity Guarantee Note */}
