@@ -119,7 +119,8 @@ export const ALL_PRODUCTS: WatchProduct[] = [
     ],
     "description": "The Moonwatch. A black dial, tachymeter bezel and legendary hand-wound movement — the definitive chronograph.",
     "rating": 4.9,
-    "reviewsCount": 21
+    "reviewsCount": 21,
+    "video360": "/360_motion_1.mp4"
   },
   {
     "id": "omega-seamaster-diver-300m",
