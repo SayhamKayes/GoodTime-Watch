@@ -23,7 +23,8 @@ import {
   CheckCircle2,
   Store,
   Zap,
-  Target
+  Target,
+  RotateCcw
 } from 'lucide-react';
 
 import { isProductNewArrival } from '../utils/productUtils';
@@ -33,6 +34,7 @@ interface FrontPageProps {
   upcomingWatches: UpcomingWatch[];
   deliveredWatches: DeliveredWatch[];
   onSelectProduct: (product: WatchProduct) => void;
+  onOpen360?: (product: WatchProduct) => void;
   onNavigateTab: (tab: NavigationTab) => void;
 }
 
@@ -90,7 +92,14 @@ const HERO_SLIDES: HeroSlide[] = [
   }
 ];
 
-const AUTHORIZED_BRANDS = [
+interface AuthorizedBrand {
+  name: string;
+  font?: string;
+  color?: string;
+  logo?: string;
+}
+
+const AUTHORIZED_BRANDS: AuthorizedBrand[] = [
   { name: 'ROLEX', font: 'font-serif', color: 'group-hover:text-[#006039]' },
   { name: 'OMEGA', font: 'font-sans tracking-widest', color: 'group-hover:text-[#c40018]' },
   { name: 'PATEK PHILIPPE', font: 'font-serif tracking-[0.15em]', color: 'group-hover:text-[#c5a059]' },
@@ -106,6 +115,7 @@ export const FrontPage: React.FC<FrontPageProps> = ({
   upcomingWatches,
   deliveredWatches,
   onSelectProduct,
+  onOpen360,
   onNavigateTab
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -148,14 +158,15 @@ export const FrontPage: React.FC<FrontPageProps> = ({
         .animate-logo-scroll {
           animation: logo-scroll 35s linear infinite;
         }
-        .pause-scroll:hover .animate-logo-scroll {
+        .animate-logo-scroll:has(.brand-card:hover),
+        .animate-logo-scroll:has(.brand-card:active) {
           animation-play-state: paused;
         }
       `}</style>
 
       {/* 1. HERO SECTION WITH SLIDER */}
       <section
-        className="relative overflow-hidden border-b border-white/10 bg-[#090b10] shadow-2xl h-screen flex items-center w-full"
+        className="relative overflow-hidden border-b border-white/10 bg-[#090b10] shadow-2xl h-screen flex items-center w-full my-12"
       >
         {heroProducts.map((product, idx) => {
           const isActive = idx === currentSlide;
@@ -254,7 +265,7 @@ export const FrontPage: React.FC<FrontPageProps> = ({
       </section>
 
       {/* 1.5 AUTHORIZED BRANDS MARQUEE */}
-      <section id="next-section" className="scroll-mt-[115px] py-16 sm:py-20 overflow-hidden pause-scroll">
+      <section id="next-section" className="scroll-mt-[115px] py-6 sm:py-8 overflow-hidden">
         {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
            <p className="text-center text-[10px] font-mono tracking-widest uppercase text-slate-500">
              Authorized & Authenticated Brands
@@ -267,70 +278,35 @@ export const FrontPage: React.FC<FrontPageProps> = ({
             WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)'
           }}
         >
-          {/* Container holding exactly 2 identical sets, sliding left by 50% to create perfect loop */}
+          {/* Container sliding left by 50% to create seamless loop */}
           <div className="flex w-max animate-logo-scroll items-center">
-
-            {/* Set 1 */}
-            <div className="flex items-center gap-4 sm:gap-6 px-2 sm:px-3">
-              {AUTHORIZED_BRANDS.map((brand, i) => (
-                <div
-                  key={i}
-                  className="group flex flex-col items-center justify-center w-40 h-28 sm:w-48 sm:h-32 rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.04] to-transparent backdrop-blur-md hover:border-[#c5a059]/40 hover:bg-[#c5a059]/5 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-[0_8px_30px_rgba(197,160,89,0.15)]"
-                >
-                  <div className={`text-slate-500/50 transition-colors duration-500 ${brand.color} ${brand.font} text-lg sm:text-xl text-center px-4 leading-tight`}>
-                    {brand.name}
+            {[0, 1, 2, 3].map((setIdx) => (
+              <div key={setIdx} className="flex items-center gap-4 sm:gap-6 px-2 sm:px-3">
+                {AUTHORIZED_BRANDS.map((brand, i) => (
+                  <div
+                    key={`${setIdx}-${i}`}
+                    className="brand-card group flex flex-col items-center justify-center w-40 h-28 sm:w-48 sm:h-32 rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.04] to-transparent backdrop-blur-md hover:border-[#c5a059]/40 hover:bg-[#c5a059]/5 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-[0_8px_30px_rgba(197,160,89,0.15)] px-4"
+                  >
+                    {brand.logo ? (
+                      <img
+                        src={brand.logo}
+                        alt={brand.name}
+                        className="max-h-8 sm:max-h-10 w-auto object-contain filter grayscale brightness-75 opacity-60 group-hover:grayscale-0 group-hover:brightness-125 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300 drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]"
+                      />
+                    ) : (
+                      <div className={`text-slate-400/60 group-hover:text-white transition-all duration-300 ${brand.font || 'font-serif'} text-base sm:text-lg text-center px-2 leading-tight group-hover:scale-105 drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]`}>
+                        {brand.name}
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Set 2 (Duplicate) */}
-            <div className="flex items-center gap-4 sm:gap-6 px-2 sm:px-3">
-              {AUTHORIZED_BRANDS.map((brand, i) => (
-                <div
-                  key={i + 'dup'}
-                  className="group flex flex-col items-center justify-center w-40 h-28 sm:w-48 sm:h-32 rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.04] to-transparent backdrop-blur-md hover:border-[#c5a059]/40 hover:bg-[#c5a059]/5 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-[0_8px_30px_rgba(197,160,89,0.15)]"
-                >
-                  <div className={`text-slate-500/50 transition-colors duration-500 ${brand.color} ${brand.font} text-lg sm:text-xl text-center px-4 leading-tight`}>
-                    {brand.name}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Set 3 (Duplicate for ultra-wide safety) */}
-            <div className="flex items-center gap-4 sm:gap-6 px-2 sm:px-3">
-              {AUTHORIZED_BRANDS.map((brand, i) => (
-                <div
-                  key={i + 'dup2'}
-                  className="group flex flex-col items-center justify-center w-40 h-28 sm:w-48 sm:h-32 rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.04] to-transparent backdrop-blur-md hover:border-[#c5a059]/40 hover:bg-[#c5a059]/5 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-[0_8px_30px_rgba(197,160,89,0.15)]"
-                >
-                  <div className={`text-slate-500/50 transition-colors duration-500 ${brand.color} ${brand.font} text-lg sm:text-xl text-center px-4 leading-tight`}>
-                    {brand.name}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Set 4 (Duplicate for ultra-wide safety) */}
-            <div className="flex items-center gap-4 sm:gap-6 px-2 sm:px-3">
-              {AUTHORIZED_BRANDS.map((brand, i) => (
-                <div
-                  key={i + 'dup3'}
-                  className="group flex flex-col items-center justify-center w-40 h-28 sm:w-48 sm:h-32 rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.04] to-transparent backdrop-blur-md hover:border-[#c5a059]/40 hover:bg-[#c5a059]/5 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-[0_8px_30px_rgba(197,160,89,0.15)]"
-                >
-                  <div className={`text-slate-500/50 transition-colors duration-500 ${brand.color} ${brand.font} text-lg sm:text-xl text-center px-4 leading-tight`}>
-                    {brand.name}
-                  </div>
-                </div>
-              ))}
-            </div>
-
+                ))}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-24 space-y-20 sm:space-y-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-14 space-y-20 sm:space-y-28">
         {/* 2. ABOUT SNIPPET (1 section highlighting Goodtime Watch SG) */}
         <section className="relative rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-[#121622] via-[#0d1017] to-[#07090e] p-8 sm:p-12 shadow-xl">
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#c5a059]/10 rounded-full blur-3xl pointer-events-none" />
@@ -444,6 +420,23 @@ export const FrontPage: React.FC<FrontPageProps> = ({
                     </span>
                   </div>
 
+                  {/* 360 Badge on Image if available */}
+                  {product.video360 && (
+                    <div className="absolute bottom-3 left-3 z-10">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onOpen360?.(product);
+                        }}
+                        className="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-black/80 hover:bg-[#c5a059] text-[#e6ca85] hover:text-black border border-[#c5a059]/50 hover:border-[#c5a059] backdrop-blur-md flex items-center gap-1.5 shadow-xl transition-all cursor-pointer hover:scale-105 active:scale-95"
+                      >
+                        <RotateCcw className="w-3 h-3" />
+                        <span>360° View</span>
+                      </button>
+                    </div>
+                  )}
+
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
                     <span className="px-3 py-1.5 rounded-full bg-black/80 text-white text-xs border border-white/20 flex items-center gap-1.5 shadow-lg">
                       <Eye className="w-3.5 h-3.5 text-[#c5a059]" /> View Details
@@ -483,6 +476,21 @@ export const FrontPage: React.FC<FrontPageProps> = ({
                       {product.caseSizeMm}mm
                     </span>
                   </div>
+
+                  {/* 360 View Button under model details if available */}
+                  {product.video360 && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpen360?.(product);
+                      }}
+                      className="w-full py-2 px-3 rounded-xl bg-[#c5a059]/15 hover:bg-[#c5a059] text-[#e6ca85] hover:text-black border border-[#c5a059]/40 hover:border-[#c5a059] transition-all duration-300 flex items-center justify-center gap-2 text-xs font-mono font-medium tracking-wider uppercase shadow-md cursor-pointer group active:scale-95"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5 text-[#c5a059] group-hover:text-black group-hover:-rotate-90 transition-transform duration-500" />
+                      <span>360° Interactive View</span>
+                    </button>
+                  )}
 
                   {/* Pricing & WhatsApp Action */}
                   <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
