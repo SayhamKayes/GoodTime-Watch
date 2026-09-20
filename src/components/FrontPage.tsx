@@ -108,6 +108,14 @@ const AUTHORIZED_BRANDS: AuthorizedBrand[] = [
   { name: 'TUDOR', font: 'font-serif font-black tracking-widest', color: 'group-hover:text-[#e31837]' },
   { name: 'IWC', font: 'font-serif font-bold tracking-widest', color: 'group-hover:text-[#c5a059]' },
   { name: 'GRAND SEIKO', font: 'font-serif font-bold tracking-wider', color: 'group-hover:text-[#003b82]' },
+  // { name: 'ROLEX', font: 'font-serif', color: 'group-hover:text-[#006039]', logo: '/watch_brands/rolex.png' },
+  // { name: 'OMEGA', font: 'font-sans tracking-widest', color: 'group-hover:text-[#c40018]', logo: '/watch_brands/Omega.png' },
+  // { name: 'PATEK PHILIPPE', font: 'font-serif tracking-[0.15em]', color: 'group-hover:text-[#c5a059]', logo: '/watch_brands/patek phillipe.png' },
+  // { name: 'CARTIER', font: 'font-serif italic tracking-widest', color: 'group-hover:text-[#e4002b]', logo: '/watch_brands/cartier.png' },
+  // { name: 'AUDEMARS PIGUET', font: 'font-serif tracking-[0.2em]', color: 'group-hover:text-[#c5a059]', logo: '/watch_brands/AP.png' },
+  // { name: 'TUDOR', font: 'font-serif font-black tracking-widest', color: 'group-hover:text-[#e31837]', logo: '/watch_brands/tudor.png' },
+  // { name: 'IWC', font: 'font-serif font-bold tracking-widest', color: 'group-hover:text-[#c5a059]', logo: '/watch_brands/IWC.png' },
+  // { name: 'GRAND SEIKO', font: 'font-serif font-bold tracking-wider', color: 'group-hover:text-[#003b82]', logo: '/watch_brands/Seiko.png' },
 ];
 
 export const FrontPage: React.FC<FrontPageProps> = ({
@@ -285,16 +293,16 @@ export const FrontPage: React.FC<FrontPageProps> = ({
                 {AUTHORIZED_BRANDS.map((brand, i) => (
                   <div
                     key={`${setIdx}-${i}`}
-                    className="brand-card group flex flex-col items-center justify-center w-40 h-28 sm:w-48 sm:h-32 rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.04] to-transparent backdrop-blur-md hover:border-[#c5a059]/40 hover:bg-[#c5a059]/5 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-[0_8px_30px_rgba(197,160,89,0.15)] px-4"
+                    className="brand-card group flex flex-col items-center justify-center w-40 h-28 sm:w-48 sm:h-32 rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.08] to-transparent backdrop-blur-md hover:border-[#c5a059]/40 hover:bg-[#c5a059]/5 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-[0_8px_30px_rgba(197,160,89,0.15)] px-4"
                   >
                     {brand.logo ? (
                       <img
                         src={brand.logo}
                         alt={brand.name}
-                        className="max-h-8 sm:max-h-10 w-auto object-contain filter grayscale brightness-75 opacity-60 group-hover:grayscale-0 group-hover:brightness-125 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300 drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]"
+                        className="max-h-8 sm:max-h-10 w-auto object-contain filter grayscale brightness-100 opacity-90 group-hover:grayscale-0 group-hover:brightness-125 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300 drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]"
                       />
                     ) : (
-                      <div className={`text-slate-400/60 group-hover:text-white transition-all duration-300 ${brand.font || 'font-serif'} text-base sm:text-lg text-center px-2 leading-tight group-hover:scale-105 drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]`}>
+                      <div className={`text-slate-200 group-hover:text-white transition-all duration-300 ${brand.font || 'font-serif'} text-base sm:text-lg text-center px-2 leading-tight group-hover:scale-105 drop-shadow-sm group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]`}>
                         {brand.name}
                       </div>
                     )}
