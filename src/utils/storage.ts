@@ -13,7 +13,13 @@ export const getStoredProducts = (): WatchProduct[] => {
     if (data) {
       const parsed = JSON.parse(data);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
+        return parsed.map((p) => {
+          const base = ALL_PRODUCTS.find((item) => item.id === p.id);
+          return {
+            ...p,
+            video360: base?.video360
+          };
+        });
       }
     }
   } catch (e) {
