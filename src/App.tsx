@@ -11,6 +11,7 @@ import { SellExchangeSection } from './components/SellExchangeSection';
 import { SuccessfullyDeliveredSection } from './components/SuccessfullyDeliveredSection';
 import { AdminPanel } from './components/AdminPanel';
 import { WatchModal } from './components/WatchModal';
+import { Watch360Modal } from './components/Watch360Modal';
 import { Footer } from './components/Footer';
 import { AnimatedBackground } from './components/AnimatedBackground';
 import { MessageCircle, ChevronUp } from 'lucide-react';
@@ -18,6 +19,7 @@ import { MessageCircle, ChevronUp } from 'lucide-react';
 export default function App() {
   const [activeTab, setActiveTab] = useState<NavigationTab>('home');
   const [selectedProduct, setSelectedProduct] = useState<WatchProduct | null>(null);
+  const [watch360Product, setWatch360Product] = useState<WatchProduct | null>(null);
 
   // Run migration first
   const initialData = React.useMemo(() => autoMigrateUpcomingWatches(), []);
@@ -113,6 +115,7 @@ export default function App() {
             upcomingWatches={upcomingWatches}
             deliveredWatches={deliveredWatches}
             onSelectProduct={(p) => setSelectedProduct(p)}
+            onOpen360={(p) => setWatch360Product(p)}
             onNavigateTab={handleSelectTab}
           />
         )}
@@ -127,6 +130,7 @@ export default function App() {
           <NewArrivalsSection 
             products={products} 
             onSelectProduct={(p) => setSelectedProduct(p)} 
+            onOpen360={(p) => setWatch360Product(p)}
           />
         )}
 
@@ -153,6 +157,13 @@ export default function App() {
       <WatchModal
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}
+        onOpen360={(p) => setWatch360Product(p)}
+      />
+
+      {/* 360 Fullscreen Motion Modal */}
+      <Watch360Modal
+        product={watch360Product}
+        onClose={() => setWatch360Product(null)}
       />
 
       {/* Sticky Action Buttons */}
