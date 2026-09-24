@@ -5,9 +5,27 @@ const PRODUCTS_KEY = 'goodtime_products_catalog';
 const UPCOMING_KEY = 'goodtime_upcoming_catalog';
 const DELIVERED_KEY = 'goodtime_delivered_catalog';
 const ADMIN_AUTH_KEY = 'goodtime_admin_auth_token';
+const CATALOG_VERSION_KEY = 'goodtime_catalog_version';
+const CURRENT_CATALOG_VERSION = '2026_09_v2_live_sync';
+
+// Sync catalog with latest version if version differs
+export const syncCatalogWithLatestVersion = (): void => {
+  try {
+    const currentVersion = localStorage.getItem(CATALOG_VERSION_KEY);
+    if (currentVersion !== CURRENT_CATALOG_VERSION) {
+      localStorage.setItem(PRODUCTS_KEY, JSON.stringify(ALL_PRODUCTS));
+      localStorage.setItem(UPCOMING_KEY, JSON.stringify(UPCOMING_WATCHES));
+      localStorage.setItem(DELIVERED_KEY, JSON.stringify(DELIVERED_WATCHES));
+      localStorage.setItem(CATALOG_VERSION_KEY, CURRENT_CATALOG_VERSION);
+    }
+  } catch (e) {
+    console.error('Error syncing catalog version:', e);
+  }
+};
 
 // Load stored products or fallback to default dataset
 export const getStoredProducts = (): WatchProduct[] => {
+  syncCatalogWithLatestVersion();
   try {
     const data = localStorage.getItem(PRODUCTS_KEY);
     if (data) {
@@ -38,6 +56,7 @@ export const saveStoredProducts = (products: WatchProduct[]): void => {
 
 // Load upcoming watches or fallback
 export const getStoredUpcoming = (): UpcomingWatch[] => {
+  syncCatalogWithLatestVersion();
   try {
     const data = localStorage.getItem(UPCOMING_KEY);
     if (data) {
@@ -115,6 +134,7 @@ export const autoMigrateUpcomingWatches = (): { products: WatchProduct[], upcomi
 
 // Load delivered watches or fallback
 export const getStoredDelivered = (): DeliveredWatch[] => {
+  syncCatalogWithLatestVersion();
   try {
     const data = localStorage.getItem(DELIVERED_KEY);
     if (data) {

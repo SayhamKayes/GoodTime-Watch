@@ -1,0 +1,429 @@
+{
+  "products": [
+    {
+      "id": "prod_1790237554044_0juy",
+      "name": "Rolex Datejust 41",
+      "brandId": "rolex",
+      "brandName": "Rolex",
+      "model": "Datejust 41",
+      "reference": "126334",
+      "gender": "unisex",
+      "movement": "Automatic Mechanical",
+      "caseSizeMm": 41,
+      "caseMaterial": "Oystersteel",
+      "strapMaterial": "Oystersteel Bracelet",
+      "dialColor": "Bright blue",
+      "waterResistance": "100m / 330ft",
+      "description": "Rolex uses Oystersteel for its steel watch cases. Specially developed by the brand, Oystersteel belongs to the 904L steel family, alloys most commonly used in high-technology and in the aerospace and chemical industries, where maximum resistance to corrosion is essential.",
+      "images": [
+        "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790232570/Roman_Index_41mm_Men_s_Watch_yuskeg.png"
+      ],
+      "availability": "Available on Request",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Luxury",
+        "Dress",
+        "Sport"
+      ],
+      "tags": [
+        "Rolex",
+        "Automatic",
+        "Swiss Made"
+      ],
+      "rating": 5,
+      "reviewsCount": 1
+    },
+    {
+      "id": "prod_1790237351557_wrbt",
+      "name": "Rolex Cosmograph Daytona",
+      "brandId": "rolex",
+      "brandName": "Rolex",
+      "model": "Cosmograph Daytona",
+      "reference": "126503",
+      "gender": "unisex",
+      "movement": "Perpetual, mechanical chronograph, self-winding",
+      "caseSizeMm": 40,
+      "caseMaterial": "combination of Oystersteel and yellow gold",
+      "strapMaterial": "Oystersteel Bracelet",
+      "dialColor": "Black",
+      "waterResistance": "100m / 330ft",
+      "description": "The Oyster bracelet is a perfect alchemy of form and function. First introduced in the late 1930s, this particularly robust and comfortable metal bracelet, with its broad, flat three-piece links, remains the most universal bracelet in the Oyster collection.",
+      "images": [
+        "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790232570/Cosmograph_Daytona_wv5pxk.png"
+      ],
+      "availability": "Available on Request",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Luxury",
+        "Dress",
+        "Sport"
+      ],
+      "tags": [
+        "Rolex",
+        "Automatic",
+        "Swiss Made"
+      ],
+      "rating": 5,
+      "reviewsCount": 1
+    },
+    {
+      "id": "prod_1790237134734_tsm3",
+      "name": "Pilot’s Watch Performance Chronograph 41 AMG",
+      "brandId": "rolex",
+      "brandName": "IWC",
+      "model": "Pilot’s Watch Performance Chronograph 41 AMG",
+      "reference": "IW388304",
+      "gender": "unisex",
+      "movement": "Automatic, self-winding",
+      "caseSizeMm": 41,
+      "caseMaterial": "synthetic sapphire crystal",
+      "strapMaterial": "Oystersteel Bracelet",
+      "dialColor": "Black",
+      "waterResistance": "100m / 330ft",
+      "description": "The Pilot’s Watch Performance Chronograph 41 AMG features a 41-millimetre titanium case, a black dial, nickel noir hands and appliques and a titanium bracelet.",
+      "images": [
+        "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790232570/Pilot_s_Watch_Performance_Chronograph_41_AMG_xzuuwv.png"
+      ],
+      "availability": "Available on Request",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Luxury",
+        "Dress",
+        "Sport"
+      ],
+      "tags": [
+        "IWC",
+        "Automatic",
+        "Swiss Made"
+      ],
+      "rating": 5,
+      "reviewsCount": 1
+    },
+    {
+      "id": "prod_1790236927788_6qnt",
+      "name": "Santos de Cartier watch",
+      "brandId": "rolex",
+      "brandName": "Santos de Cartier",
+      "model": "Santos de Cartier watch",
+      "reference": "320.153.26.259",
+      "gender": "unisex",
+      "movement": "Automatic winding 1847 Mc",
+      "caseSizeMm": 39.8,
+      "caseMaterial": "Stainless Steel / Ceramic",
+      "strapMaterial": "Oystersteel Bracelet",
+      "dialColor": "Green",
+      "waterResistance": "100m / 330ft",
+      "description": "1904, Louis Cartier granted the wish of the famous Brazilian aviator Alberto Santos Dumont: to be able to tell time while flying. The birth of one of the first ever wristwatches sealed the bonds of friendship between these two pioneers.",
+      "images": [
+        "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790232571/Santos_de_Cartier_watch_hwszhh.jpg"
+      ],
+      "availability": "Available on Request",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Luxury",
+        "Dress",
+        "Sport"
+      ],
+      "tags": [
+        "Santos de Cartier",
+        "Automatic",
+        "Swiss Made"
+      ],
+      "rating": 5,
+      "reviewsCount": 1
+    },
+    {
+      "id": "prod_1790236664001_jox2",
+      "name": "Premier B25 Datora 42",
+      "brandId": "rolex",
+      "brandName": "Breitling",
+      "model": "Premier B25 Datora 42",
+      "reference": "AB2510201K1P1",
+      "gender": "unisex",
+      "movement": "Self-winding mechanical",
+      "caseSizeMm": 42,
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Oystersteel Bracelet",
+      "dialColor": "Brown",
+      "waterResistance": "100m / 330ft",
+      "description": "This latest generation of Premier chronographs brings its timeless elegance back to life, and showcases Breitling’s highest level of watchmaking thanks to a range of iconic Premier complications: the Chronograph, the Duograph and the Datora. Featuring rectangular chronograph pushers and Arabic numerals, the heritage-revived Premier Datora displays a variety of elegant design details such as grooves on the case-sides, open sapphire casebacks and vintage-inspired hands.",
+      "images": [
+        "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790232570/Premier_B25_Datora_42_xi2yeh.png"
+      ],
+      "availability": "Available on Request",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Luxury",
+        "Dress",
+        "Sport"
+      ],
+      "tags": [
+        "Breitling",
+        "Automatic",
+        "Swiss Made"
+      ],
+      "rating": 5,
+      "reviewsCount": 1
+    },
+    {
+      "id": "prod_1790236397917_lutd",
+      "name": "Rolex Oyster Perpetual 36",
+      "brandId": "rolex",
+      "brandName": "Rolex",
+      "model": "Oyster Perpetual 36",
+      "reference": "126000",
+      "gender": "unisex",
+      "movement": "Perpetual, mechanical, self-winding",
+      "caseSizeMm": 36,
+      "caseMaterial": "Stainless Steel / Ceramic",
+      "strapMaterial": "Oystersteel Bracelet",
+      "dialColor": "Lavender",
+      "waterResistance": "100m / 330ft",
+      "description": "Rolex uses Oystersteel for its steel watch cases. Specially developed by the brand, Oystersteel belongs to the 904L steel family, an alloy most commonly used in high-technology and in the aerospace and chemical industries, where maximum resistance to corrosion is essential.",
+      "images": [
+        "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790236343/Rolex_Oyster_Perpetual_36_hqsmam.png"
+      ],
+      "availability": "Available on Request",
+      "isNew": true,
+      "isBestSeller": false,
+      "isLuxury": true,
+      "styles": [
+        "Luxury",
+        "Dress",
+        "Sport"
+      ],
+      "tags": [
+        "Rolex",
+        "Automatic",
+        "Swiss Made"
+      ],
+      "rating": 5,
+      "reviewsCount": 1
+    }
+  ],
+  "upcoming": [
+    {
+      "id": "upc_1790233324855",
+      "brand": "Vacheron Constantin",
+      "brandId": "vacheron-constantin",
+      "brandName": "Vacheron Constantin",
+      "name": "Vacheron Constantin Overseas Dual Time",
+      "model": "Overseas Dual Time",
+      "reference": "7930V/210T-H072",
+      "expectedArrival": "Arriving Soon",
+      "expectedArrivalDate": "2026-11-20",
+      "statusBadge": "Arriving Soon",
+      "caseSize": "41mm",
+      "caseSizeMm": 41,
+      "dialColor": "Brown",
+      "movement": " Self-winding",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "gender": "men",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790233188/Vacheron_Constantin_Overseas_Dual_Time_ua7q0g.png",
+      "images": [
+        "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790233188/Vacheron_Constantin_Overseas_Dual_Time_ua7q0g.png"
+      ],
+      "description": "A direct descendant of the piece that was created for photographer and explorer Cory Richards, and thoroughly field-tested under extreme conditions during his 2019 ascent of Everest, the Overseas dual time Cardinal Points comes in different shades.",
+      "keyFeature": "Full Box & Authenticity Papers"
+    },
+    {
+      "id": "upc_1790232883819",
+      "brand": "Santos de Cartier",
+      "brandId": "santos-de-cartier",
+      "brandName": "Santos de Cartier",
+      "name": "Santos de Cartier watch",
+      "model": "Santos de Cartier watch",
+      "reference": "320.125.25.152",
+      "expectedArrival": "Arriving Soon",
+      "expectedArrivalDate": "2026-11-01",
+      "statusBadge": "Arriving Soon",
+      "caseSize": "39.8mm",
+      "caseSizeMm": 39.8,
+      "dialColor": "Green",
+      "movement": "Automatic winding 1847 Mc",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "gender": "men",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790232571/Santos_de_Cartier_watch_hwszhh.jpg",
+      "images": [
+        "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790232571/Santos_de_Cartier_watch_hwszhh.jpg"
+      ],
+      "description": "1904, Louis Cartier granted the wish of the famous Brazilian aviator Alberto Santos Dumont: to be able to tell time while flying.",
+      "keyFeature": "Full Box & Authenticity Papers"
+    },
+    {
+      "id": "upc_1790232629870",
+      "brand": "Omega",
+      "brandId": "omega",
+      "brandName": "Omega",
+      "name": "Speedmaster Moonwatch Professional",
+      "model": "Speedmaster Moonwatch Professional",
+      "reference": "310.30.42.50.01.002",
+      "expectedArrival": "Arriving Soon",
+      "expectedArrivalDate": "2026-11-09",
+      "statusBadge": "Arriving Soon",
+      "caseSize": "42mm",
+      "caseSizeMm": 42,
+      "dialColor": "Black",
+      "movement": "Automatic Chronometer",
+      "caseMaterial": "Stainless Steel",
+      "strapMaterial": "Stainless Steel",
+      "gender": "men",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790232578/Omega_Speedmaster_Moonwatch_Professional_xavnid.png",
+      "images": [
+        "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790232578/Omega_Speedmaster_Moonwatch_Professional_xavnid.png"
+      ],
+      "description": "The watch is driven by the OMEGA Co-Axial Master Chronometer Calibre 3861, which powers the small seconds sub-dial, 30-minute recorder and 12-hour recorder, along with the central chronograph function.",
+      "keyFeature": "Full Box & Authenticity Papers"
+    }
+  ],
+  "delivered": [
+    {
+      "id": "del_1790235918218",
+      "brand": "Panerai Luminor",
+      "model": "1950 00328",
+      "reference": "Ref. N/A",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790233429/772988216_122138305035138322_8115735169491885272_n_eblopq.jpg",
+      "deliveryLocation": "Gulshan, Dhaka",
+      "deliveredDate": "Recent Delivery",
+      "clientName": "Verified Collector",
+      "clientReview": "Outstanding service from start to finish! Goodtime Watch SG provided full transparency regarding the watch's condition, and it was delivered safely and fully insured to my residence. 100% authentic with all original paperwork. Highly recommend them for anyone looking to source premium timepieces.",
+      "rating": 5,
+      "verifiedPurchase": true
+    },
+    {
+      "id": "del_1790235811600",
+      "brand": "A. Lange & Söhne",
+      "model": "Datograph Up/Down",
+      "reference": "Ref. N/A",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790233408/780375181_122139018519138322_6849665462601170398_n_hjryq4.jpg",
+      "deliveryLocation": "Dhanmondi, Dhaka",
+      "deliveredDate": "Recent Delivery",
+      "clientName": "Verified Collector",
+      "clientReview": "Upgrading my collection with Goodtime Watch SG was an absolute breeze. They offered a very fair and transparent valuation for my trade-in, and the transition to my new timepiece was seamless. The new watch was delivered promptly in flawless condition with all paperwork included. Outstanding professionalism from start to finish.",
+      "rating": 5,
+      "verifiedPurchase": true
+    },
+    {
+      "id": "del_1790235689234",
+      "brand": "Franck Muller",
+      "model": "Franck Muller Vanguard",
+      "reference": "Ref. N/A",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790233417/780058395_122139112425138322_4563920659367327390_n_jo6rml.jpg",
+      "deliveryLocation": "Gulshan-1, Dhaka",
+      "deliveredDate": "Recent Delivery",
+      "clientName": "Verified Collector",
+      "clientReview": "Absolutely flawless experience with Goodtime Watch SG. The watch arrived exactly as promised, in pristine condition, as a full set with the original box and stamped warranty. The unboxing was fantastic, and verifying the serial numbers gave me complete peace of mind. Exceptional service and a highly reliable horology partner here in Bangladesh.",
+      "rating": 5,
+      "verifiedPurchase": true
+    },
+    {
+      "id": "del_1790233730998",
+      "brand": "Panerai Luminor",
+      "model": "Luminor Due",
+      "reference": "Ref. N/A",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790233428/764833025_122137569291138322_5422183393514806089_n_actpt2.jpg",
+      "deliveryLocation": "Banani, Dhaka",
+      "deliveredDate": "Recent Delivery",
+      "clientName": "Verified Collector",
+      "clientReview": "Found the exact timepiece I’d been hunting for at Goodtime Watch SG. The entire transaction over WhatsApp was incredibly smooth, and the watch arrived via secure courier to my door in Dhaka perfectly on time. It was meticulously packaged, brand new, with all authentic documentation intact. A truly professional and hassle-free luxury buying experience!",
+      "rating": 5,
+      "verifiedPurchase": true
+    },
+    {
+      "id": "del-1",
+      "brand": "Tudor",
+      "model": "Black Bay Chrono 39",
+      "reference": "126610LN",
+      "soldPriceBDT": 1450000,
+      "deliveryLocation": "Gulshan-2, Dhaka",
+      "deliveredDate": "Delivered Recently",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790233495/799784591_122140655727138322_5855523477568575214_n_niiiaa.jpg",
+      "clientName": "Tahmid R. Chowdhury",
+      "clientReview": "Acquired this Submariner Date from Goodtime Watch SG. The piece was 100% brand new in box with green seal and stamped warranty card. Prompt direct delivery right to my residence in Gulshan. Outstanding professionalism.",
+      "rating": 5,
+      "verifiedPurchase": true
+    },
+    {
+      "id": "del-2",
+      "brand": "Tudor",
+      "model": "Black Bay 54",
+      "reference": "310.30.42.50.01.001",
+      "soldPriceBDT": 1050000,
+      "deliveryLocation": "Banani, Dhaka",
+      "deliveredDate": "Delivered Recently",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790233494/799427562_122140740735138322_919437484975256677_n_u3ccru.jpg",
+      "clientName": "Saiful Islam",
+      "clientReview": "Had been looking for the new Master Chronometer Moonwatch for months. Goodtime Watch SG confirmed availability and delivered it within 24 hours. The condition is pristine. Highly recommended watch source in Bangladesh!",
+      "rating": 5,
+      "verifiedPurchase": true
+    },
+    {
+      "id": "del-3",
+      "brand": "Tudor",
+      "model": "Black Bay 58",
+      "reference": "79030B",
+      "soldPriceBDT": 480000,
+      "deliveryLocation": "Nasirabad, Chattogram",
+      "deliveredDate": "Delivered Recently",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790233494/778627053_122139020487138322_6395471819503426991_n_oezsju.jpg",
+      "clientName": "Barrister Rafiqul Alam",
+      "clientReview": "Purchased through their WhatsApp concierge and shipped safely via secured insured courier to Chattogram. Unboxing was an absolute pleasure. Everything matched the photos and serial number verified.",
+      "rating": 5,
+      "verifiedPurchase": true
+    },
+    {
+      "id": "del-4",
+      "brand": "TAG Heuer",
+      "model": "Monaco Chronograph Racing Green",
+      "reference": "WSSA0030",
+      "soldPriceBDT": 820000,
+      "deliveryLocation": "Dhanmondi, Dhaka",
+      "deliveredDate": "Delivered Recently",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790233485/798729453_122140551543138322_6761111624868437838_n_enciwz.jpg",
+      "clientName": "Nafis Mahmud",
+      "clientReview": "Exchanged an older chronograph and upgraded to the Santos De Cartier. The valuation of my trade-in watch was very fair and transparent, and the difference was easily settled. Seamless service!",
+      "rating": 5,
+      "verifiedPurchase": true
+    },
+    {
+      "id": "del-5",
+      "brand": "Rolex",
+      "model": "Day-Date",
+      "reference": "SBGA211",
+      "soldPriceBDT": 520000,
+      "deliveryLocation": "Uttara, Dhaka",
+      "deliveredDate": "Delivered Recently",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790233479/772824235_122138177139138322_57639943224695302_n_mz2dud.jpg",
+      "clientName": "Dr. K. Zaman",
+      "clientReview": "The sweeping blue seconds hand on the Snowflake is pure poetry. Watch was presented in its original double box with all Japanese documentation. Trustworthy and reliable luxury horology partner.",
+      "rating": 5,
+      "verifiedPurchase": true
+    },
+    {
+      "id": "del-6",
+      "brand": "Rolex",
+      "model": "GMT-Master II",
+      "reference": "SRPB41",
+      "soldPriceBDT": 42000,
+      "deliveryLocation": "Sylhet Sadar",
+      "deliveredDate": "Delivered Recently",
+      "image": "https://res.cloudinary.com/dcojcg3rt/image/upload/v1790233479/758400724_122136618309138322_337986408070378586_n_op9sp3.jpg",
+      "clientName": "Tanvir Ahmed",
+      "clientReview": "Super fast response on WhatsApp. Verified the serial number, received authentic warranty booklet and delivery took only 2 days to Sylhet. Will definitely buy my next automatic watch from here.",
+      "rating": 5,
+      "verifiedPurchase": true
+    }
+  ]
+}

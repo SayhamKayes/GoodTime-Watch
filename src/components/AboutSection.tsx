@@ -60,10 +60,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigateTab }) => 
             Our Story
           </h2>
           <p className="text-sm text-slate-300 font-light leading-relaxed">
-            Goodtime Watch SG was established to bridge Bangladesh’s passionate watch community with authentic, high-grade Swiss and Japanese horology. From Rolex, OMEGA, Tudor, Cartier, and Grand Seiko to cult favourites like Seiko Presage, Tissot PRX, and G-SHOCK, we curate timepieces that honor precision, durability, and aesthetics.
+            We are Bangladesh's most trusted destination for luxury timepieces. From Rolex to Patek Philippe, Audemars Piguet to Richard Mille we deal in the world's most coveted watches. Every piece we carry is 100% authentic, verified and comes with complete documentation. Whether you're looking to buy, sell or exchange we make every transaction seamless, transparent and unforgettable. Because at Goodtime Watch SG we don't just deal in watches. We deal in legacy.
           </p>
           <p className="text-sm text-slate-400 font-light leading-relaxed">
-            Whether you are beginning your horological journey or expanding an elite collection, we provide personal guidance, verified provenance, and direct nationwide delivery.
+            Time to Evolve.
           </p>
         </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { WatchProduct, UpcomingWatch, DeliveredWatch, NavigationTab } from '../types';
 import {
   getAdminPasscode,
@@ -440,6 +440,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     showToast('Passcode updated successfully');
   };
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   // Export & Import Catalog
   const handleExportJSON = () => {
     const data = {
@@ -455,6 +457,45 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     a.download = `goodtime_catalog_backup_${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     showToast('Catalog exported as JSON');
+  };
+
+  const handleImportJSON = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const text = event.target?.result as string;
+        const parsed = JSON.parse(text);
+
+        if (parsed.products && Array.isArray(parsed.products)) {
+          onUpdateProducts(parsed.products);
+          saveStoredProducts(parsed.products);
+        }
+        if (parsed.upcoming && Array.isArray(parsed.upcoming)) {
+          onUpdateUpcoming(parsed.upcoming);
+          saveStoredUpcoming(parsed.upcoming);
+        } else if (parsed.upcomingWatches && Array.isArray(parsed.upcomingWatches)) {
+          onUpdateUpcoming(parsed.upcomingWatches);
+          saveStoredUpcoming(parsed.upcomingWatches);
+        }
+        if (parsed.delivered && Array.isArray(parsed.delivered)) {
+          onUpdateDelivered(parsed.delivered);
+          saveStoredDelivered(parsed.delivered);
+        } else if (parsed.deliveredWatches && Array.isArray(parsed.deliveredWatches)) {
+          onUpdateDelivered(parsed.deliveredWatches);
+          saveStoredDelivered(parsed.deliveredWatches);
+        }
+
+        showToast('Catalog successfully imported and restored!');
+      } catch (err) {
+        console.error(err);
+        alert('Invalid JSON file format. Please check the backup file.');
+      }
+    };
+    reader.readAsText(file);
+    if (e.target) e.target.value = '';
   };
 
   // Filtered products list for search
@@ -1019,6 +1060,22 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               >
                 <Download className="w-4 h-4 text-[#c5a059]" />
                 <span>Export Full Catalog Backup (.JSON)</span>
+              </button>
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".json"
+                onChange={handleImportJSON}
+                className="hidden"
+              />
+
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="w-full py-3 rounded-xl bg-[#c5a059]/10 hover:bg-[#c5a059]/20 border border-[#c5a059]/30 text-[#e6ca85] text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+              >
+                <Upload className="w-4 h-4 text-[#c5a059]" />
+                <span>Import / Restore Catalog Backup (.JSON)</span>
               </button>
             </div>
 

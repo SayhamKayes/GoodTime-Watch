@@ -24,7 +24,7 @@ export interface WatchProduct {
   caseSizeMm: number;
   waterResistance: string;
   images: string[];
-  availability: 'In Stock' | 'Enquire' | 'Low Stock' | 'Sold Out';
+  availability: 'In Stock' | 'Enquire' | 'Low Stock' | 'Sold Out' | 'Available on Request';
   isNew: boolean;
   isBestSeller: boolean;
   isLuxury: boolean;
