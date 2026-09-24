@@ -1,15 +1,18 @@
 import React from 'react';
-import { DELIVERED_WATCHES, SITE_INFO } from '../data/goodtime';
+import { DELIVERED_WATCHES, SITE_INFO as DEFAULT_SITE_INFO } from '../data/goodtime';
 import { CheckCircle, MapPin, Star, ShieldCheck, MessageCircle, PackageCheck, Quote, Calendar } from 'lucide-react';
-import { DeliveredWatch } from '../types';
+import { DeliveredWatch, SiteInfo } from '../types';
 
 interface SuccessfullyDeliveredSectionProps {
   deliveredWatches?: DeliveredWatch[];
+  siteInfo?: SiteInfo;
 }
 
 export const SuccessfullyDeliveredSection: React.FC<SuccessfullyDeliveredSectionProps> = ({
-  deliveredWatches = DELIVERED_WATCHES
+  deliveredWatches = DELIVERED_WATCHES,
+  siteInfo
 }) => {
+  const currentSiteInfo = siteInfo || DEFAULT_SITE_INFO;
   return (
     <section className="py-12 sm:py-16 space-y-12">
       
@@ -132,7 +135,7 @@ export const SuccessfullyDeliveredSection: React.FC<SuccessfullyDeliveredSection
                 </span>
 
                 <a
-                  href={`https://wa.me/${SITE_INFO.whatsappNumber}?text=${encodeURIComponent(
+                  href={`https://wa.me/${currentSiteInfo.whatsappNumber}?text=${encodeURIComponent(
                     `Hello Goodtime Watch SG,\n\nI saw your successfully delivered ${item.brand} ${item.model} (Ref: ${item.reference}) and would like to check if you can source another piece for me. Thank you.`
                   )}`}
                   target="_blank"
@@ -162,12 +165,12 @@ export const SuccessfullyDeliveredSection: React.FC<SuccessfullyDeliveredSection
         </div>
 
         <a
-          href={SITE_INFO.whatsappLink}
+          href={currentSiteInfo.whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
           className="px-6 py-3 rounded-xl text-xs font-semibold text-black bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] hover:brightness-110 shadow-md transition-all shrink-0"
         >
-          Contact Concierge Desk: {SITE_INFO.phoneDisplay}
+          Contact Concierge Desk: {currentSiteInfo.phoneDisplay}
         </a>
       </div>
 

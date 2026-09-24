@@ -1,13 +1,15 @@
 import React from 'react';
-import { SITE_INFO } from '../data/goodtime';
+import { SITE_INFO as DEFAULT_SITE_INFO } from '../data/goodtime';
 import { ShieldCheck, Clock, Award, Phone, Mail, MapPin, MessageCircle, Truck, CheckCircle2 } from 'lucide-react';
-import { NavigationTab } from '../types';
+import { NavigationTab, SiteInfo } from '../types';
 
 interface AboutSectionProps {
   onNavigateTab: (tab: NavigationTab) => void;
+  siteInfo?: SiteInfo;
 }
 
-export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigateTab }) => {
+export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigateTab, siteInfo }) => {
+  const currentSiteInfo = siteInfo || DEFAULT_SITE_INFO;
   return (
     <section className="py-12 sm:py-16 space-y-16">
 
@@ -36,7 +38,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigateTab }) => 
               Explore New Arrivals →
             </button>
             <a
-              href={SITE_INFO.whatsappLink}
+              href={currentSiteInfo.whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-xl text-xs font-semibold text-[#f5deb3] bg-white/5 hover:bg-white/10 border border-white/15 transition-all flex items-center gap-2"
@@ -116,8 +118,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigateTab }) => 
                 <Phone className="w-3.5 h-3.5" />
                 <span>Phone Call</span>
               </div>
-              <a href={`tel:${SITE_INFO.phoneIntl}`} className="text-sm font-semibold text-white hover:text-[#e6ca85] block">
-                {SITE_INFO.phoneDisplay}
+              <a href={`tel:${currentSiteInfo.phoneIntl}`} className="text-sm font-semibold text-white hover:text-[#e6ca85] block">
+                {currentSiteInfo.phoneDisplay}
               </a>
               <span className="text-[10px] text-slate-400 block">Available 10 AM - 10 PM</span>
             </div>
@@ -128,8 +130,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigateTab }) => 
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>WhatsApp Direct</span>
               </div>
-              <a href={SITE_INFO.whatsappLink} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-[#25D366] hover:underline block">
-                +{SITE_INFO.whatsappNumber}
+              <a href={currentSiteInfo.whatsappLink} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-[#25D366] hover:underline block">
+                +{currentSiteInfo.whatsappNumber}
               </a>
               <span className="text-[10px] text-slate-400 block">Instant Chat & Video Verification</span>
             </div>
@@ -140,8 +142,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigateTab }) => 
                 <Mail className="w-3.5 h-3.5" />
                 <span>Official Email</span>
               </div>
-              <a href={`mailto:${SITE_INFO.email}`} className="text-xs font-semibold text-white hover:text-[#e6ca85] block truncate">
-                {SITE_INFO.email}
+              <a href={`mailto:${currentSiteInfo.email}`} className="text-xs font-semibold text-white hover:text-[#e6ca85] block truncate">
+                {currentSiteInfo.email}
               </a>
               <span className="text-[10px] text-slate-400 block">Business & Trade Enquiries</span>
             </div>

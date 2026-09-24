@@ -28,6 +28,7 @@ export interface WatchProduct {
   isNew: boolean;
   isBestSeller: boolean;
   isLuxury: boolean;
+  isFeaturedInHero?: boolean;
   styles: string[];
   tags: string[];
   description: string;
@@ -35,6 +36,14 @@ export interface WatchProduct {
   reviewsCount: number;
   dateAdded?: string; // Format YYYY-MM-DD
   video360?: string; // Path or URL to 360 degree motion video (e.g. /360_motion_1.mp4)
+}
+
+export interface AuthorizedBrand {
+  id?: string;
+  name: string;
+  logo?: string;
+  font?: string;
+  color?: string;
 }
 
 export interface UpcomingWatch {
@@ -92,4 +101,10 @@ export interface SiteInfo {
   whatsappLink: string;
   location: string;
   announcement: string;
+  phone?: string;
+  address?: string;
+  secondaryAddress?: string;
+  openingHours?: string;
+  instagram?: string;
+  facebook?: string;
 }

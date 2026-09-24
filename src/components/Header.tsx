@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { NavigationTab } from '../types';
-import { SITE_INFO } from '../data/goodtime';
+import { NavigationTab, SiteInfo } from '../types';
+import { SITE_INFO as DEFAULT_SITE_INFO } from '../data/goodtime';
 import { MessageCircle, Menu, X, Phone } from 'lucide-react';
 
 interface HeaderProps {
   activeTab: NavigationTab;
   onSelectTab: (tab: NavigationTab) => void;
+  siteInfo?: SiteInfo;
 }
 
-export const Header: React.FC<HeaderProps> = ({ activeTab, onSelectTab }) => {
+export const Header: React.FC<HeaderProps> = ({ activeTab, onSelectTab, siteInfo }) => {
+  const currentSiteInfo = siteInfo || DEFAULT_SITE_INFO;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -45,19 +47,19 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onSelectTab }) => {
       }`}>
         <div className="w-full max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 px-4 text-xs">
           <p className="text-[#e2c78a] tracking-wide text-[11px] sm:text-xs">
-            {SITE_INFO.announcement}
+            {currentSiteInfo.announcement}
           </p>
           <div className="flex items-center gap-4 text-slate-300 text-[11px]">
             <a
-              href={`tel:${SITE_INFO.phoneIntl}`}
+              href={`tel:${currentSiteInfo.phoneIntl}`}
               className="hover:text-[#c5a059] flex items-center gap-1 transition-colors"
             >
               <Phone className="w-3 h-3 text-[#c5a059]" />
-              <span>{SITE_INFO.phoneDisplay}</span>
+              <span>{currentSiteInfo.phoneDisplay}</span>
             </a>
             <span className="text-white/20 hidden sm:inline">|</span>
             <a
-              href={SITE_INFO.whatsappLink}
+              href={currentSiteInfo.whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#25D366] hover:underline flex items-center gap-1 font-medium"
@@ -125,13 +127,13 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onSelectTab }) => {
           {/* Header Action: WhatsApp Direct Button */}
           {/* <div className="hidden sm:flex items-center gap-3">
             <a
-              href={SITE_INFO.whatsappLink}
+              href={currentSiteInfo.whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold text-black bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] hover:brightness-110 shadow-md transition-all active:scale-95"
             >
               <MessageCircle className="w-3.5 h-3.5 fill-black/20" />
-              <span>WhatsApp: {SITE_INFO.phoneDisplay}</span>
+              <span>WhatsApp: {currentSiteInfo.phoneDisplay}</span>
             </a>
           </div> */}
 
@@ -184,13 +186,13 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onSelectTab }) => {
 
             <div className="pt-8 mt-4">
               <a
-                href={SITE_INFO.whatsappLink}
+                href={currentSiteInfo.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl text-sm font-semibold text-black bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059]"
               >
                 <MessageCircle className="w-5 h-5 fill-black/20" />
-                <span>WhatsApp: {SITE_INFO.phoneDisplay}</span>
+                <span>WhatsApp: {currentSiteInfo.phoneDisplay}</span>
               </a>
             </div>
           </div>

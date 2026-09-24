@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { WatchProduct, UpcomingWatch, DeliveredWatch, NavigationTab } from '../types';
+import React, { useState, useEffect, useRef } from 'react';
+import { WatchProduct, UpcomingWatch, DeliveredWatch, AuthorizedBrand, SiteInfo, NavigationTab } from '../types';
 import {
   getAdminPasscode,
   setAdminPasscode,
@@ -8,6 +8,8 @@ import {
   saveStoredProducts,
   saveStoredUpcoming,
   saveStoredDelivered,
+  saveStoredBrands,
+  saveStoredSiteInfo,
   resetAllCatalogData
 } from '../utils/storage';
 import {
@@ -33,28 +35,42 @@ import {
   Upload,
   Clock,
   Sparkles,
-  Tag
+  Tag,
+  Sliders,
+  Phone,
+  Mail,
+  MapPin,
+  Image as ImageIcon,
+  Type
 } from 'lucide-react';
 
 interface AdminPanelProps {
   products: WatchProduct[];
   upcomingWatches: UpcomingWatch[];
   deliveredWatches: DeliveredWatch[];
+  brands: AuthorizedBrand[];
+  siteInfo: SiteInfo;
   onUpdateProducts: (products: WatchProduct[]) => void;
   onUpdateUpcoming: (upcoming: UpcomingWatch[]) => void;
   onUpdateDelivered: (delivered: DeliveredWatch[]) => void;
+  onUpdateBrands: (brands: AuthorizedBrand[]) => void;
+  onUpdateSiteInfo: (siteInfo: SiteInfo) => void;
   onExitAdmin: () => void;
 }
 
-type AdminTab = 'products' | 'upcoming' | 'delivered' | 'security';
+type AdminTab = 'products' | 'upcoming' | 'delivered' | 'slider' | 'brands' | 'contact' | 'security';
 
 export const AdminPanel: React.FC<AdminPanelProps> = ({
   products,
   upcomingWatches,
   deliveredWatches,
+  brands,
+  siteInfo,
   onUpdateProducts,
   onUpdateUpcoming,
   onUpdateDelivered,
+  onUpdateBrands,
+  onUpdateSiteInfo,
   onExitAdmin
 }) => {
   // Auth State
@@ -120,6 +136,23 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     rating: 5
   });
 
+  // Brand Edit/Add Modal State
+  const [isBrandModalOpen, setIsBrandModalOpen] = useState(false);
+  const [editingBrand, setEditingBrand] = useState<AuthorizedBrand | null>(null);
+  const [brandForm, setBrandForm] = useState<Partial<AuthorizedBrand>>({
+    name: '',
+    logo: '',
+    font: 'font-serif',
+    color: '#e6ca85'
+  });
+
+  // Contact / Concierge State
+  const [contactForm, setContactForm] = useState<SiteInfo>(siteInfo);
+
+  useEffect(() => {
+    setContactForm(siteInfo);
+  }, [siteInfo]);
+
   // Passcode Change State
   const [currentPass, setCurrentPass] = useState('');
   const [newPass, setNewPass] = useState('');
@@ -129,7 +162,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
   // Confirmation modal for deleting or resetting
   const [deleteConfirm, setDeleteConfirm] = useState<{
-    type: 'product' | 'upcoming' | 'delivered' | 'reset';
+    type: 'product' | 'upcoming' | 'delivered' | 'brand' | 'reset';
     id?: string;
     title: string;
   } | null>(null);
@@ -228,6 +261,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         images: productForm.images?.length ? productForm.images : ['https://images.unsplash.com/photo-1547996160-81dfa63595aa?q=80&w=1200&auto=format&fit=crop'],
         availability: (productForm.availability as any) || 'In Stock',
         isNew: !!productForm.isNew,
+        isFeaturedInHero: !!productForm.isFeaturedInHero,
         isBestSeller: false,
         isLuxury: true,
         styles: ['Luxury', 'Dress', 'Sport'],
@@ -249,6 +283,93 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     saveStoredProducts(updated);
     showToast('Watch deleted from inventory');
     setDeleteConfirm(null);
+  };
+
+  // -------------------------------------------------------------
+  // HERO SLIDER CONTROLS
+  // -------------------------------------------------------------
+  const handleToggleHeroSlider = (id: string) => {
+    const updated = products.map((p) =>
+      p.id === id ? { ...p, isFeaturedInHero: !p.isFeaturedInHero } : p
+    );
+    onUpdateProducts(updated);
+    saveStoredProducts(updated);
+    const target = updated.find((p) => p.id === id);
+    if (target?.isFeaturedInHero) {
+      showToast(`Added ${target.model} to Homepage Hero Slider`);
+    } else {
+      showToast(`Removed ${target?.model} from Hero Slider`);
+    }
+  };
+
+  // -------------------------------------------------------------
+  // BRAND MARQUEE CONTROLS
+  // -------------------------------------------------------------
+  const handleOpenAddBrand = () => {
+    setEditingBrand(null);
+    setBrandForm({
+      name: '',
+      logo: '',
+      font: 'font-serif',
+      color: '#e6ca85'
+    });
+    setIsBrandModalOpen(true);
+  };
+
+  const handleOpenEditBrand = (b: AuthorizedBrand) => {
+    setEditingBrand(b);
+    setBrandForm({ ...b });
+    setIsBrandModalOpen(true);
+  };
+
+  const handleSaveBrand = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!brandForm.name?.trim()) {
+      alert('Please enter a Brand Name.');
+      return;
+    }
+
+    if (editingBrand) {
+      const updated = brands.map((b) =>
+        b.id === editingBrand.id
+          ? ({ ...b, ...brandForm, name: brandForm.name!.trim(), logo: brandForm.logo?.trim() || undefined } as AuthorizedBrand)
+          : b
+      );
+      onUpdateBrands(updated);
+      saveStoredBrands(updated);
+      showToast(`Updated brand ${brandForm.name}`);
+    } else {
+      const newBrand: AuthorizedBrand = {
+        id: `brand_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
+        name: brandForm.name.trim(),
+        logo: brandForm.logo?.trim() || undefined,
+        font: brandForm.font || 'font-serif',
+        color: brandForm.color || '#e6ca85'
+      };
+      const updated = [...brands, newBrand];
+      onUpdateBrands(updated);
+      saveStoredBrands(updated);
+      showToast(`Added brand ${newBrand.name} to Marquee`);
+    }
+    setIsBrandModalOpen(false);
+  };
+
+  const handleDeleteBrand = (id: string) => {
+    const updated = brands.filter((b) => b.id !== id);
+    onUpdateBrands(updated);
+    saveStoredBrands(updated);
+    showToast('Brand removed from Marquee');
+    setDeleteConfirm(null);
+  };
+
+  // -------------------------------------------------------------
+  // CONTACT & CONCIERGE SETTINGS
+  // -------------------------------------------------------------
+  const handleSaveContact = (e: React.FormEvent) => {
+    e.preventDefault();
+    onUpdateSiteInfo(contactForm);
+    saveStoredSiteInfo(contactForm);
+    showToast('Contact and business concierge settings updated!');
   };
 
   // -------------------------------------------------------------
@@ -448,6 +569,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       products,
       upcomingWatches,
       deliveredWatches,
+      brands,
+      siteInfo,
       exportDate: new Date().toISOString()
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -487,8 +610,16 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           onUpdateDelivered(parsed.deliveredWatches);
           saveStoredDelivered(parsed.deliveredWatches);
         }
+        if (parsed.brands && Array.isArray(parsed.brands)) {
+          onUpdateBrands(parsed.brands);
+          saveStoredBrands(parsed.brands);
+        }
+        if (parsed.siteInfo && typeof parsed.siteInfo === 'object') {
+          onUpdateSiteInfo(parsed.siteInfo);
+          saveStoredSiteInfo(parsed.siteInfo);
+        }
 
-        showToast('Catalog successfully imported and restored!');
+        showToast('Catalog, brands, and contact settings successfully restored!');
       } catch (err) {
         console.error(err);
         alert('Invalid JSON file format. Please check the backup file.');
@@ -636,21 +767,47 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       <div className="flex flex-wrap items-center gap-2 border-b border-white/10 pb-4">
         <button
           onClick={() => setActiveTab('products')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${activeTab === 'products'
+          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
+            activeTab === 'products'
               ? 'bg-[#c5a059] text-black shadow-md'
               : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-white/5'
-            }`}
+          }`}
         >
           <Package className="w-4 h-4" />
           <span>New Arrivals ({products.length})</span>
         </button>
 
         <button
-          onClick={() => setActiveTab('upcoming')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${activeTab === 'upcoming'
+          onClick={() => setActiveTab('slider')}
+          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
+            activeTab === 'slider'
               ? 'bg-[#c5a059] text-black shadow-md'
               : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-white/5'
-            }`}
+          }`}
+        >
+          <Sliders className="w-4 h-4" />
+          <span>Hero Slider ({products.filter((p) => p.isFeaturedInHero).length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('brands')}
+          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
+            activeTab === 'brands'
+              ? 'bg-[#c5a059] text-black shadow-md'
+              : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-white/5'
+          }`}
+        >
+          <Sparkles className="w-4 h-4" />
+          <span>Brand Marquee ({brands.length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('upcoming')}
+          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
+            activeTab === 'upcoming'
+              ? 'bg-[#c5a059] text-black shadow-md'
+              : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-white/5'
+          }`}
         >
           <Plane className="w-4 h-4" />
           <span>Upcoming Watches ({upcomingWatches.length})</span>
@@ -658,21 +815,35 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
         <button
           onClick={() => setActiveTab('delivered')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${activeTab === 'delivered'
+          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
+            activeTab === 'delivered'
               ? 'bg-[#c5a059] text-black shadow-md'
               : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-white/5'
-            }`}
+          }`}
         >
           <CheckCircle className="w-4 h-4" />
           <span>Delivered Archive ({deliveredWatches.length})</span>
         </button>
 
         <button
-          onClick={() => setActiveTab('security')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${activeTab === 'security'
+          onClick={() => setActiveTab('contact')}
+          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
+            activeTab === 'contact'
               ? 'bg-[#c5a059] text-black shadow-md'
               : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-white/5'
-            }`}
+          }`}
+        >
+          <Phone className="w-4 h-4" />
+          <span>Contact & Concierge</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('security')}
+          className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
+            activeTab === 'security'
+              ? 'bg-[#c5a059] text-black shadow-md'
+              : 'bg-white/5 text-slate-300 hover:bg-white/10 border border-white/5'
+          }`}
         >
           <Key className="w-4 h-4" />
           <span>Security & Backup</span>
@@ -1107,6 +1278,442 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       )}
 
       {/* ------------------------------------------------------ */}
+      {/* TAB: HERO SLIDER MANAGEMENT */}
+      {/* ------------------------------------------------------ */}
+      {activeTab === 'slider' && (
+        <div className="space-y-6">
+          <div className="rounded-2xl border border-[#c5a059]/30 bg-gradient-to-r from-[#141824] via-[#0d1017] to-[#141824] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
+            <div className="space-y-2 max-w-2xl">
+              <div className="flex items-center gap-2 text-xs font-mono text-[#e6ca85]">
+                <Sliders className="w-4 h-4 text-[#c5a059]" />
+                <span>Storefront 5-Second Carousel Showcase</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-serif-luxury font-bold text-white">
+                Homepage Hero Slider Controls
+              </h2>
+              <p className="text-xs text-slate-300 leading-relaxed font-light">
+                Select which luxury timepieces appear in the rotating 5-second hero carousel on the public homepage. Toggle any watch on or off with a single click. If no watches are selected, the storefront will display the first 3 catalog items by default.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-center">
+                <span className="block text-[11px] font-mono text-slate-400">Featured in Slider</span>
+                <span className="text-xl font-bold font-mono text-[#e6ca85]">
+                  {products.filter((p) => p.isFeaturedInHero).length} <span className="text-xs font-normal text-slate-400">pieces</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Currently Active in Slider */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#c5a059]" />
+                <span>Currently Active in Hero Carousel</span>
+              </h3>
+              <span className="text-xs text-slate-400">
+                Rotates every 5 seconds on the public storefront
+              </span>
+            </div>
+
+            {products.filter((p) => p.isFeaturedInHero).length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-white/15 bg-white/[0.02] p-8 text-center text-xs text-slate-400">
+                No watches are currently marked for the Hero Slider. (The homepage is currently displaying the first 3 inventory items as fallback). Click <strong>"Add to Hero Slider"</strong> on any timepiece below to feature it.
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {products
+                  .filter((p) => p.isFeaturedInHero)
+                  .map((watch) => (
+                    <div
+                      key={watch.id}
+                      className="rounded-2xl border border-[#c5a059]/40 bg-[#0d1017] p-4 flex flex-col justify-between space-y-3 shadow-lg relative group"
+                    >
+                      <div className="space-y-3">
+                        <div className="relative aspect-square rounded-xl overflow-hidden bg-black border border-white/10">
+                          <img
+                            src={watch.images[0]}
+                            alt={watch.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            referrerPolicy="no-referrer"
+                          />
+                          <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-[#c5a059] text-black font-bold font-mono text-[9px] uppercase tracking-wider shadow">
+                            Active in Hero
+                          </span>
+                        </div>
+
+                        <div>
+                          <span className="text-[10px] font-mono text-[#c5a059] uppercase tracking-wider block">
+                            {watch.brandName}
+                          </span>
+                          <h4 className="text-xs font-bold text-white truncate">{watch.model}</h4>
+                          <p className="text-[11px] font-mono text-slate-400 truncate">{watch.reference}</p>
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={() => handleToggleHeroSlider(watch.id)}
+                        className="w-full py-2 rounded-xl bg-red-950/40 hover:bg-red-900/60 border border-red-500/30 text-red-300 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                        <span>Remove from Slider</span>
+                      </button>
+                    </div>
+                  ))}
+              </div>
+            )}
+          </div>
+
+          {/* Catalog selector table */}
+          <div className="space-y-4 pt-4 border-t border-white/10">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+              <div>
+                <h3 className="text-sm font-semibold text-white">Full Catalog Picker</h3>
+                <p className="text-xs text-slate-400">Toggle any timepiece to include or exclude it from the Hero Slider.</p>
+              </div>
+
+              <div className="relative flex-1 max-w-sm">
+                <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Filter by brand or model..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#c5a059]"
+                />
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-[#0c0f16] overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs text-slate-300">
+                  <thead className="bg-black/40 text-[11px] font-mono uppercase text-slate-400 border-b border-white/10">
+                    <tr>
+                      <th className="py-3 px-4">Watch</th>
+                      <th className="py-3 px-4">Reference</th>
+                      <th className="py-3 px-4">Hero Status</th>
+                      <th className="py-3 px-4 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/5">
+                    {filteredProducts.map((p) => {
+                      const isFeatured = !!p.isFeaturedInHero;
+                      return (
+                        <tr key={p.id} className="hover:bg-white/[0.02] transition-colors">
+                          <td className="py-3 px-4">
+                            <div className="flex items-center gap-3">
+                              <img
+                                src={p.images[0]}
+                                alt={p.name}
+                                className="w-10 h-10 rounded-lg object-cover bg-black border border-white/10 shrink-0"
+                                referrerPolicy="no-referrer"
+                              />
+                              <div>
+                                <span className="font-mono text-[10px] text-[#c5a059] block uppercase">
+                                  {p.brandName}
+                                </span>
+                                <span className="font-bold text-white text-xs">{p.model}</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-3 px-4 font-mono text-slate-400">{p.reference}</td>
+                          <td className="py-3 px-4">
+                            {isFeatured ? (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#c5a059]/20 text-[#e6ca85] border border-[#c5a059]/40 font-mono text-[10px] font-bold">
+                                <Check className="w-3 h-3 text-[#c5a059]" /> In Hero Slider
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-white/5 text-slate-400 font-mono text-[10px]">
+                                Not in Slider
+                              </span>
+                            )}
+                          </td>
+                          <td className="py-3 px-4 text-right">
+                            <button
+                              onClick={() => handleToggleHeroSlider(p.id)}
+                              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                                isFeatured
+                                  ? 'bg-red-950/40 hover:bg-red-900/60 text-red-300 border border-red-500/30'
+                                  : 'bg-[#c5a059]/15 hover:bg-[#c5a059]/25 text-[#e6ca85] border border-[#c5a059]/40'
+                              }`}
+                            >
+                              {isFeatured ? 'Remove' : '+ Add to Slider'}
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ------------------------------------------------------ */}
+      {/* TAB: BRAND MARQUEE MANAGEMENT */}
+      {/* ------------------------------------------------------ */}
+      {activeTab === 'brands' && (
+        <div className="space-y-6">
+          <div className="rounded-2xl border border-white/10 bg-[#0d1017] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+            <div className="space-y-1.5 max-w-2xl">
+              <div className="flex items-center gap-2 text-xs font-mono text-[#e6ca85]">
+                <Sparkles className="w-4 h-4 text-[#c5a059]" />
+                <span>Homepage Section 2 Showcase</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-serif-luxury font-bold text-white">
+                Authorized Luxury Brands Marquee
+              </h2>
+              <p className="text-xs text-slate-300 leading-relaxed font-light">
+                Manage the luxury brand items that smoothly scroll across Section 2 of your storefront homepage. Brands can display an official transparent image logo URL or an elegant luxury typographic title.
+              </p>
+            </div>
+
+            <button
+              onClick={handleOpenAddBrand}
+              className="px-5 py-3 rounded-xl bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] text-black text-xs font-bold flex items-center gap-2 hover:brightness-110 shadow-lg shrink-0"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Add New Brand</span>
+            </button>
+          </div>
+
+          {/* Brand Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {brands.map((brand) => (
+              <div
+                key={brand.id}
+                className="rounded-2xl border border-white/10 bg-[#0c0f16] p-5 flex flex-col justify-between space-y-4 hover:border-[#c5a059]/40 transition-colors shadow-lg"
+              >
+                <div className="space-y-3">
+                  {/* Brand Display Preview Box */}
+                  <div className="h-24 rounded-xl bg-black/60 border border-white/5 flex items-center justify-center p-3 relative overflow-hidden">
+                    {brand.logo ? (
+                      <img
+                        src={brand.logo}
+                        alt={brand.name}
+                        className="max-h-12 max-w-[130px] object-contain drop-shadow"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <span
+                        className={`${brand.font || 'font-serif'} text-lg font-bold tracking-widest text-center`}
+                        style={{ color: brand.color || '#e6ca85' }}
+                      >
+                        {brand.name}
+                      </span>
+                    )}
+
+                    <span className="absolute top-1.5 right-1.5 px-2 py-0.5 rounded text-[9px] font-mono bg-white/5 border border-white/10 text-slate-400">
+                      {brand.logo ? 'Logo Image' : 'Typography Text'}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-bold text-white">{brand.name}</h3>
+                    <p className="text-[11px] font-mono text-slate-400 truncate">
+                      {brand.logo ? `Image: ${brand.logo}` : `Font: ${brand.font || 'font-serif'} • Color: ${brand.color || '#e6ca85'}`}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-white/10 flex items-center justify-end gap-2">
+                  <button
+                    onClick={() => handleOpenEditBrand(brand)}
+                    className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/5 transition-colors"
+                    title="Edit Brand"
+                  >
+                    <Pencil className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={() =>
+                      setDeleteConfirm({
+                        type: 'brand',
+                        id: brand.id,
+                        title: brand.name
+                      })
+                    }
+                    className="p-2 rounded-lg bg-red-950/40 hover:bg-red-900/60 text-red-300 border border-red-500/30 transition-colors"
+                    title="Delete Brand"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ------------------------------------------------------ */}
+      {/* TAB: CONTACT & CONCIERGE SETTINGS */}
+      {/* ------------------------------------------------------ */}
+      {activeTab === 'contact' && (
+        <div className="space-y-6">
+          <div className="rounded-2xl border border-white/10 bg-[#0d1017] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+            <div className="space-y-1.5 max-w-2xl">
+              <div className="flex items-center gap-2 text-xs font-mono text-[#e6ca85]">
+                <Phone className="w-4 h-4 text-[#c5a059]" />
+                <span>Omnichannel Business Directory</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-serif-luxury font-bold text-white">
+                Contact & Concierge Information
+              </h2>
+              <p className="text-xs text-slate-300 leading-relaxed font-light">
+                Update the official helpline numbers, WhatsApp direct chat target, boutique physical addresses, and concierge email. All storefront cards, footers, headers, and WhatsApp inquiry buttons will immediately reflect these settings.
+              </p>
+            </div>
+          </div>
+
+          <form onSubmit={handleSaveContact} className="rounded-2xl border border-white/10 bg-[#0c0f16] p-6 sm:p-8 space-y-6 shadow-xl text-xs">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+              {/* Phone */}
+              <div className="space-y-2">
+                <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5 text-[#c5a059]" />
+                  <span>Direct Helpline Phone Number</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={contactForm.phone || ''}
+                  onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
+                  placeholder="+65 8925 5447"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                />
+                <p className="text-[11px] text-slate-400">
+                  Displayed in the top navigation bar, footer helpline, and contact sections.
+                </p>
+              </div>
+
+              {/* WhatsApp */}
+              <div className="space-y-2">
+                <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                  <span className="text-emerald-400 font-bold">WA</span>
+                  <span>WhatsApp Number (For Direct Messaging)</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={contactForm.whatsappNumber || ''}
+                  onChange={(e) => setContactForm({ ...contactForm, whatsappNumber: e.target.value })}
+                  placeholder="6589255447 (Numbers only with country code, e.g. 6589255447)"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                />
+                <p className="text-[11px] text-emerald-400/80">
+                  Used by all WhatsApp buttons ("Inquire on WhatsApp", "Price on Request", Floating Desk) across every watch card.
+                </p>
+              </div>
+
+              {/* Email */}
+              <div className="space-y-2">
+                <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                  <Mail className="w-3.5 h-3.5 text-[#c5a059]" />
+                  <span>Official Concierge Email Address</span>
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={contactForm.email || ''}
+                  onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                  placeholder="concierge@goodtime-sg.com"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                />
+                <p className="text-[11px] text-slate-400">
+                  Displayed in footer and consultation dispatch forms.
+                </p>
+              </div>
+
+              {/* Opening Hours */}
+              <div className="space-y-2">
+                <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-[#c5a059]" />
+                  <span>Operating & Appointment Hours</span>
+                </label>
+                <input
+                  type="text"
+                  value={contactForm.openingHours || ''}
+                  onChange={(e) => setContactForm({ ...contactForm, openingHours: e.target.value })}
+                  placeholder="Mon - Sun: 11:00 AM - 8:00 PM (By Appointment)"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                />
+              </div>
+
+              {/* Primary Address */}
+              <div className="space-y-2 md:col-span-2">
+                <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-[#c5a059]" />
+                  <span>Primary Boutique Location / Address (Singapore HQ)</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={contactForm.address || ''}
+                  onChange={(e) => setContactForm({ ...contactForm, address: e.target.value })}
+                  placeholder="High Street Centre, 1 North Bridge Road, Singapore 179094"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                />
+              </div>
+
+              {/* Secondary Address */}
+              <div className="space-y-2 md:col-span-2">
+                <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Secondary Location / Regional Concierge Hub</span>
+                </label>
+                <input
+                  type="text"
+                  value={contactForm.secondaryAddress || ''}
+                  onChange={(e) => setContactForm({ ...contactForm, secondaryAddress: e.target.value })}
+                  placeholder="Gulshan-2, Dhaka, Bangladesh"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                />
+              </div>
+
+              {/* Instagram */}
+              <div className="space-y-2">
+                <label className="font-mono text-slate-200">Instagram Handle / URL</label>
+                <input
+                  type="text"
+                  value={contactForm.instagram || ''}
+                  onChange={(e) => setContactForm({ ...contactForm, instagram: e.target.value })}
+                  placeholder="https://instagram.com/goodtime_watch_sg"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                />
+              </div>
+
+              {/* Facebook */}
+              <div className="space-y-2">
+                <label className="font-mono text-slate-200">Facebook Page URL</label>
+                <input
+                  type="text"
+                  value={contactForm.facebook || ''}
+                  onChange={(e) => setContactForm({ ...contactForm, facebook: e.target.value })}
+                  placeholder="https://facebook.com/goodtimewatchsg"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                />
+              </div>
+
+            </div>
+
+            <div className="pt-6 border-t border-white/10 flex items-center justify-end gap-3">
+              <button
+                type="submit"
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] text-black text-xs font-bold hover:brightness-110 shadow-lg flex items-center gap-2"
+              >
+                <Check className="w-4 h-4" />
+                <span>Save Contact & Concierge Information</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* ------------------------------------------------------ */}
       {/* MODAL: ADD / EDIT PRODUCT */}
       {/* ------------------------------------------------------ */}
       {isProductModalOpen && (
@@ -1298,6 +1905,19 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     Mark as "New Arrival" Badge
                   </label>
                 </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-[#c5a059]/10 border border-[#c5a059]/30 flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  id="isFeaturedInHeroCheck"
+                  checked={!!productForm.isFeaturedInHero}
+                  onChange={(e) => setProductForm({ ...productForm, isFeaturedInHero: e.target.checked })}
+                  className="w-4 h-4 rounded text-[#c5a059] focus:ring-0 bg-black border-white/20"
+                />
+                <label htmlFor="isFeaturedInHeroCheck" className="font-mono text-slate-200 cursor-pointer text-xs">
+                  Feature in Homepage Hero Slider (5-second auto-rotating showcase)
+                </label>
               </div>
 
               <div className="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
@@ -1683,6 +2303,146 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       )}
 
       {/* ------------------------------------------------------ */}
+      {/* MODAL: ADD / EDIT AUTHORIZED BRAND */}
+      {/* ------------------------------------------------------ */}
+      {isBrandModalOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col p-4 py-12 md:py-4 overflow-y-auto"
+          onClick={() => setIsBrandModalOpen(false)}
+        >
+          <div
+            className="max-w-xl w-full rounded-3xl bg-[#0e111a] border border-white/15 p-6 sm:p-8 space-y-6 max-h-[85vh] overflow-y-auto m-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div>
+                <h2 className="text-xl font-serif-luxury font-bold text-white">
+                  {editingBrand ? 'Edit Authorized Brand' : 'Add Brand to Marquee'}
+                </h2>
+                <p className="text-xs text-slate-400">
+                  Provide an official image logo URL or choose luxury typography to display the brand name.
+                </p>
+              </div>
+              <button
+                onClick={() => setIsBrandModalOpen(false)}
+                className="p-2 rounded-full hover:bg-white/10 text-slate-400 hover:text-white"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Live Preview Box */}
+            <div className="space-y-1.5">
+              <label className="text-[11px] font-mono text-slate-400 block uppercase">
+                Marquee Live Appearance Preview
+              </label>
+              <div className="h-24 rounded-2xl bg-black/60 border border-[#c5a059]/30 flex items-center justify-center p-4">
+                {brandForm.logo ? (
+                  <img
+                    src={brandForm.logo}
+                    alt={brandForm.name || 'Brand Logo'}
+                    className="max-h-12 max-w-[160px] object-contain drop-shadow"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <span
+                    className={`${brandForm.font || 'font-serif'} text-2xl font-bold tracking-widest text-center`}
+                    style={{ color: brandForm.color || '#e6ca85' }}
+                  >
+                    {brandForm.name || 'BRAND NAME'}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <form onSubmit={handleSaveBrand} className="space-y-4 text-xs">
+              <div className="space-y-1">
+                <label className="font-mono text-slate-300">Brand Name</label>
+                <input
+                  type="text"
+                  required
+                  value={brandForm.name || ''}
+                  onChange={(e) => setBrandForm({ ...brandForm, name: e.target.value })}
+                  placeholder="e.g. Rolex, Patek Philippe, Audemars Piguet, Cartier"
+                  className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="font-mono text-slate-300 flex items-center justify-between">
+                  <span>Image Logo URL (Optional)</span>
+                  <span className="text-[10px] text-slate-400">Leave empty to use luxury typography text</span>
+                </label>
+                <input
+                  type="url"
+                  value={brandForm.logo || ''}
+                  onChange={(e) => setBrandForm({ ...brandForm, logo: e.target.value })}
+                  placeholder="https://... (SVG or PNG logo with transparent background)"
+                  className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                />
+              </div>
+
+              {/* Typography options if no image logo is supplied */}
+              {!brandForm.logo && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/10">
+                  <div className="space-y-1">
+                    <label className="font-mono text-slate-300">Font Family Style</label>
+                    <select
+                      value={brandForm.font || 'font-serif'}
+                      onChange={(e) => setBrandForm({ ...brandForm, font: e.target.value })}
+                      className="w-full px-3 py-2 rounded-xl bg-black border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                    >
+                      <option value="font-serif">Serif Luxury (Classic Swiss)</option>
+                      <option value="font-sans font-black tracking-widest uppercase">Sans-Serif Bold (Modern)</option>
+                      <option value="font-mono uppercase tracking-widest">Monospace (Technical / Avant-Garde)</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="font-mono text-slate-300">Brand Color Accent</label>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="color"
+                        value={brandForm.color || '#e6ca85'}
+                        onChange={(e) => setBrandForm({ ...brandForm, color: e.target.value })}
+                        className="w-8 h-8 rounded-lg bg-transparent border-0 cursor-pointer"
+                      />
+                      <input
+                        type="text"
+                        value={brandForm.color || '#e6ca85'}
+                        onChange={(e) => setBrandForm({ ...brandForm, color: e.target.value })}
+                        placeholder="#e6ca85"
+                        className="flex-1 px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none font-mono"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsBrandModalOpen(false)}
+                  className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 rounded-xl bg-[#c5a059] text-black text-xs font-bold hover:brightness-110 shadow-md"
+                >
+                  {editingBrand ? 'Save Brand Changes' : 'Add to Marquee'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ------------------------------------------------------ */}
       {/* CONFIRMATION DIALOG FOR DELETE OR RESET */}
       {/* ------------------------------------------------------ */}
       {deleteConfirm && (
@@ -1715,6 +2475,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     handleDeleteUpcoming(deleteConfirm.id);
                   } else if (deleteConfirm.type === 'delivered' && deleteConfirm.id) {
                     handleDeleteDelivered(deleteConfirm.id);
+                  } else if (deleteConfirm.type === 'brand' && deleteConfirm.id) {
+                    handleDeleteBrand(deleteConfirm.id);
                   } else if (deleteConfirm.type === 'reset') {
                     handleResetCatalog();
                   }

@@ -1,8 +1,13 @@
 import { WatchProduct, UpcomingWatch } from '../types';
 import { SITE_INFO } from '../data/goodtime';
+import { getStoredSiteInfo } from './storage';
+
+const getActiveWhatsAppNumber = (): string => {
+  return getStoredSiteInfo().whatsappNumber || SITE_INFO.whatsappNumber;
+};
 
 export const generateProductWhatsAppLink = (product: WatchProduct): string => {
-  const number = SITE_INFO.whatsappNumber;
+  const number = getActiveWhatsAppNumber();
   
   const text = `Hello Goodtime Watch SG,\n\nI am interested in enquiring about this timepiece from your collection:\n\n` +
     `• Brand: ${product.brandName}\n` +
@@ -17,7 +22,7 @@ export const generateProductWhatsAppLink = (product: WatchProduct): string => {
 };
 
 export const generateUpcomingWhatsAppLink = (upcoming: UpcomingWatch): string => {
-  const number = SITE_INFO.whatsappNumber;
+  const number = getActiveWhatsAppNumber();
 
   const text = `Hello Goodtime Watch SG,\n\nI would like to pre-book / enquire about this Upcoming timepiece:\n\n` +
     `• Brand: ${upcoming.brand}\n` +
@@ -36,7 +41,7 @@ export const generateSellExchangeWhatsAppLink = (details?: {
   hasBoxPapers?: string;
   inquiryType?: 'Sell' | 'Exchange';
 }): string => {
-  const number = SITE_INFO.whatsappNumber;
+  const number = getActiveWhatsAppNumber();
 
   let text = `Hello Goodtime Watch SG,\n\nI would like to enquire about your ${details?.inquiryType || 'Sell & Exchange'} service.\n\n`;
   if (details?.brand || details?.model) {
@@ -51,7 +56,7 @@ export const generateSellExchangeWhatsAppLink = (details?: {
 };
 
 export const generateGeneralWhatsAppLink = (): string => {
-  const number = SITE_INFO.whatsappNumber;
+  const number = getActiveWhatsAppNumber();
   const text = `Hello Goodtime Watch SG,\n\nI would like to enquire about your timepiece collection and services in Bangladesh.`;
   return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
 };

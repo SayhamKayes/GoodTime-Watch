@@ -1,12 +1,14 @@
-import { WatchProduct, UpcomingWatch, DeliveredWatch } from '../types';
-import { ALL_PRODUCTS, UPCOMING_WATCHES, DELIVERED_WATCHES } from '../data/goodtime';
+import { WatchProduct, UpcomingWatch, DeliveredWatch, AuthorizedBrand, SiteInfo } from '../types';
+import { ALL_PRODUCTS, UPCOMING_WATCHES, DELIVERED_WATCHES, DEFAULT_BRANDS, SITE_INFO } from '../data/goodtime';
 
 const PRODUCTS_KEY = 'goodtime_products_catalog';
 const UPCOMING_KEY = 'goodtime_upcoming_catalog';
 const DELIVERED_KEY = 'goodtime_delivered_catalog';
+const BRANDS_KEY = 'goodtime_brands_catalog';
+const SITE_INFO_KEY = 'goodtime_site_info';
 const ADMIN_AUTH_KEY = 'goodtime_admin_auth_token';
 const CATALOG_VERSION_KEY = 'goodtime_catalog_version';
-const CURRENT_CATALOG_VERSION = '2026_09_v2_live_sync';
+const CURRENT_CATALOG_VERSION = '2026_09_v3_brand_slider_contact';
 
 // Sync catalog with latest version if version differs
 export const syncCatalogWithLatestVersion = (): void => {
@@ -16,6 +18,8 @@ export const syncCatalogWithLatestVersion = (): void => {
       localStorage.setItem(PRODUCTS_KEY, JSON.stringify(ALL_PRODUCTS));
       localStorage.setItem(UPCOMING_KEY, JSON.stringify(UPCOMING_WATCHES));
       localStorage.setItem(DELIVERED_KEY, JSON.stringify(DELIVERED_WATCHES));
+      localStorage.setItem(BRANDS_KEY, JSON.stringify(DEFAULT_BRANDS));
+      localStorage.setItem(SITE_INFO_KEY, JSON.stringify(SITE_INFO));
       localStorage.setItem(CATALOG_VERSION_KEY, CURRENT_CATALOG_VERSION);
     }
   } catch (e) {
@@ -157,12 +161,66 @@ export const saveStoredDelivered = (delivered: DeliveredWatch[]): void => {
   }
 };
 
+// Load authorized brands or fallback
+export const getStoredBrands = (): AuthorizedBrand[] => {
+  syncCatalogWithLatestVersion();
+  try {
+    const data = localStorage.getItem(BRANDS_KEY);
+    if (data) {
+      const parsed = JSON.parse(data);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.error('Error loading stored brands:', e);
+  }
+  return DEFAULT_BRANDS;
+};
+
+export const saveStoredBrands = (brands: AuthorizedBrand[]): void => {
+  try {
+    localStorage.setItem(BRANDS_KEY, JSON.stringify(brands));
+  } catch (e) {
+    console.error('Error saving brands:', e);
+  }
+};
+
+// Load site info / contact info or fallback
+export const getStoredSiteInfo = (): SiteInfo => {
+  syncCatalogWithLatestVersion();
+  try {
+    const data = localStorage.getItem(SITE_INFO_KEY);
+    if (data) {
+      const parsed = JSON.parse(data);
+      if (parsed && typeof parsed === 'object') {
+        return { ...SITE_INFO, ...parsed };
+      }
+    }
+  } catch (e) {
+    console.error('Error loading stored site info:', e);
+  }
+  return SITE_INFO;
+};
+
+export const saveStoredSiteInfo = (info: SiteInfo): void => {
+  try {
+    localStorage.setItem(SITE_INFO_KEY, JSON.stringify(info));
+  } catch (e) {
+    console.error('Error saving site info:', e);
+  }
+};
+
 // Reset all to defaults
 export const resetAllCatalogData = (): void => {
   try {
     localStorage.removeItem(PRODUCTS_KEY);
     localStorage.removeItem(UPCOMING_KEY);
     localStorage.removeItem(DELIVERED_KEY);
+    localStorage.removeItem(BRANDS_KEY);
+    localStorage.removeItem(SITE_INFO_KEY);
+    localStorage.removeItem(CATALOG_VERSION_KEY);
+    syncCatalogWithLatestVersion();
   } catch (e) {
     console.error('Error resetting catalog:', e);
   }

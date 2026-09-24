@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { WatchProduct, UpcomingWatch, DeliveredWatch, NavigationTab } from '../types';
-import { SITE_INFO } from '../data/goodtime';
+import { WatchProduct, UpcomingWatch, DeliveredWatch, NavigationTab, AuthorizedBrand, SiteInfo } from '../types';
+import { SITE_INFO as DEFAULT_SITE_INFO } from '../data/goodtime';
 import { generateProductWhatsAppLink, generateUpcomingWhatsAppLink } from '../utils/whatsapp';
 import {
   ChevronLeft,
@@ -33,6 +33,8 @@ interface FrontPageProps {
   products: WatchProduct[];
   upcomingWatches: UpcomingWatch[];
   deliveredWatches: DeliveredWatch[];
+  brands?: AuthorizedBrand[];
+  siteInfo?: SiteInfo;
   onSelectProduct: (product: WatchProduct) => void;
   onOpen360?: (product: WatchProduct) => void;
   onNavigateTab: (tab: NavigationTab) => void;
@@ -92,13 +94,6 @@ const HERO_SLIDES: HeroSlide[] = [
   }
 ];
 
-interface AuthorizedBrand {
-  name: string;
-  font?: string;
-  color?: string;
-  logo?: string;
-}
-
 const AUTHORIZED_BRANDS: AuthorizedBrand[] = [
   { name: 'ROLEX', font: 'font-serif', color: 'group-hover:text-[#006039]' },
   { name: 'OMEGA', font: 'font-sans tracking-widest', color: 'group-hover:text-[#c40018]' },
@@ -122,13 +117,19 @@ export const FrontPage: React.FC<FrontPageProps> = ({
   products,
   upcomingWatches,
   deliveredWatches,
+  brands,
+  siteInfo,
   onSelectProduct,
   onOpen360,
   onNavigateTab
 }) => {
+  const currentSiteInfo = siteInfo || DEFAULT_SITE_INFO;
+  const currentBrands = (brands && brands.length > 0) ? brands : AUTHORIZED_BRANDS;
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const heroProducts = products.slice(0, 3);
+  // Filter products specifically marked for hero slider; fallback to first 3 products if none marked
+  const featured = products.filter((p) => p.isFeaturedInHero);
+  const heroProducts = featured.length > 0 ? featured : products.slice(0, 3);
 
   // Auto-advance hero slider every 5 seconds ALWAYS
   useEffect(() => {
@@ -290,7 +291,7 @@ export const FrontPage: React.FC<FrontPageProps> = ({
           <div className="flex w-max animate-logo-scroll items-center">
             {[0, 1, 2, 3].map((setIdx) => (
               <div key={setIdx} className="flex items-center gap-4 sm:gap-6 px-2 sm:px-3">
-                {AUTHORIZED_BRANDS.map((brand, i) => (
+                {currentBrands.map((brand, i) => (
                   <div
                     key={`${setIdx}-${i}`}
                     className="brand-card group flex flex-col items-center justify-center w-40 h-28 sm:w-48 sm:h-32 rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.08] to-transparent backdrop-blur-md hover:border-[#c5a059]/40 hover:bg-[#c5a059]/5 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-[0_8px_30px_rgba(197,160,89,0.15)] px-4"
@@ -363,7 +364,7 @@ export const FrontPage: React.FC<FrontPageProps> = ({
                 <ArrowRight className="w-4 h-4" />
               </button>
               <p className="text-[11px] font-mono text-slate-400">
-                Official Helpline: {SITE_INFO.phoneDisplay}
+                Official Helpline: {currentSiteInfo.phoneDisplay}
               </p>
             </div>
           </div>
@@ -799,7 +800,7 @@ export const FrontPage: React.FC<FrontPageProps> = ({
                   <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-3">
                     <span className="text-[11px] text-slate-400 font-light">Looking for similar?</span>
                     <a
-                      href={`https://wa.me/${SITE_INFO.whatsappNumber}?text=${encodeURIComponent(
+                      href={`https://wa.me/${currentSiteInfo.whatsappNumber}?text=${encodeURIComponent(
                         `Hello Goodtime Watch SG,\n\nI saw your delivered ${item.brand} ${item.model} (Ref: ${item.reference}) on your website and would like to inquire about sourcing another piece.`
                       )}`}
                       target="_blank"

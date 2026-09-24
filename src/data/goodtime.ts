@@ -1,4 +1,4 @@
-import { WatchProduct, UpcomingWatch, DeliveredWatch, SiteInfo } from "../types";
+import { WatchProduct, UpcomingWatch, DeliveredWatch, SiteInfo, AuthorizedBrand } from "../types";
 
 export const SITE_INFO: SiteInfo = {
   name: "Goodtime Watch SG",
@@ -35,6 +35,7 @@ export const ALL_PRODUCTS: WatchProduct[] = [
     isNew: true,
     isBestSeller: false,
     isLuxury: true,
+    isFeaturedInHero: true,
     styles: [
       "Luxury",
       "Dress",
@@ -70,6 +71,7 @@ export const ALL_PRODUCTS: WatchProduct[] = [
     isNew: true,
     isBestSeller: false,
     isLuxury: true,
+    isFeaturedInHero: true,
     styles: [
       "Luxury",
       "Dress",
@@ -105,6 +107,7 @@ export const ALL_PRODUCTS: WatchProduct[] = [
     isNew: true,
     isBestSeller: false,
     isLuxury: true,
+    isFeaturedInHero: true,
     styles: [
       "Luxury",
       "Dress",
@@ -442,4 +445,15 @@ export const DELIVERED_WATCHES: DeliveredWatch[] = [
     rating: 5,
     verifiedPurchase: true
   }
+];
+
+export const DEFAULT_BRANDS: AuthorizedBrand[] = [
+  { id: 'b-rolex', name: 'ROLEX', font: 'font-serif', color: 'group-hover:text-[#006039]' },
+  { id: 'b-omega', name: 'OMEGA', font: 'font-sans tracking-widest', color: 'group-hover:text-[#c40018]' },
+  { id: 'b-patek', name: 'PATEK PHILIPPE', font: 'font-serif tracking-[0.15em]', color: 'group-hover:text-[#c5a059]' },
+  { id: 'b-cartier', name: 'CARTIER', font: 'font-serif italic tracking-widest', color: 'group-hover:text-[#e4002b]' },
+  { id: 'b-ap', name: 'AUDEMARS PIGUET', font: 'font-serif tracking-[0.2em]', color: 'group-hover:text-[#c5a059]' },
+  { id: 'b-tudor', name: 'TUDOR', font: 'font-serif font-black tracking-widest', color: 'group-hover:text-[#e31837]' },
+  { id: 'b-iwc', name: 'IWC', font: 'font-serif font-bold tracking-widest', color: 'group-hover:text-[#c5a059]' },
+  { id: 'b-grand-seiko', name: 'GRAND SEIKO', font: 'font-serif font-bold tracking-wider', color: 'group-hover:text-[#003b82]' },
 ];

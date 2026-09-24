@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { SITE_INFO } from '../data/goodtime';
+import { SITE_INFO as DEFAULT_SITE_INFO } from '../data/goodtime';
+import { SiteInfo } from '../types';
 import { generateSellExchangeWhatsAppLink } from '../utils/whatsapp';
 import { RefreshCw, ArrowRightLeft, ShieldAlert, CheckCircle2, FileText, Camera, DollarSign, Clock, MessageCircle, AlertCircle } from 'lucide-react';
 
-export const SellExchangeSection: React.FC = () => {
+interface SellExchangeSectionProps {
+  siteInfo?: SiteInfo;
+}
+
+export const SellExchangeSection: React.FC<SellExchangeSectionProps> = ({ siteInfo }) => {
+  const currentSiteInfo = siteInfo || DEFAULT_SITE_INFO;
   const [inquiryType, setInquiryType] = useState<'Sell' | 'Exchange'>('Exchange');
   const [selectedBrand, setSelectedBrand] = useState<string>('Rolex');
   const [modelName, setModelName] = useState<string>('');
@@ -50,7 +56,7 @@ export const SellExchangeSection: React.FC = () => {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-semibold text-black bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] hover:brightness-110 shadow-lg transition-all"
             >
               <MessageCircle className="w-4 h-4 fill-black/20" />
-              <span>Submit Watch on WhatsApp: {SITE_INFO.phoneDisplay}</span>
+              <span>Submit Watch on WhatsApp: {currentSiteInfo.phoneDisplay}</span>
             </a>
           </div>
         </div>
@@ -353,7 +359,7 @@ export const SellExchangeSection: React.FC = () => {
             className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs font-semibold text-black bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] hover:brightness-110 shadow-lg flex items-center justify-center gap-2 transition-all active:scale-95"
           >
             <MessageCircle className="w-4 h-4 fill-black/20" />
-            <span>Send Details on WhatsApp ({SITE_INFO.phoneDisplay})</span>
+            <span>Send Details on WhatsApp ({currentSiteInfo.phoneDisplay})</span>
           </button>
         </div>
 

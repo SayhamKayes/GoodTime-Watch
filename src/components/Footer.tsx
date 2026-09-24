@@ -1,14 +1,16 @@
 import React from 'react';
-import { SITE_INFO } from '../data/goodtime';
-import { NavigationTab } from '../types';
+import { SITE_INFO as DEFAULT_SITE_INFO } from '../data/goodtime';
+import { NavigationTab, SiteInfo } from '../types';
 import { Phone, Mail, MessageCircle, MapPin, ShieldCheck, Lock, ArrowUpRight, Clock } from 'lucide-react';
 
 interface FooterProps {
   onSelectTab: (tab: NavigationTab) => void;
   onOpenAdmin: () => void;
+  siteInfo?: SiteInfo;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onSelectTab, onOpenAdmin }) => {
+export const Footer: React.FC<FooterProps> = ({ onSelectTab, onOpenAdmin, siteInfo }) => {
+  const currentSiteInfo = siteInfo || DEFAULT_SITE_INFO;
   return (
     <footer className="bg-[#080a0f] border-t-2 border-[#c5a059]/30 text-slate-300 text-xs relative z-20">
 
@@ -107,31 +109,31 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab, onOpenAdmin }) => {
             <ul className="space-y-3 text-xs">
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#c5a059] shrink-0" />
-                <a href={`tel:${SITE_INFO.phoneIntl}`} className="text-white hover:text-[#e6ca85] font-semibold transition-colors">
-                  {SITE_INFO.phoneDisplay}
+                <a href={`tel:${currentSiteInfo.phoneIntl}`} className="text-white hover:text-[#e6ca85] font-semibold transition-colors">
+                  {currentSiteInfo.phoneDisplay}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
                 <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0" />
                 <a
-                  href={SITE_INFO.whatsappLink}
+                  href={currentSiteInfo.whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#25D366] hover:underline font-semibold flex items-center gap-1"
                 >
-                  <span>WhatsApp: +{SITE_INFO.whatsappNumber}</span>
+                  <span>WhatsApp: +{currentSiteInfo.whatsappNumber}</span>
                   <ArrowUpRight className="w-3 h-3" />
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-[#c5a059] shrink-0" />
-                <a href={`mailto:${SITE_INFO.email}`} className="text-slate-300 hover:text-white transition-colors truncate">
-                  {SITE_INFO.email}
+                <a href={`mailto:${currentSiteInfo.email}`} className="text-slate-300 hover:text-white transition-colors truncate">
+                  {currentSiteInfo.email}
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#c5a059] shrink-0 mt-0.5" />
-                <span className="text-slate-300">{SITE_INFO.location}</span>
+                <span className="text-slate-300">{currentSiteInfo.location}</span>
               </li>
             </ul>
           </div>

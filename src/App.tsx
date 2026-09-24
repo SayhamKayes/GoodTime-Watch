@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { NavigationTab, WatchProduct, UpcomingWatch, DeliveredWatch } from './types';
+import { NavigationTab, WatchProduct, UpcomingWatch, DeliveredWatch, AuthorizedBrand, SiteInfo } from './types';
 import { SITE_INFO } from './data/goodtime';
-import { getStoredProducts, getStoredUpcoming, getStoredDelivered, autoMigrateUpcomingWatches } from './utils/storage';
+import { getStoredProducts, getStoredUpcoming, getStoredDelivered, getStoredBrands, getStoredSiteInfo, autoMigrateUpcomingWatches } from './utils/storage';
 import { Header } from './components/Header';
 import { FrontPage } from './components/FrontPage';
 import { AboutSection } from './components/AboutSection';
@@ -28,6 +28,8 @@ export default function App() {
   const [products, setProducts] = useState<WatchProduct[]>(initialData.products);
   const [upcomingWatches, setUpcomingWatches] = useState<UpcomingWatch[]>(initialData.upcoming);
   const [deliveredWatches, setDeliveredWatches] = useState<DeliveredWatch[]>(getStoredDelivered);
+  const [brands, setBrands] = useState<AuthorizedBrand[]>(getStoredBrands);
+  const [siteInfo, setSiteInfo] = useState<SiteInfo>(getStoredSiteInfo);
 
   // URL Hash router support (e.g. #new-arrival)
   useEffect(() => {
@@ -83,9 +85,13 @@ export default function App() {
             products={products}
             upcomingWatches={upcomingWatches}
             deliveredWatches={deliveredWatches}
+            brands={brands}
+            siteInfo={siteInfo}
             onUpdateProducts={setProducts}
             onUpdateUpcoming={setUpcomingWatches}
             onUpdateDelivered={setDeliveredWatches}
+            onUpdateBrands={setBrands}
+            onUpdateSiteInfo={setSiteInfo}
             onExitAdmin={() => { window.location.href = '/'; }}
           />
         </main>
@@ -103,6 +109,7 @@ export default function App() {
       <Header
         activeTab={activeTab}
         onSelectTab={handleSelectTab}
+        siteInfo={siteInfo}
       />
 
       {/* Main Content Area */}
@@ -114,6 +121,8 @@ export default function App() {
             products={products}
             upcomingWatches={upcomingWatches}
             deliveredWatches={deliveredWatches}
+            brands={brands}
+            siteInfo={siteInfo}
             onSelectProduct={(p) => setSelectedProduct(p)}
             onOpen360={(p) => setWatch360Product(p)}
             onNavigateTab={handleSelectTab}
@@ -122,7 +131,7 @@ export default function App() {
 
         {/* Render About Section */}
         {activeTab === 'about' && (
-          <AboutSection onNavigateTab={handleSelectTab} />
+          <AboutSection onNavigateTab={handleSelectTab} siteInfo={siteInfo} />
         )}
 
         {/* Render Full New Arrivals Catalog */}
@@ -141,12 +150,12 @@ export default function App() {
 
         {/* Render Full Sell & Exchange Concierge */}
         {activeTab === 'sell-exchange' && (
-          <SellExchangeSection />
+          <SellExchangeSection siteInfo={siteInfo} />
         )}
 
         {/* Render Full Successfully Delivered Archive */}
         {activeTab === 'delivered' && (
-          <SuccessfullyDeliveredSection deliveredWatches={deliveredWatches} />
+          <SuccessfullyDeliveredSection deliveredWatches={deliveredWatches} siteInfo={siteInfo} />
         )}
 
 
@@ -170,7 +179,7 @@ export default function App() {
       <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
         {/* Sticky WhatsApp Concierge Button */}
         <a
-          href={SITE_INFO.whatsappLink}
+          href={siteInfo.whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Direct WhatsApp Concierge"
@@ -194,7 +203,7 @@ export default function App() {
               WhatsApp Desk
             </span>
             <span className="block text-xs font-bold uppercase tracking-wider">
-              {SITE_INFO.phoneDisplay}
+              {siteInfo.phoneDisplay}
             </span>
           </div>
         </a>
@@ -215,6 +224,7 @@ export default function App() {
       <Footer 
         onSelectTab={handleSelectTab} 
         onOpenAdmin={() => { window.location.href = '/admin'; }} 
+        siteInfo={siteInfo}
       />
 
     </div>
