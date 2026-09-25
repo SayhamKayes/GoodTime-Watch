@@ -164,8 +164,8 @@ async function runMigration() {
         floating_whatsapp_number, floating_whatsapp_link, product_inquiry_phone,
         product_inquiry_whatsapp, product_inquiry_display, prebook_phone,
         prebook_whatsapp, prebook_display, sell_exchange_phone,
-        sell_exchange_whatsapp, about_phone, about_whatsapp, delivered_phone,
-        delivered_whatsapp, footer_phone, footer_whatsapp
+        sell_exchange_whatsapp, about_phone, about_whatsapp, about_hero_whatsapp,
+        delivered_phone, delivered_whatsapp, footer_phone, footer_whatsapp
       ) VALUES (
         'current', ${SITE_INFO.name}, ${SITE_INFO.domain}, ${SITE_INFO.email},
         ${SITE_INFO.location}, ${SITE_INFO.announcement}, ${SITE_INFO.address || ''},
@@ -190,6 +190,7 @@ async function runMigration() {
         ${SITE_INFO.sellExchangeWhatsapp || SITE_INFO.whatsappNumber},
         ${SITE_INFO.aboutPhone || SITE_INFO.phoneDisplay},
         ${SITE_INFO.aboutWhatsapp || SITE_INFO.whatsappNumber},
+        ${SITE_INFO.aboutHeroWhatsapp || SITE_INFO.aboutWhatsapp || SITE_INFO.whatsappNumber},
         ${SITE_INFO.deliveredPhone || SITE_INFO.phoneDisplay},
         ${SITE_INFO.deliveredWhatsapp || SITE_INFO.whatsappNumber},
         ${SITE_INFO.footerPhone || SITE_INFO.phoneDisplay},
@@ -214,6 +215,7 @@ async function runMigration() {
         sell_exchange_whatsapp = EXCLUDED.sell_exchange_whatsapp,
         about_phone = EXCLUDED.about_phone,
         about_whatsapp = EXCLUDED.about_whatsapp,
+        about_hero_whatsapp = EXCLUDED.about_hero_whatsapp,
         delivered_phone = EXCLUDED.delivered_phone,
         delivered_whatsapp = EXCLUDED.delivered_whatsapp,
         footer_phone = EXCLUDED.footer_phone,
