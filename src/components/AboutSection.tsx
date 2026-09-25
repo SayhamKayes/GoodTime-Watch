@@ -118,8 +118,11 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigateTab, siteI
                 <Phone className="w-3.5 h-3.5" />
                 <span>Phone Call</span>
               </div>
-              <a href={`tel:${currentSiteInfo.phoneIntl}`} className="text-sm font-semibold text-white hover:text-[#e6ca85] block">
-                {currentSiteInfo.phoneDisplay}
+              <a
+                href={`tel:${currentSiteInfo.aboutPhone || currentSiteInfo.phoneIntl}`}
+                className="text-sm font-semibold text-white hover:text-[#e6ca85] block"
+              >
+                {currentSiteInfo.aboutPhone || currentSiteInfo.phoneDisplay}
               </a>
               <span className="text-[10px] text-slate-400 block">Available 10 AM - 10 PM</span>
             </div>
@@ -130,8 +133,17 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigateTab, siteI
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>WhatsApp Direct</span>
               </div>
-              <a href={currentSiteInfo.whatsappLink} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-[#25D366] hover:underline block">
-                +{currentSiteInfo.whatsappNumber}
+              <a
+                href={
+                  currentSiteInfo.aboutWhatsapp
+                    ? `https://wa.me/${currentSiteInfo.aboutWhatsapp}`
+                    : currentSiteInfo.whatsappLink
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-[#25D366] hover:underline block"
+              >
+                +{currentSiteInfo.aboutWhatsapp || currentSiteInfo.whatsappNumber}
               </a>
               <span className="text-[10px] text-slate-400 block">Instant Chat & Video Verification</span>
             </div>
