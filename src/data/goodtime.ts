@@ -39,6 +39,7 @@ export const SITE_INFO: SiteInfo = {
   sellExchangeWhatsapp: "8801327426905",
   aboutPhone: "01327-426905",
   aboutWhatsapp: "8801327426905",
+  aboutHeroWhatsapp: "8801327426905",
   deliveredPhone: "01327-426905",
   deliveredWhatsapp: "8801327426905",
   footerPhone: "01327-426905",
