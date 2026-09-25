@@ -109,19 +109,28 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab, onOpenAdmin, siteIn
             <ul className="space-y-3 text-xs">
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#c5a059] shrink-0" />
-                <a href={`tel:${currentSiteInfo.phoneIntl}`} className="text-white hover:text-[#e6ca85] font-semibold transition-colors">
-                  {currentSiteInfo.phoneDisplay}
+                <a
+                  href={`tel:${currentSiteInfo.footerPhone || currentSiteInfo.phoneIntl}`}
+                  className="text-white hover:text-[#e6ca85] font-semibold transition-colors"
+                >
+                  {currentSiteInfo.footerPhone || currentSiteInfo.phoneDisplay}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
                 <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0" />
                 <a
-                  href={currentSiteInfo.whatsappLink}
+                  href={
+                    currentSiteInfo.footerWhatsapp
+                      ? `https://wa.me/${currentSiteInfo.footerWhatsapp}`
+                      : currentSiteInfo.whatsappLink
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#25D366] hover:underline font-semibold flex items-center gap-1"
                 >
-                  <span>WhatsApp: +{currentSiteInfo.whatsappNumber}</span>
+                  <span>
+                    WhatsApp: +{currentSiteInfo.footerWhatsapp || currentSiteInfo.whatsappNumber}
+                  </span>
                   <ArrowUpRight className="w-3 h-3" />
                 </a>
               </li>
