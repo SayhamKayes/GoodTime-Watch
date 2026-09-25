@@ -151,6 +151,14 @@ CREATE TABLE IF NOT EXISTS site_settings (
     floating_whatsapp_number TEXT DEFAULT '8801327426905',
     floating_whatsapp_link TEXT DEFAULT 'https://wa.me/8801327426905',
 
+    -- Dedicated Product Inquiry & Pre-Book WhatsApp
+    product_inquiry_phone TEXT DEFAULT '01327-426905',
+    product_inquiry_whatsapp TEXT DEFAULT '8801327426905',
+    product_inquiry_display TEXT DEFAULT '01327-426905',
+    prebook_phone TEXT DEFAULT '01327-426905',
+    prebook_whatsapp TEXT DEFAULT '8801327426905',
+    prebook_display TEXT DEFAULT '01327-426905',
+
     -- Individual Page Numbers
     sell_exchange_phone TEXT DEFAULT '01327-426905',
     sell_exchange_whatsapp TEXT DEFAULT '8801327426905',
