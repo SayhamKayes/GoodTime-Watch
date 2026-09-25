@@ -22,6 +22,8 @@ import {
   syncSaveBrands,
   syncSaveSiteSettings
 } from '../services/api';
+import { InternationalPhoneInput } from './common/InternationalPhoneInput';
+import { InternationalWhatsAppInput } from './common/InternationalWhatsAppInput';
 import {
   ShieldCheck,
   Lock,
@@ -401,7 +403,21 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       floatingWhatsappNumber: contactForm.floatingWhatsappNumber || contactForm.whatsappNumber || '8801327426905',
       floatingWhatsappLink:
         contactForm.floatingWhatsappLink ||
-        `https://wa.me/${contactForm.floatingWhatsappNumber || contactForm.whatsappNumber || '8801327426905'}`
+        `https://wa.me/${contactForm.floatingWhatsappNumber || contactForm.whatsappNumber || '8801327426905'}`,
+      productInquiryWhatsapp: contactForm.productInquiryWhatsapp || contactForm.whatsappNumber || '8801327426905',
+      productInquiryPhone: contactForm.productInquiryPhone || contactForm.phoneDisplay || '01327-426905',
+      productInquiryDisplay: contactForm.productInquiryDisplay || contactForm.phoneDisplay || '01327-426905',
+      prebookWhatsapp: contactForm.prebookWhatsapp || contactForm.whatsappNumber || '8801327426905',
+      prebookPhone: contactForm.prebookPhone || contactForm.phoneDisplay || '01327-426905',
+      prebookDisplay: contactForm.prebookDisplay || contactForm.phoneDisplay || '01327-426905',
+      sellExchangePhone: contactForm.sellExchangePhone || contactForm.phoneDisplay || '01327-426905',
+      sellExchangeWhatsapp: contactForm.sellExchangeWhatsapp || contactForm.whatsappNumber || '8801327426905',
+      aboutPhone: contactForm.aboutPhone || contactForm.phoneDisplay || '01327-426905',
+      aboutWhatsapp: contactForm.aboutWhatsapp || contactForm.whatsappNumber || '8801327426905',
+      deliveredPhone: contactForm.deliveredPhone || contactForm.phoneDisplay || '01327-426905',
+      deliveredWhatsapp: contactForm.deliveredWhatsapp || contactForm.whatsappNumber || '8801327426905',
+      footerPhone: contactForm.footerPhone || contactForm.phoneDisplay || '01327-426905',
+      footerWhatsapp: contactForm.footerWhatsapp || contactForm.whatsappNumber || '8801327426905'
     };
     onUpdateSiteInfo(updated);
     saveStoredSiteInfo(updated);
@@ -1616,7 +1632,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
           <form onSubmit={handleSaveContact} className="space-y-8 text-xs">
 
-            {/* 1. TOP HEADER CONTACT SETTINGS (PLACED AT THE VERY TOP) */}
+            {/* 1. TOP HEADER ANNOUNCEMENT STRIP & HOTLINE / WHATSAPP */}
             <div className="rounded-2xl border border-[#c5a059]/40 bg-gradient-to-b from-[#161209] to-[#0c0f16] p-6 sm:p-8 space-y-5 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#c5a059]/5 rounded-full blur-2xl pointer-events-none" />
               
@@ -1630,7 +1646,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       1. Top Header Bar (Announcement Strip)
                     </h3>
                     <p className="text-[11px] text-slate-400">
-                      Displayed prominently at the very top of every page in the header bar.
+                      Displayed prominently at the very top of every storefront page in the header announcement bar.
                     </p>
                   </div>
                 </div>
@@ -1640,7 +1656,24 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
-                {/* Top Header Hotline Display */}
+                {/* Announcement Message */}
+                <div className="space-y-1.5 md:col-span-2">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#c5a059]" />
+                    <span>Top Header Announcement Message</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={contactForm.announcement || ''}
+                    onChange={(e) =>
+                      setContactForm({ ...contactForm, announcement: e.target.value })
+                    }
+                    placeholder="Complimentary Insured Delivery on Selected Orders across Bangladesh"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                </div>
+
+                {/* Top Header Hotline Display Text */}
                 <div className="space-y-1.5">
                   <label className="font-mono text-slate-200 flex items-center gap-1.5">
                     <Phone className="w-3.5 h-3.5 text-[#c5a059]" />
@@ -1660,92 +1693,36 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     placeholder="01327-426905"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
                   />
-                  <p className="text-[10px] text-slate-400">The visible phone number in the top header.</p>
+                  <p className="text-[10px] text-slate-400">The visible phone number text shown to visitors in the top header.</p>
                 </div>
 
-                {/* Top Header Hotline Dial Link */}
-                <div className="space-y-1.5">
-                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
-                    <Phone className="w-3.5 h-3.5 text-[#c5a059]" />
-                    <span>Top Header Hotline (Dial Link / tel:)</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={contactForm.topHeaderHotlineDial || contactForm.phoneIntl || ''}
-                    onChange={(e) =>
+                {/* Top Header Hotline Dial Link (tel:) */}
+                <InternationalPhoneInput
+                  label="Top Header Hotline (Dial Link / tel:)"
+                  value={contactForm.topHeaderHotlineDial || contactForm.phoneIntl || '+8801327426905'}
+                  onChange={(fullDial) =>
+                    setContactForm({
+                      ...contactForm,
+                      topHeaderHotlineDial: fullDial,
+                      phoneIntl: fullDial
+                    })
+                  }
+                  helperText="Select country code and input number to automatically build tel:+<country><number>"
+                />
+
+                {/* Top Header WhatsApp Direct */}
+                <div className="md:col-span-2">
+                  <InternationalWhatsAppInput
+                    label="Top Header WhatsApp Direct (Instant Chat Link)"
+                    value={contactForm.topHeaderWhatsappNumber || contactForm.whatsappNumber || '8801327426905'}
+                    onChange={(cleanDigits, fullLink) =>
                       setContactForm({
                         ...contactForm,
-                        topHeaderHotlineDial: e.target.value,
-                        phoneIntl: e.target.value
+                        topHeaderWhatsappNumber: cleanDigits,
+                        topHeaderWhatsappLink: fullLink
                       })
                     }
-                    placeholder="+8801327426905"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                  />
-                  <p className="text-[10px] text-slate-400">Exact international number dialed when clicking the phone link.</p>
-                </div>
-
-                {/* Top Header WhatsApp Number */}
-                <div className="space-y-1.5">
-                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
-                    <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
-                    <span>Top Header WhatsApp Direct Number</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={contactForm.topHeaderWhatsappNumber || contactForm.whatsappNumber || ''}
-                    onChange={(e) =>
-                      setContactForm({
-                        ...contactForm,
-                        topHeaderWhatsappNumber: e.target.value,
-                        topHeaderWhatsappLink: `https://wa.me/${e.target.value}`
-                      })
-                    }
-                    placeholder="8801327426905"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                  />
-                  <p className="text-[10px] text-slate-400">Numbers only with country code (e.g. 8801327426905).</p>
-                </div>
-
-                {/* Top Header WhatsApp Custom Link */}
-                <div className="space-y-1.5">
-                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
-                    <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
-                    <span>Top Header WhatsApp Link (Auto-generated or Custom URL)</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={
-                      contactForm.topHeaderWhatsappLink ||
-                      (contactForm.topHeaderWhatsappNumber
-                        ? `https://wa.me/${contactForm.topHeaderWhatsappNumber}`
-                        : contactForm.whatsappLink || '')
-                    }
-                    onChange={(e) =>
-                      setContactForm({ ...contactForm, topHeaderWhatsappLink: e.target.value })
-                    }
-                    placeholder="https://wa.me/8801327426905"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                  />
-                  <p className="text-[10px] text-slate-400">Target URL opened when clicking "WhatsApp Direct" in the top header.</p>
-                </div>
-
-                {/* Top Announcement Bar Message */}
-                <div className="space-y-1.5 md:col-span-2">
-                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-[#c5a059]" />
-                    <span>Top Header Announcement Message</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={contactForm.announcement || ''}
-                    onChange={(e) =>
-                      setContactForm({ ...contactForm, announcement: e.target.value })
-                    }
-                    placeholder="Complimentary Insured Delivery on Selected Orders across Bangladesh"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                    helperText="Fixed prefix https://wa.me/ with 230+ country code dropdown and target number."
                   />
                 </div>
               </div>
@@ -1788,213 +1765,286 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     placeholder="01327-426905"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-emerald-400"
                   />
-                  <p className="text-[10px] text-slate-400">Number shown beside the WhatsApp Desk icon when expanded or hovered.</p>
+                  <p className="text-[10px] text-slate-400">Text/Number shown beside the WhatsApp Desk icon when expanded or hovered.</p>
                 </div>
 
-                {/* Floating Widget WhatsApp Number */}
-                <div className="space-y-1.5">
-                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
-                    <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Floating Widget Target WhatsApp Number</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={contactForm.floatingWhatsappNumber || contactForm.whatsappNumber || ''}
-                    onChange={(e) =>
+                {/* Floating Widget WhatsApp Direct */}
+                <div className="md:col-span-2">
+                  <InternationalWhatsAppInput
+                    label="Floating Widget Target WhatsApp Direct Link"
+                    value={contactForm.floatingWhatsappNumber || contactForm.whatsappNumber || '8801327426905'}
+                    onChange={(cleanDigits, fullLink) =>
                       setContactForm({
                         ...contactForm,
-                        floatingWhatsappNumber: e.target.value,
-                        floatingWhatsappLink: `https://wa.me/${e.target.value}`
+                        floatingWhatsappNumber: cleanDigits,
+                        floatingWhatsappLink: fullLink
                       })
                     }
-                    placeholder="8801327426905"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-emerald-400"
+                    helperText="Fixed prefix https://wa.me/ with 230+ country code dropdown and target number."
                   />
-                  <p className="text-[10px] text-slate-400">Target phone number used to open the instant WhatsApp chat.</p>
-                </div>
-
-                {/* Floating Widget Custom Link */}
-                <div className="space-y-1.5 md:col-span-2">
-                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
-                    <Globe className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Floating Widget Custom Link (Optional)</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={
-                      contactForm.floatingWhatsappLink ||
-                      (contactForm.floatingWhatsappNumber
-                        ? `https://wa.me/${contactForm.floatingWhatsappNumber}`
-                        : contactForm.whatsappLink || '')
-                    }
-                    onChange={(e) =>
-                      setContactForm({ ...contactForm, floatingWhatsappLink: e.target.value })
-                    }
-                    placeholder="https://wa.me/8801327426905"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-emerald-400"
-                  />
-                  <p className="text-[10px] text-slate-400">Leave blank to use https://wa.me/&lt;target-number&gt; automatically.</p>
                 </div>
               </div>
             </div>
 
-            {/* 3. INDIVIDUAL PAGE-SPECIFIC CONTACT NUMBERS */}
-            <div className="rounded-2xl border border-white/10 bg-[#0c0f16] p-6 sm:p-8 space-y-6 shadow-xl">
-              <div className="border-b border-white/10 pb-3 flex items-center justify-between">
+            {/* 3. PRODUCT IN-STOCK CATALOG & MODAL INQUIRY DESK */}
+            <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-b from-[#171207] to-[#0c0f16] p-6 sm:p-8 space-y-5 shadow-2xl relative overflow-hidden">
+              <div className="border-b border-amber-500/20 pb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
-                    <Layers className="w-3.5 h-3.5" />
+                  <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+                    <Package className="w-3.5 h-3.5" />
                   </div>
                   <div>
                     <h3 className="font-serif-luxury text-base font-bold text-white">
-                      3. Individual Page Contact Numbers
+                      3. Watch Catalog & Product In-Stock WhatsApp Inquiry Desk
                     </h3>
                     <p className="text-[11px] text-slate-400">
-                      Individually customize numbers for specific storefront pages. Blank fields will use the main hotline.
+                      Controls the "Enquire on WhatsApp" action across all watch cards, new arrivals, and the watch detail/360 modal.
+                    </p>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-amber-950/80 text-amber-400 border border-amber-500/30">
+                  Product Inquiry
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                <div className="md:col-span-2">
+                  <InternationalWhatsAppInput
+                    label="Product Inquiry WhatsApp Number"
+                    value={contactForm.productInquiryWhatsapp || contactForm.whatsappNumber || '8801327426905'}
+                    onChange={(cleanDigits) =>
+                      setContactForm({ ...contactForm, productInquiryWhatsapp: cleanDigits })
+                    }
+                    helperText="Customers enquiring about available inventory will directly chat with this WhatsApp number."
+                  />
+                </div>
+                <InternationalPhoneInput
+                  label="Product Inquiry Voice Helpline (Optional)"
+                  value={contactForm.productInquiryPhone || contactForm.phoneIntl || '+8801327426905'}
+                  onChange={(fullDial) =>
+                    setContactForm({ ...contactForm, productInquiryPhone: fullDial })
+                  }
+                  helperText="Optional phone hotline for product inventory queries."
+                />
+              </div>
+            </div>
+
+            {/* 4. UPCOMING WATCHES & PRE-BOOK ALLOCATION DESK */}
+            <div className="rounded-2xl border border-sky-500/30 bg-gradient-to-b from-[#08121a] to-[#0c0f16] p-6 sm:p-8 space-y-5 shadow-2xl relative overflow-hidden">
+              <div className="border-b border-sky-500/20 pb-3 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-sky-400">
+                    <Plane className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif-luxury text-base font-bold text-white">
+                      4. Upcoming Watches & Pre-Book Allocation Desk
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Controls the "Pre-Book via Concierge" button on incoming timepiece shipments and pre-order batches.
+                    </p>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-sky-950/80 text-sky-400 border border-sky-500/30">
+                  Pre-Book Desk
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                <div className="md:col-span-2">
+                  <InternationalWhatsAppInput
+                    label="Upcoming Watches & Pre-Book WhatsApp Number"
+                    value={contactForm.prebookWhatsapp || contactForm.whatsappNumber || '8801327426905'}
+                    onChange={(cleanDigits) =>
+                      setContactForm({ ...contactForm, prebookWhatsapp: cleanDigits })
+                    }
+                    helperText="Direct allocation concierge desk for reserving upcoming inbound watches."
+                  />
+                </div>
+                <InternationalPhoneInput
+                  label="Pre-Book Voice Helpline (Optional)"
+                  value={contactForm.prebookPhone || contactForm.phoneIntl || '+8801327426905'}
+                  onChange={(fullDial) =>
+                    setContactForm({ ...contactForm, prebookPhone: fullDial })
+                  }
+                  helperText="Optional phone hotline for batch allocation enquiries."
+                />
+              </div>
+            </div>
+
+            {/* 5. SUCCESSFULLY DELIVERED ARCHIVE CONCIERGE */}
+            <div className="rounded-2xl border border-indigo-500/30 bg-gradient-to-b from-[#0b0e1a] to-[#0c0f16] p-6 sm:p-8 space-y-5 shadow-2xl relative overflow-hidden">
+              <div className="border-b border-indigo-500/20 pb-3 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
+                    <CheckCircle className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif-luxury text-base font-bold text-white">
+                      5. Successfully Delivered Archive Sourcing Desk
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Controls the "Request Similar Model" button when collectors browse past fulfilled deliveries.
+                    </p>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-indigo-950/80 text-indigo-400 border border-indigo-500/30">
+                  Delivered Archive
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                <div className="md:col-span-2">
+                  <InternationalWhatsAppInput
+                    label="Delivered Archive Sourcing WhatsApp Direct"
+                    value={contactForm.deliveredWhatsapp || contactForm.whatsappNumber || '8801327426905'}
+                    onChange={(cleanDigits) =>
+                      setContactForm({ ...contactForm, deliveredWhatsapp: cleanDigits })
+                    }
+                    helperText="Inquiries to procure another piece matching a delivered watch."
+                  />
+                </div>
+                <InternationalPhoneInput
+                  label="Delivered Archive Phone Hotline"
+                  value={contactForm.deliveredPhone || contactForm.phoneIntl || '+8801327426905'}
+                  onChange={(fullDial) =>
+                    setContactForm({ ...contactForm, deliveredPhone: fullDial })
+                  }
+                  helperText="Direct dial link for sourcing delivered watch references."
+                />
+              </div>
+            </div>
+
+            {/* 6. SELL & EXCHANGE WATCH VALUATION DESK */}
+            <div className="rounded-2xl border border-teal-500/30 bg-gradient-to-b from-[#091514] to-[#0c0f16] p-6 sm:p-8 space-y-5 shadow-2xl relative overflow-hidden">
+              <div className="border-b border-teal-500/20 pb-3 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-teal-400">
+                    <RotateCcw className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif-luxury text-base font-bold text-white">
+                      6. Sell & Exchange Watch Valuation Desk
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Controls the dedicated WhatsApp valuation desk where clients submit timepiece details and photos for trade or sale.
+                    </p>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-teal-950/80 text-teal-400 border border-teal-500/30">
+                  Sell & Trade
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                <div className="md:col-span-2">
+                  <InternationalWhatsAppInput
+                    label="Sell & Exchange WhatsApp Direct"
+                    value={contactForm.sellExchangeWhatsapp || contactForm.whatsappNumber || '8801327426905'}
+                    onChange={(cleanDigits) =>
+                      setContactForm({ ...contactForm, sellExchangeWhatsapp: cleanDigits })
+                    }
+                    helperText="Receives client watch valuation submissions and high-res condition photos."
+                  />
+                </div>
+                <InternationalPhoneInput
+                  label="Sell & Exchange Phone Hotline"
+                  value={contactForm.sellExchangePhone || contactForm.phoneIntl || '+8801327426905'}
+                  onChange={(fullDial) =>
+                    setContactForm({ ...contactForm, sellExchangePhone: fullDial })
+                  }
+                  helperText="Voice helpline for sellers and exchange appraisals."
+                />
+              </div>
+            </div>
+
+            {/* 7. ABOUT BOUTIQUE CONCIERGE DESK */}
+            <div className="rounded-2xl border border-rose-500/30 bg-gradient-to-b from-[#170a0d] to-[#0c0f16] p-6 sm:p-8 space-y-5 shadow-2xl relative overflow-hidden">
+              <div className="border-b border-rose-500/20 pb-3 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400">
+                    <MessageCircle className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif-luxury text-base font-bold text-white">
+                      7. About Boutique Concierge Desk
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Controls the verified WhatsApp and helpline on the About Goodtime Watch boutique page.
+                    </p>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-rose-950/80 text-rose-400 border border-rose-500/30">
+                  About Boutique
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                <div className="md:col-span-2">
+                  <InternationalWhatsAppInput
+                    label="About Page WhatsApp Direct"
+                    value={contactForm.aboutWhatsapp || contactForm.whatsappNumber || '8801327426905'}
+                    onChange={(cleanDigits) =>
+                      setContactForm({ ...contactForm, aboutWhatsapp: cleanDigits })
+                    }
+                    helperText="Instant chat link displayed in the About Us concierge box."
+                  />
+                </div>
+                <InternationalPhoneInput
+                  label="About Page Phone Hotline"
+                  value={contactForm.aboutPhone || contactForm.phoneIntl || '+8801327426905'}
+                  onChange={(fullDial) =>
+                    setContactForm({ ...contactForm, aboutPhone: fullDial })
+                  }
+                  helperText="Voice helpline shown on the About Us page."
+                />
+              </div>
+            </div>
+
+            {/* 8. FOOTER & GLOBAL FALLBACK CONCIERGE DESK */}
+            <div className="rounded-2xl border border-white/10 bg-[#0c0f16] p-6 sm:p-8 space-y-5 shadow-xl">
+              <div className="border-b border-white/10 pb-3 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center text-slate-200">
+                    <Phone className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif-luxury text-base font-bold text-white">
+                      8. Footer & Global Fallback Concierge Desk
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Global fallback phone and WhatsApp numbers displayed across the footer and general contact points.
                     </p>
                   </div>
                 </div>
                 <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-white/5 text-slate-300 border border-white/10">
-                  Page Overrides
+                  Footer & Fallback
                 </span>
               </div>
 
-              <div className="space-y-5">
-                {/* Sell & Exchange Page */}
-                <div className="p-4 rounded-xl bg-black/40 border border-white/5 space-y-3">
-                  <span className="text-xs font-mono font-bold text-[#e6ca85] uppercase tracking-wider block">
-                    • Sell & Exchange Concierge Page
-                  </span>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <label className="text-[11px] text-slate-300 font-mono">Display Phone Number</label>
-                      <input
-                        type="text"
-                        value={contactForm.sellExchangePhone || ''}
-                        onChange={(e) =>
-                          setContactForm({ ...contactForm, sellExchangePhone: e.target.value })
-                        }
-                        placeholder={contactForm.phoneDisplay || '01327-426905'}
-                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[11px] text-slate-300 font-mono">WhatsApp Target Number</label>
-                      <input
-                        type="text"
-                        value={contactForm.sellExchangeWhatsapp || ''}
-                        onChange={(e) =>
-                          setContactForm({ ...contactForm, sellExchangeWhatsapp: e.target.value })
-                        }
-                        placeholder={contactForm.whatsappNumber || '8801327426905'}
-                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                      />
-                    </div>
-                  </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                <div className="md:col-span-2">
+                  <InternationalWhatsAppInput
+                    label="Footer WhatsApp Number"
+                    value={contactForm.footerWhatsapp || contactForm.whatsappNumber || '8801327426905'}
+                    onChange={(cleanDigits) =>
+                      setContactForm({ ...contactForm, footerWhatsapp: cleanDigits, whatsappNumber: cleanDigits })
+                    }
+                    helperText="Footer WhatsApp link opened across every page."
+                  />
                 </div>
-
-                {/* About Us Page */}
-                <div className="p-4 rounded-xl bg-black/40 border border-white/5 space-y-3">
-                  <span className="text-xs font-mono font-bold text-[#e6ca85] uppercase tracking-wider block">
-                    • About Us Page
-                  </span>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <label className="text-[11px] text-slate-300 font-mono">Helpline Display Phone</label>
-                      <input
-                        type="text"
-                        value={contactForm.aboutPhone || ''}
-                        onChange={(e) =>
-                          setContactForm({ ...contactForm, aboutPhone: e.target.value })
-                        }
-                        placeholder={contactForm.phoneDisplay || '01327-426905'}
-                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[11px] text-slate-300 font-mono">WhatsApp Target Number</label>
-                      <input
-                        type="text"
-                        value={contactForm.aboutWhatsapp || ''}
-                        onChange={(e) =>
-                          setContactForm({ ...contactForm, aboutWhatsapp: e.target.value })
-                        }
-                        placeholder={contactForm.whatsappNumber || '8801327426905'}
-                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Successfully Delivered Page */}
-                <div className="p-4 rounded-xl bg-black/40 border border-white/5 space-y-3">
-                  <span className="text-xs font-mono font-bold text-[#e6ca85] uppercase tracking-wider block">
-                    • Successfully Delivered Archive Page
-                  </span>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <label className="text-[11px] text-slate-300 font-mono">Inquiry Desk Phone</label>
-                      <input
-                        type="text"
-                        value={contactForm.deliveredPhone || ''}
-                        onChange={(e) =>
-                          setContactForm({ ...contactForm, deliveredPhone: e.target.value })
-                        }
-                        placeholder={contactForm.phoneDisplay || '01327-426905'}
-                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[11px] text-slate-300 font-mono">WhatsApp Target Number</label>
-                      <input
-                        type="text"
-                        value={contactForm.deliveredWhatsapp || ''}
-                        onChange={(e) =>
-                          setContactForm({ ...contactForm, deliveredWhatsapp: e.target.value })
-                        }
-                        placeholder={contactForm.whatsappNumber || '8801327426905'}
-                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Footer Section */}
-                <div className="p-4 rounded-xl bg-black/40 border border-white/5 space-y-3">
-                  <span className="text-xs font-mono font-bold text-[#e6ca85] uppercase tracking-wider block">
-                    • Footer Section Contact
-                  </span>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <label className="text-[11px] text-slate-300 font-mono">Footer Helpline Phone</label>
-                      <input
-                        type="text"
-                        value={contactForm.footerPhone || ''}
-                        onChange={(e) =>
-                          setContactForm({ ...contactForm, footerPhone: e.target.value })
-                        }
-                        placeholder={contactForm.phoneDisplay || '01327-426905'}
-                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[11px] text-slate-300 font-mono">Footer WhatsApp Number</label>
-                      <input
-                        type="text"
-                        value={contactForm.footerWhatsapp || ''}
-                        onChange={(e) =>
-                          setContactForm({ ...contactForm, footerWhatsapp: e.target.value })
-                        }
-                        placeholder={contactForm.whatsappNumber || '8801327426905'}
-                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                      />
-                    </div>
-                  </div>
-                </div>
+                <InternationalPhoneInput
+                  label="Footer Phone Hotline"
+                  value={contactForm.footerPhone || contactForm.phoneIntl || '+8801327426905'}
+                  onChange={(fullDial) =>
+                    setContactForm({ ...contactForm, footerPhone: fullDial, phoneIntl: fullDial })
+                  }
+                  helperText="Footer phone hotline dial link."
+                />
               </div>
             </div>
 
-            {/* 4. GENERAL BOUTIQUE DIRECTORY, HOURS & SOCIALS */}
+            {/* 9. BOUTIQUE DIRECTORY, HOURS & SOCIALS */}
             <div className="rounded-2xl border border-white/10 bg-[#0c0f16] p-6 sm:p-8 space-y-5 shadow-xl">
               <div className="border-b border-white/10 pb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
@@ -2003,7 +2053,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   </div>
                   <div>
                     <h3 className="font-serif-luxury text-base font-bold text-white">
-                      4. Boutique Addresses, Concierge Email & Operating Hours
+                      9. Boutique Addresses, Concierge Email & Operating Hours
                     </h3>
                     <p className="text-[11px] text-slate-400">
                       Physical salon addresses, official email, opening hours, and verified social media accounts.
