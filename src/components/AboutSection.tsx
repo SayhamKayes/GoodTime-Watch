@@ -38,7 +38,13 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigateTab, siteI
               Explore New Arrivals →
             </button>
             <a
-              href={currentSiteInfo.whatsappLink}
+              href={
+                currentSiteInfo.aboutHeroWhatsapp
+                  ? `https://wa.me/${currentSiteInfo.aboutHeroWhatsapp}`
+                  : currentSiteInfo.aboutWhatsapp
+                  ? `https://wa.me/${currentSiteInfo.aboutWhatsapp}`
+                  : currentSiteInfo.whatsappLink
+              }
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-xl text-xs font-semibold text-[#f5deb3] bg-white/5 hover:bg-white/10 border border-white/15 transition-all flex items-center gap-2"
