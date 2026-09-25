@@ -119,6 +119,14 @@ export interface SiteInfo {
   floatingWhatsappNumber?: string;
   floatingWhatsappLink?: string;
 
+  // Dedicated Product Inquiry & Pre-Book WhatsApp
+  productInquiryWhatsapp?: string;
+  productInquiryPhone?: string;
+  productInquiryDisplay?: string;
+  prebookWhatsapp?: string;
+  prebookPhone?: string;
+  prebookDisplay?: string;
+
   // Individual Page Contact Numbers
   sellExchangePhone?: string;
   sellExchangeWhatsapp?: string;
