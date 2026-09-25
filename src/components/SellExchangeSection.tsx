@@ -22,7 +22,8 @@ export const SellExchangeSection: React.FC<SellExchangeSectionProps> = ({ siteIn
       model: modelName.trim() || 'Model to be shared via photos',
       condition,
       hasBoxPapers,
-      inquiryType
+      inquiryType,
+      overrideNumber: currentSiteInfo.sellExchangeWhatsapp
     });
     window.open(url, '_blank', 'noopener,noreferrer');
   };
@@ -50,13 +51,17 @@ export const SellExchangeSection: React.FC<SellExchangeSectionProps> = ({ siteIn
 
           <div className="pt-2">
             <a
-              href={generateSellExchangeWhatsAppLink()}
+              href={generateSellExchangeWhatsAppLink({
+                overrideNumber: currentSiteInfo.sellExchangeWhatsapp
+              })}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-semibold text-black bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] hover:brightness-110 shadow-lg transition-all"
             >
               <MessageCircle className="w-4 h-4 fill-black/20" />
-              <span>Submit Watch on WhatsApp: {currentSiteInfo.phoneDisplay}</span>
+              <span>
+                Submit Watch on WhatsApp: {currentSiteInfo.sellExchangePhone || currentSiteInfo.phoneDisplay}
+              </span>
             </a>
           </div>
         </div>
@@ -359,7 +364,9 @@ export const SellExchangeSection: React.FC<SellExchangeSectionProps> = ({ siteIn
             className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs font-semibold text-black bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] hover:brightness-110 shadow-lg flex items-center justify-center gap-2 transition-all active:scale-95"
           >
             <MessageCircle className="w-4 h-4 fill-black/20" />
-            <span>Send Details on WhatsApp ({currentSiteInfo.phoneDisplay})</span>
+            <span>
+              Send Details on WhatsApp ({currentSiteInfo.sellExchangePhone || currentSiteInfo.phoneDisplay})
+            </span>
           </button>
         </div>
 
