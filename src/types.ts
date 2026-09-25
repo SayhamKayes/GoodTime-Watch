@@ -132,6 +132,7 @@ export interface SiteInfo {
   sellExchangeWhatsapp?: string;
   aboutPhone?: string;
   aboutWhatsapp?: string;
+  aboutHeroWhatsapp?: string;
   deliveredPhone?: string;
   deliveredWhatsapp?: string;
   footerPhone?: string;
