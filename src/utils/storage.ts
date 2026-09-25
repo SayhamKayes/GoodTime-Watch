@@ -8,7 +8,7 @@ const BRANDS_KEY = 'goodtime_brands_catalog';
 const SITE_INFO_KEY = 'goodtime_site_info';
 const ADMIN_AUTH_KEY = 'goodtime_admin_auth_token';
 const CATALOG_VERSION_KEY = 'goodtime_catalog_version';
-const CURRENT_CATALOG_VERSION = '2026_09_v3_brand_slider_contact';
+const CURRENT_CATALOG_VERSION = '2026_09_v4_omnichannel_numbers';
 
 // Sync catalog with latest version if version differs
 export const syncCatalogWithLatestVersion = (): void => {
