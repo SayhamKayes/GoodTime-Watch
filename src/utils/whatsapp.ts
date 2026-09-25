@@ -6,8 +6,9 @@ const getActiveWhatsAppNumber = (): string => {
   return getStoredSiteInfo().whatsappNumber || SITE_INFO.whatsappNumber;
 };
 
-export const generateProductWhatsAppLink = (product: WatchProduct): string => {
-  const number = getActiveWhatsAppNumber();
+export const generateProductWhatsAppLink = (product: WatchProduct, overrideNumber?: string): string => {
+  const stored = getStoredSiteInfo();
+  const number = overrideNumber || stored.productInquiryWhatsapp || stored.whatsappNumber || SITE_INFO.whatsappNumber;
   
   const text = `Hello Goodtime Watch SG,\n\nI am interested in enquiring about this timepiece from your collection:\n\n` +
     `• Brand: ${product.brandName}\n` +
@@ -21,8 +22,9 @@ export const generateProductWhatsAppLink = (product: WatchProduct): string => {
   return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
 };
 
-export const generateUpcomingWhatsAppLink = (upcoming: UpcomingWatch): string => {
-  const number = getActiveWhatsAppNumber();
+export const generateUpcomingWhatsAppLink = (upcoming: UpcomingWatch, overrideNumber?: string): string => {
+  const stored = getStoredSiteInfo();
+  const number = overrideNumber || stored.prebookWhatsapp || stored.whatsappNumber || SITE_INFO.whatsappNumber;
 
   const text = `Hello Goodtime Watch SG,\n\nI would like to pre-book / enquire about this Upcoming timepiece:\n\n` +
     `• Brand: ${upcoming.brand}\n` +
