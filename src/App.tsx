@@ -16,6 +16,14 @@ import { Footer } from './components/Footer';
 import { AnimatedBackground } from './components/AnimatedBackground';
 import { MessageCircle, ChevronUp } from 'lucide-react';
 
+import {
+  fetchProducts,
+  fetchUpcoming,
+  fetchDelivered,
+  fetchBrands,
+  fetchSiteSettings
+} from './services/api';
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<NavigationTab>('home');
   const [selectedProduct, setSelectedProduct] = useState<WatchProduct | null>(null);
@@ -30,6 +38,15 @@ export default function App() {
   const [deliveredWatches, setDeliveredWatches] = useState<DeliveredWatch[]>(getStoredDelivered);
   const [brands, setBrands] = useState<AuthorizedBrand[]>(getStoredBrands);
   const [siteInfo, setSiteInfo] = useState<SiteInfo>(getStoredSiteInfo);
+
+  // Background sync with Neon database on load
+  useEffect(() => {
+    fetchProducts().then((p) => { if (p?.length) setProducts(p); }).catch(() => {});
+    fetchUpcoming().then((u) => { if (u?.length) setUpcomingWatches(u); }).catch(() => {});
+    fetchDelivered().then((d) => { if (d?.length) setDeliveredWatches(d); }).catch(() => {});
+    fetchBrands().then((b) => { if (b?.length) setBrands(b); }).catch(() => {});
+    fetchSiteSettings().then((s) => { if (s?.name) setSiteInfo(s); }).catch(() => {});
+  }, []);
 
   // URL Hash router support (e.g. #new-arrival)
   useEffect(() => {
@@ -178,35 +195,45 @@ export default function App() {
       {/* Sticky Action Buttons */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
         {/* Sticky WhatsApp Concierge Button */}
-        <a
-          href={siteInfo.whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Direct WhatsApp Concierge"
-          className={`group relative flex items-center h-[52px] rounded-full bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] text-black shadow-[0_10px_30px_rgba(212,175,55,0.4)] hover:brightness-110 active:scale-95 transition-all duration-700 ${
-            isWhatsAppExpanded ? 'px-5' : 'px-3.5 group-hover:px-5'
-          }`}
-        >
-          <div className="relative shrink-0 flex items-center justify-center">
-            <MessageCircle className="w-6 h-6 fill-black/20" />
-            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-600 rounded-full animate-ping" />
-            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white" />
-          </div>
-          <div
-            className={`hidden sm:block text-left leading-tight transition-all duration-700 overflow-hidden whitespace-nowrap ${
-              isWhatsAppExpanded
-                ? 'max-w-[200px] opacity-100 ml-3'
-                : 'max-w-0 opacity-0 ml-0 group-hover:max-w-[200px] group-hover:opacity-100 group-hover:ml-3'
-            }`}
-          >
-            <span className="block text-[10px] font-mono tracking-wider uppercase text-black/70 font-bold">
-              WhatsApp Desk
-            </span>
-            <span className="block text-xs font-bold uppercase tracking-wider">
-              {siteInfo.phoneDisplay}
-            </span>
-          </div>
-        </a>
+        {(() => {
+          const deskLink =
+            siteInfo.floatingWhatsappLink ||
+            (siteInfo.floatingWhatsappNumber
+              ? `https://wa.me/${siteInfo.floatingWhatsappNumber}`
+              : siteInfo.whatsappLink);
+          const deskDisplay = siteInfo.floatingWhatsappDisplay || siteInfo.phoneDisplay;
+          return (
+            <a
+              href={deskLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Direct WhatsApp Concierge"
+              className={`group relative flex items-center h-[52px] rounded-full bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] text-black shadow-[0_10px_30px_rgba(212,175,55,0.4)] hover:brightness-110 active:scale-95 transition-all duration-700 ${
+                isWhatsAppExpanded ? 'px-5' : 'px-3.5 group-hover:px-5'
+              }`}
+            >
+              <div className="relative shrink-0 flex items-center justify-center">
+                <MessageCircle className="w-6 h-6 fill-black/20" />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-600 rounded-full animate-ping" />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white" />
+              </div>
+              <div
+                className={`hidden sm:block text-left leading-tight transition-all duration-700 overflow-hidden whitespace-nowrap ${
+                  isWhatsAppExpanded
+                    ? 'max-w-[200px] opacity-100 ml-3'
+                    : 'max-w-0 opacity-0 ml-0 group-hover:max-w-[200px] group-hover:opacity-100 group-hover:ml-3'
+                }`}
+              >
+                <span className="block text-[10px] font-mono tracking-wider uppercase text-black/70 font-bold">
+                  WhatsApp Desk
+                </span>
+                <span className="block text-xs font-bold uppercase tracking-wider">
+                  {deskDisplay}
+                </span>
+              </div>
+            </a>
+          );
+        })()}
 
         {/* Back to Top Button */}
         <button
