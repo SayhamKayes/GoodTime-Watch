@@ -57,7 +57,8 @@ import {
   MessageCircle,
   Layers,
   Globe,
-  FileText
+  FileText,
+  Zap
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -414,6 +415,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       sellExchangeWhatsapp: contactForm.sellExchangeWhatsapp || contactForm.whatsappNumber || '8801327426905',
       aboutPhone: contactForm.aboutPhone || contactForm.phoneDisplay || '01327-426905',
       aboutWhatsapp: contactForm.aboutWhatsapp || contactForm.whatsappNumber || '8801327426905',
+      aboutHeroWhatsapp:
+        contactForm.aboutHeroWhatsapp ||
+        contactForm.aboutWhatsapp ||
+        contactForm.whatsappNumber ||
+        '8801327426905',
       deliveredPhone: contactForm.deliveredPhone || contactForm.phoneDisplay || '01327-426905',
       deliveredWhatsapp: contactForm.deliveredWhatsapp || contactForm.whatsappNumber || '8801327426905',
       footerPhone: contactForm.footerPhone || contactForm.phoneDisplay || '01327-426905',
@@ -424,6 +430,126 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     setContactForm(updated);
     syncSaveSiteSettings(updated);
     showToast('Contact and business concierge settings updated!');
+  };
+
+  // -------------------------------------------------------------
+  // MASTER CONTACT AUTOFILL HELPERS
+  // -------------------------------------------------------------
+  const handleApplyMasterToAll = () => {
+    const masterPhone = contactForm.phone || contactForm.phoneIntl || '+8801327426905';
+    const masterDisplay = contactForm.phoneDisplay || '01327-426905';
+    const masterWhatsapp = contactForm.whatsappNumber || '8801327426905';
+    const masterWaLink = contactForm.whatsappLink || `https://wa.me/${masterWhatsapp}`;
+
+    setContactForm({
+      ...contactForm,
+      topHeaderHotlineDisplay: masterDisplay,
+      topHeaderHotlineDial: masterPhone,
+      topHeaderWhatsappNumber: masterWhatsapp,
+      topHeaderWhatsappLink: masterWaLink,
+
+      floatingWhatsappDisplay: masterDisplay,
+      floatingWhatsappNumber: masterWhatsapp,
+      floatingWhatsappLink: masterWaLink,
+
+      productInquiryPhone: masterPhone,
+      productInquiryWhatsapp: masterWhatsapp,
+      productInquiryDisplay: masterDisplay,
+
+      prebookPhone: masterPhone,
+      prebookWhatsapp: masterWhatsapp,
+      prebookDisplay: masterDisplay,
+
+      deliveredPhone: masterPhone,
+      deliveredWhatsapp: masterWhatsapp,
+
+      sellExchangePhone: masterPhone,
+      sellExchangeWhatsapp: masterWhatsapp,
+
+      aboutPhone: masterPhone,
+      aboutWhatsapp: masterWhatsapp,
+      aboutHeroWhatsapp: masterWhatsapp,
+
+      footerPhone: masterPhone,
+      footerWhatsapp: masterWhatsapp
+    });
+
+    showToast('⚡ Master contact numbers applied to all 8 sections!');
+  };
+
+  const fillSectionWithMaster = (
+    section: 'header' | 'floating' | 'product' | 'prebook' | 'delivered' | 'sell' | 'about' | 'footer'
+  ) => {
+    const masterPhone = contactForm.phone || contactForm.phoneIntl || '+8801327426905';
+    const masterDisplay = contactForm.phoneDisplay || '01327-426905';
+    const masterWhatsapp = contactForm.whatsappNumber || '8801327426905';
+    const masterWaLink = contactForm.whatsappLink || `https://wa.me/${masterWhatsapp}`;
+
+    switch (section) {
+      case 'header':
+        setContactForm((prev) => ({
+          ...prev,
+          topHeaderHotlineDisplay: masterDisplay,
+          topHeaderHotlineDial: masterPhone,
+          topHeaderWhatsappNumber: masterWhatsapp,
+          topHeaderWhatsappLink: masterWaLink
+        }));
+        break;
+      case 'floating':
+        setContactForm((prev) => ({
+          ...prev,
+          floatingWhatsappDisplay: masterDisplay,
+          floatingWhatsappNumber: masterWhatsapp,
+          floatingWhatsappLink: masterWaLink
+        }));
+        break;
+      case 'product':
+        setContactForm((prev) => ({
+          ...prev,
+          productInquiryPhone: masterPhone,
+          productInquiryWhatsapp: masterWhatsapp,
+          productInquiryDisplay: masterDisplay
+        }));
+        break;
+      case 'prebook':
+        setContactForm((prev) => ({
+          ...prev,
+          prebookPhone: masterPhone,
+          prebookWhatsapp: masterWhatsapp,
+          prebookDisplay: masterDisplay
+        }));
+        break;
+      case 'delivered':
+        setContactForm((prev) => ({
+          ...prev,
+          deliveredPhone: masterPhone,
+          deliveredWhatsapp: masterWhatsapp
+        }));
+        break;
+      case 'sell':
+        setContactForm((prev) => ({
+          ...prev,
+          sellExchangePhone: masterPhone,
+          sellExchangeWhatsapp: masterWhatsapp
+        }));
+        break;
+      case 'about':
+        setContactForm((prev) => ({
+          ...prev,
+          aboutPhone: masterPhone,
+          aboutWhatsapp: masterWhatsapp,
+          aboutHeroWhatsapp: masterWhatsapp
+        }));
+        break;
+      case 'footer':
+        setContactForm((prev) => ({
+          ...prev,
+          footerPhone: masterPhone,
+          footerWhatsapp: masterWhatsapp
+        }));
+        break;
+    }
+    showToast('✨ Section filled from Master numbers!');
   };
 
   // -------------------------------------------------------------
@@ -1632,6 +1758,95 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
           <form onSubmit={handleSaveContact} className="space-y-8 text-xs">
 
+            {/* 0. MASTER / PRIMARY GLOBAL CONCIERGE DESK */}
+            <div className="rounded-2xl border-2 border-[#c5a059] bg-gradient-to-br from-[#1c160a] via-[#120f09] to-[#0a0d14] p-6 sm:p-8 space-y-6 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-[#c5a059]/10 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="border-b border-[#c5a059]/30 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c5a059] to-[#8c6b2d] flex items-center justify-center text-black shadow-lg">
+                    <Zap className="w-5 h-5 fill-black" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-serif-luxury text-lg sm:text-xl font-bold text-white tracking-wide">
+                        Master Concierge Desk (Global Numbers)
+                      </h3>
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-wider bg-[#c5a059]/25 text-[#f5df9e] border border-[#c5a059]/50">
+                        Primary Source
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-300 font-light mt-0.5">
+                      Configure your master brand contact numbers once. Apply them to all 8 storefront sections in 1 click or use them as global fallbacks.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleApplyMasterToAll}
+                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] text-black font-bold text-xs flex items-center justify-center gap-2 hover:brightness-110 shadow-lg transition-all active:scale-[0.98] shrink-0"
+                >
+                  <Zap className="w-4 h-4 fill-black" />
+                  <span>Apply Master to All 8 Sections</span>
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                {/* Master Display Text */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5 text-[#c5a059]" />
+                    <span>Master Phone Display Text</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={contactForm.phoneDisplay || ''}
+                    onChange={(e) =>
+                      setContactForm({
+                        ...contactForm,
+                        phoneDisplay: e.target.value
+                      })
+                    }
+                    placeholder="01327-426905"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                  <p className="text-[10px] text-slate-400">Formatted national display number (e.g., 01327-426905).</p>
+                </div>
+
+                {/* Master Voice Hotline */}
+                <InternationalPhoneInput
+                  label="Master Voice Hotline (tel: Dial Link)"
+                  value={contactForm.phone || contactForm.phoneIntl || '+8801327426905'}
+                  onChange={(fullDial) =>
+                    setContactForm({
+                      ...contactForm,
+                      phone: fullDial,
+                      phoneIntl: fullDial
+                    })
+                  }
+                  helperText="Primary phone line with international dial prefix (tel:+880...)."
+                />
+
+                {/* Master WhatsApp Direct */}
+                <div className="md:col-span-2">
+                  <InternationalWhatsAppInput
+                    label="Master WhatsApp Direct Number"
+                    value={contactForm.whatsappNumber || '8801327426905'}
+                    onChange={(cleanDigits, fullLink) =>
+                      setContactForm({
+                        ...contactForm,
+                        whatsappNumber: cleanDigits,
+                        whatsappLink: fullLink
+                      })
+                    }
+                    helperText="Master WhatsApp number with international country code and automatic wa.me link generation."
+                  />
+                </div>
+              </div>
+            </div>
+
             {/* 1. TOP HEADER ANNOUNCEMENT STRIP & HOTLINE / WHATSAPP */}
             <div className="rounded-2xl border border-[#c5a059]/40 bg-gradient-to-b from-[#161209] to-[#0c0f16] p-6 sm:p-8 space-y-5 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#c5a059]/5 rounded-full blur-2xl pointer-events-none" />
@@ -1650,9 +1865,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     </p>
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#c5a059]/20 text-[#e6ca85] border border-[#c5a059]/30">
-                  Header Top
-                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => fillSectionWithMaster('header')}
+                    className="px-2.5 py-1 rounded-lg bg-[#c5a059]/15 hover:bg-[#c5a059]/30 text-[#e6ca85] border border-[#c5a059]/40 text-[10px] font-mono flex items-center gap-1.5 transition-all"
+                    title="Fill this section using Master contact numbers"
+                  >
+                    <Sparkles className="w-3 h-3 text-[#c5a059]" />
+                    <span>Use Master Number</span>
+                  </button>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#c5a059]/20 text-[#e6ca85] border border-[#c5a059]/30">
+                    Header Top
+                  </span>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
@@ -1744,9 +1970,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     </p>
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-950/80 text-emerald-400 border border-emerald-500/30">
-                  Floating Widget
-                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => fillSectionWithMaster('floating')}
+                    className="px-2.5 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono flex items-center gap-1.5 transition-all"
+                    title="Fill this section using Master contact numbers"
+                  >
+                    <Sparkles className="w-3 h-3 text-emerald-400" />
+                    <span>Use Master Number</span>
+                  </button>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-950/80 text-emerald-400 border border-emerald-500/30">
+                    Floating Widget
+                  </span>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
@@ -1802,9 +2039,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     </p>
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-amber-950/80 text-amber-400 border border-amber-500/30">
-                  Product Inquiry
-                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => fillSectionWithMaster('product')}
+                    className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-[10px] font-mono flex items-center gap-1.5 transition-all"
+                    title="Fill this section using Master contact numbers"
+                  >
+                    <Sparkles className="w-3 h-3 text-amber-400" />
+                    <span>Use Master Number</span>
+                  </button>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-amber-950/80 text-amber-400 border border-amber-500/30">
+                    Product Inquiry
+                  </span>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
@@ -1845,9 +2093,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     </p>
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-sky-950/80 text-sky-400 border border-sky-500/30">
-                  Pre-Book Desk
-                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => fillSectionWithMaster('prebook')}
+                    className="px-2.5 py-1 rounded-lg bg-sky-500/15 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 text-[10px] font-mono flex items-center gap-1.5 transition-all"
+                    title="Fill this section using Master contact numbers"
+                  >
+                    <Sparkles className="w-3 h-3 text-sky-400" />
+                    <span>Use Master Number</span>
+                  </button>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-sky-950/80 text-sky-400 border border-sky-500/30">
+                    Pre-Book Desk
+                  </span>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
@@ -1888,9 +2147,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     </p>
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-indigo-950/80 text-indigo-400 border border-indigo-500/30">
-                  Delivered Archive
-                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => fillSectionWithMaster('delivered')}
+                    className="px-2.5 py-1 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/40 text-[10px] font-mono flex items-center gap-1.5 transition-all"
+                    title="Fill this section using Master contact numbers"
+                  >
+                    <Sparkles className="w-3 h-3 text-indigo-400" />
+                    <span>Use Master Number</span>
+                  </button>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-indigo-950/80 text-indigo-400 border border-indigo-500/30">
+                    Delivered Archive
+                  </span>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
@@ -1931,9 +2201,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     </p>
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-teal-950/80 text-teal-400 border border-teal-500/30">
-                  Sell & Trade
-                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => fillSectionWithMaster('sell')}
+                    className="px-2.5 py-1 rounded-lg bg-teal-500/15 hover:bg-teal-500/30 text-teal-300 border border-teal-500/40 text-[10px] font-mono flex items-center gap-1.5 transition-all"
+                    title="Fill this section using Master contact numbers"
+                  >
+                    <Sparkles className="w-3 h-3 text-teal-400" />
+                    <span>Use Master Number</span>
+                  </button>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-teal-950/80 text-teal-400 border border-teal-500/30">
+                    Sell & Trade
+                  </span>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
@@ -1970,26 +2251,63 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       7. About Boutique Concierge Desk
                     </h3>
                     <p className="text-[11px] text-slate-400">
-                      Controls the verified WhatsApp and helpline on the About Goodtime Watch boutique page.
+                      Controls the verified WhatsApp and helpline touchpoints on the About Goodtime Watch boutique page.
                     </p>
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-rose-950/80 text-rose-400 border border-rose-500/30">
-                  About Boutique
-                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => fillSectionWithMaster('about')}
+                    className="px-2.5 py-1 rounded-lg bg-rose-500/15 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-[10px] font-mono flex items-center gap-1.5 transition-all"
+                    title="Fill this section using Master contact numbers"
+                  >
+                    <Sparkles className="w-3 h-3 text-rose-400" />
+                    <span>Use Master Number</span>
+                  </button>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-rose-950/80 text-rose-400 border border-rose-500/30">
+                    About Boutique
+                  </span>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                {/* 1. Dedicated About Page Hero "Message on WhatsApp" Button */}
+                <div className="md:col-span-2 p-4 rounded-xl bg-gradient-to-r from-rose-950/40 via-black/40 to-rose-950/30 border border-rose-500/40 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-rose-400" />
+                      <span className="font-semibold text-white text-xs">
+                        About Page Hero "Message on WhatsApp" Button
+                      </span>
+                    </div>
+                    <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-rose-500/20 text-rose-300 border border-rose-500/40 uppercase">
+                      Hero Action
+                    </span>
+                  </div>
+                  <InternationalWhatsAppInput
+                    label="Hero WhatsApp Direct Link"
+                    value={contactForm.aboutHeroWhatsapp || contactForm.aboutWhatsapp || contactForm.whatsappNumber || '8801327426905'}
+                    onChange={(cleanDigits) =>
+                      setContactForm({ ...contactForm, aboutHeroWhatsapp: cleanDigits })
+                    }
+                    helperText="Controls the primary hero 'Message on WhatsApp' button right under the About Boutique title on the About page."
+                  />
+                </div>
+
+                {/* 2. Concierge Card WhatsApp Direct */}
                 <div className="md:col-span-2">
                   <InternationalWhatsAppInput
-                    label="About Page WhatsApp Direct"
+                    label="About Page Bottom Card WhatsApp Direct"
                     value={contactForm.aboutWhatsapp || contactForm.whatsappNumber || '8801327426905'}
                     onChange={(cleanDigits) =>
                       setContactForm({ ...contactForm, aboutWhatsapp: cleanDigits })
                     }
-                    helperText="Instant chat link displayed in the About Us concierge box."
+                    helperText="Instant chat link displayed in the About Us bottom concierge contact card."
                   />
                 </div>
+
+                {/* 3. Concierge Card Phone Hotline */}
                 <InternationalPhoneInput
                   label="About Page Phone Hotline"
                   value={contactForm.aboutPhone || contactForm.phoneIntl || '+8801327426905'}
@@ -2017,9 +2335,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     </p>
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-white/5 text-slate-300 border border-white/10">
-                  Footer & Fallback
-                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => fillSectionWithMaster('footer')}
+                    className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 border border-white/20 text-[10px] font-mono flex items-center gap-1.5 transition-all"
+                    title="Fill this section using Master contact numbers"
+                  >
+                    <Sparkles className="w-3 h-3 text-slate-300" />
+                    <span>Use Master Number</span>
+                  </button>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-white/5 text-slate-300 border border-white/10">
+                    Footer & Fallback
+                  </span>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
