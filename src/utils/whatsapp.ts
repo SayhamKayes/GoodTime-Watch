@@ -40,8 +40,10 @@ export const generateSellExchangeWhatsAppLink = (details?: {
   condition?: string;
   hasBoxPapers?: string;
   inquiryType?: 'Sell' | 'Exchange';
+  overrideNumber?: string;
 }): string => {
-  const number = getActiveWhatsAppNumber();
+  const stored = getStoredSiteInfo();
+  const number = details?.overrideNumber || stored.sellExchangeWhatsapp || getActiveWhatsAppNumber();
 
   let text = `Hello Goodtime Watch SG,\n\nI would like to enquire about your ${details?.inquiryType || 'Sell & Exchange'} service.\n\n`;
   if (details?.brand || details?.model) {
