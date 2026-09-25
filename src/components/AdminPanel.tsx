@@ -13,6 +13,16 @@ import {
   resetAllCatalogData
 } from '../utils/storage';
 import {
+  syncSaveProduct,
+  syncDeleteProduct,
+  syncSaveUpcoming,
+  syncDeleteUpcoming,
+  syncSaveDelivered,
+  syncDeleteDelivered,
+  syncSaveBrands,
+  syncSaveSiteSettings
+} from '../services/api';
+import {
   ShieldCheck,
   Lock,
   Unlock,
@@ -41,7 +51,11 @@ import {
   Mail,
   MapPin,
   Image as ImageIcon,
-  Type
+  Type,
+  MessageCircle,
+  Layers,
+  Globe,
+  FileText
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -232,13 +246,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
     if (editingProduct) {
       // Update
+      const updatedItem = { ...editingProduct, ...productForm } as WatchProduct;
       const updated = products.map((p) =>
-        p.id === editingProduct.id
-          ? ({ ...p, ...productForm } as WatchProduct)
-          : p
+        p.id === editingProduct.id ? updatedItem : p
       );
       onUpdateProducts(updated);
       saveStoredProducts(updated);
+      syncSaveProduct(updatedItem);
       showToast(`Updated ${productForm.brandName} ${productForm.model}`);
     } else {
       // Add
@@ -272,6 +286,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       const updated = [newProd, ...products];
       onUpdateProducts(updated);
       saveStoredProducts(updated);
+      syncSaveProduct(newProd);
       showToast(`Added ${newProd.brandName} ${newProd.model}`);
     }
     setIsProductModalOpen(false);
@@ -281,6 +296,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     const updated = products.filter((p) => p.id !== id);
     onUpdateProducts(updated);
     saveStoredProducts(updated);
+    syncDeleteProduct(id);
     showToast('Watch deleted from inventory');
     setDeleteConfirm(null);
   };
@@ -295,6 +311,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     onUpdateProducts(updated);
     saveStoredProducts(updated);
     const target = updated.find((p) => p.id === id);
+    if (target) {
+      syncSaveProduct(target);
+    }
     if (target?.isFeaturedInHero) {
       showToast(`Added ${target.model} to Homepage Hero Slider`);
     } else {
@@ -337,6 +356,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       );
       onUpdateBrands(updated);
       saveStoredBrands(updated);
+      syncSaveBrands(updated);
       showToast(`Updated brand ${brandForm.name}`);
     } else {
       const newBrand: AuthorizedBrand = {
@@ -349,6 +369,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       const updated = [...brands, newBrand];
       onUpdateBrands(updated);
       saveStoredBrands(updated);
+      syncSaveBrands(updated);
       showToast(`Added brand ${newBrand.name} to Marquee`);
     }
     setIsBrandModalOpen(false);
@@ -358,6 +379,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     const updated = brands.filter((b) => b.id !== id);
     onUpdateBrands(updated);
     saveStoredBrands(updated);
+    syncSaveBrands(updated);
     showToast('Brand removed from Marquee');
     setDeleteConfirm(null);
   };
@@ -367,8 +389,24 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   // -------------------------------------------------------------
   const handleSaveContact = (e: React.FormEvent) => {
     e.preventDefault();
-    onUpdateSiteInfo(contactForm);
-    saveStoredSiteInfo(contactForm);
+    const updated: SiteInfo = {
+      ...contactForm,
+      topHeaderHotlineDisplay: contactForm.topHeaderHotlineDisplay || contactForm.phoneDisplay || '01327-426905',
+      topHeaderHotlineDial: contactForm.topHeaderHotlineDial || contactForm.phoneIntl || '+8801327426905',
+      topHeaderWhatsappNumber: contactForm.topHeaderWhatsappNumber || contactForm.whatsappNumber || '8801327426905',
+      topHeaderWhatsappLink:
+        contactForm.topHeaderWhatsappLink ||
+        `https://wa.me/${contactForm.topHeaderWhatsappNumber || contactForm.whatsappNumber || '8801327426905'}`,
+      floatingWhatsappDisplay: contactForm.floatingWhatsappDisplay || contactForm.phoneDisplay || '01327-426905',
+      floatingWhatsappNumber: contactForm.floatingWhatsappNumber || contactForm.whatsappNumber || '8801327426905',
+      floatingWhatsappLink:
+        contactForm.floatingWhatsappLink ||
+        `https://wa.me/${contactForm.floatingWhatsappNumber || contactForm.whatsappNumber || '8801327426905'}`
+    };
+    onUpdateSiteInfo(updated);
+    saveStoredSiteInfo(updated);
+    setContactForm(updated);
+    syncSaveSiteSettings(updated);
     showToast('Contact and business concierge settings updated!');
   };
 
@@ -407,11 +445,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     }
 
     if (editingUpcoming) {
+      const updatedItem = { ...editingUpcoming, ...upcomingForm } as UpcomingWatch;
       const updated = upcomingWatches.map((w) =>
-        w.id === editingUpcoming.id ? ({ ...w, ...upcomingForm } as UpcomingWatch) : w
+        w.id === editingUpcoming.id ? updatedItem : w
       );
       onUpdateUpcoming(updated);
       saveStoredUpcoming(updated);
+      syncSaveUpcoming(updatedItem);
       showToast(`Updated upcoming watch ${upcomingForm.model}`);
     } else {
       const newWatch: UpcomingWatch = {
@@ -440,6 +480,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       const updated = [newWatch, ...upcomingWatches];
       onUpdateUpcoming(updated);
       saveStoredUpcoming(updated);
+      syncSaveUpcoming(newWatch);
       showToast(`Added upcoming watch ${newWatch.model}`);
     }
     setIsUpcomingModalOpen(false);
@@ -449,6 +490,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     const updated = upcomingWatches.filter((w) => w.id !== id);
     onUpdateUpcoming(updated);
     saveStoredUpcoming(updated);
+    syncDeleteUpcoming(id);
     showToast('Upcoming watch removed');
     setDeleteConfirm(null);
   };
@@ -486,11 +528,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     }
 
     if (editingDelivered) {
+      const updatedItem = { ...editingDelivered, ...deliveredForm } as DeliveredWatch;
       const updated = deliveredWatches.map((d) =>
-        d.id === editingDelivered.id ? ({ ...d, ...deliveredForm } as DeliveredWatch) : d
+        d.id === editingDelivered.id ? updatedItem : d
       );
       onUpdateDelivered(updated);
       saveStoredDelivered(updated);
+      syncSaveDelivered(updatedItem);
       showToast(`Updated delivered review for ${deliveredForm.model}`);
     } else {
       const newDel: DeliveredWatch = {
@@ -509,6 +553,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       const updated = [newDel, ...deliveredWatches];
       onUpdateDelivered(updated);
       saveStoredDelivered(updated);
+      syncSaveDelivered(newDel);
       showToast(`Added delivered watch entry for ${newDel.model}`);
     }
     setIsDeliveredModalOpen(false);
@@ -518,6 +563,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     const updated = deliveredWatches.filter((d) => d.id !== id);
     onUpdateDelivered(updated);
     saveStoredDelivered(updated);
+    syncDeleteDelivered(id);
     showToast('Delivered watch entry deleted');
     setDeleteConfirm(null);
   };
@@ -1557,156 +1603,519 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             <div className="space-y-1.5 max-w-2xl">
               <div className="flex items-center gap-2 text-xs font-mono text-[#e6ca85]">
                 <Phone className="w-4 h-4 text-[#c5a059]" />
-                <span>Omnichannel Business Directory</span>
+                <span>Omnichannel Business Directory & Number Management</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-serif-luxury font-bold text-white">
-                Contact & Concierge Information
+                Contact & Concierge Settings
               </h2>
               <p className="text-xs text-slate-300 leading-relaxed font-light">
-                Update the official helpline numbers, WhatsApp direct chat target, boutique physical addresses, and concierge email. All storefront cards, footers, headers, and WhatsApp inquiry buttons will immediately reflect these settings.
+                Manage all contact touchpoints across the platform. Top Header hotline and WhatsApp direct numbers are pinned at the top, followed by the floating WhatsApp desk and page-by-page number configurations.
               </p>
             </div>
           </div>
 
-          <form onSubmit={handleSaveContact} className="rounded-2xl border border-white/10 bg-[#0c0f16] p-6 sm:p-8 space-y-6 shadow-xl text-xs">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onSubmit={handleSaveContact} className="space-y-8 text-xs">
 
-              {/* Phone */}
-              <div className="space-y-2">
-                <label className="font-mono text-slate-200 flex items-center gap-1.5">
-                  <Phone className="w-3.5 h-3.5 text-[#c5a059]" />
-                  <span>Direct Helpline Phone Number</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={contactForm.phone || ''}
-                  onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                  placeholder="+65 8925 5447"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                />
-                <p className="text-[11px] text-slate-400">
-                  Displayed in the top navigation bar, footer helpline, and contact sections.
-                </p>
+            {/* 1. TOP HEADER CONTACT SETTINGS (PLACED AT THE VERY TOP) */}
+            <div className="rounded-2xl border border-[#c5a059]/40 bg-gradient-to-b from-[#161209] to-[#0c0f16] p-6 sm:p-8 space-y-5 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#c5a059]/5 rounded-full blur-2xl pointer-events-none" />
+              
+              <div className="border-b border-[#c5a059]/20 pb-3 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-[#c5a059]/20 border border-[#c5a059]/40 flex items-center justify-center text-[#e6ca85]">
+                    <Phone className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif-luxury text-base font-bold text-white">
+                      1. Top Header Bar (Announcement Strip)
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Displayed prominently at the very top of every page in the header bar.
+                    </p>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#c5a059]/20 text-[#e6ca85] border border-[#c5a059]/30">
+                  Header Top
+                </span>
               </div>
 
-              {/* WhatsApp */}
-              <div className="space-y-2">
-                <label className="font-mono text-slate-200 flex items-center gap-1.5">
-                  <span className="text-emerald-400 font-bold">WA</span>
-                  <span>WhatsApp Number (For Direct Messaging)</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={contactForm.whatsappNumber || ''}
-                  onChange={(e) => setContactForm({ ...contactForm, whatsappNumber: e.target.value })}
-                  placeholder="6589255447 (Numbers only with country code, e.g. 6589255447)"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                />
-                <p className="text-[11px] text-emerald-400/80">
-                  Used by all WhatsApp buttons ("Inquire on WhatsApp", "Price on Request", Floating Desk) across every watch card.
-                </p>
-              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                {/* Top Header Hotline Display */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5 text-[#c5a059]" />
+                    <span>Top Header Hotline (Display Text)</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={contactForm.topHeaderHotlineDisplay || contactForm.phoneDisplay || ''}
+                    onChange={(e) =>
+                      setContactForm({
+                        ...contactForm,
+                        topHeaderHotlineDisplay: e.target.value,
+                        phoneDisplay: e.target.value
+                      })
+                    }
+                    placeholder="01327-426905"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                  <p className="text-[10px] text-slate-400">The visible phone number in the top header.</p>
+                </div>
 
-              {/* Email */}
-              <div className="space-y-2">
-                <label className="font-mono text-slate-200 flex items-center gap-1.5">
-                  <Mail className="w-3.5 h-3.5 text-[#c5a059]" />
-                  <span>Official Concierge Email Address</span>
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={contactForm.email || ''}
-                  onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                  placeholder="concierge@goodtime-sg.com"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                />
-                <p className="text-[11px] text-slate-400">
-                  Displayed in footer and consultation dispatch forms.
-                </p>
-              </div>
+                {/* Top Header Hotline Dial Link */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5 text-[#c5a059]" />
+                    <span>Top Header Hotline (Dial Link / tel:)</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={contactForm.topHeaderHotlineDial || contactForm.phoneIntl || ''}
+                    onChange={(e) =>
+                      setContactForm({
+                        ...contactForm,
+                        topHeaderHotlineDial: e.target.value,
+                        phoneIntl: e.target.value
+                      })
+                    }
+                    placeholder="+8801327426905"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                  <p className="text-[10px] text-slate-400">Exact international number dialed when clicking the phone link.</p>
+                </div>
 
-              {/* Opening Hours */}
-              <div className="space-y-2">
-                <label className="font-mono text-slate-200 flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-[#c5a059]" />
-                  <span>Operating & Appointment Hours</span>
-                </label>
-                <input
-                  type="text"
-                  value={contactForm.openingHours || ''}
-                  onChange={(e) => setContactForm({ ...contactForm, openingHours: e.target.value })}
-                  placeholder="Mon - Sun: 11:00 AM - 8:00 PM (By Appointment)"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                />
-              </div>
+                {/* Top Header WhatsApp Number */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
+                    <span>Top Header WhatsApp Direct Number</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={contactForm.topHeaderWhatsappNumber || contactForm.whatsappNumber || ''}
+                    onChange={(e) =>
+                      setContactForm({
+                        ...contactForm,
+                        topHeaderWhatsappNumber: e.target.value,
+                        topHeaderWhatsappLink: `https://wa.me/${e.target.value}`
+                      })
+                    }
+                    placeholder="8801327426905"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                  <p className="text-[10px] text-slate-400">Numbers only with country code (e.g. 8801327426905).</p>
+                </div>
 
-              {/* Primary Address */}
-              <div className="space-y-2 md:col-span-2">
-                <label className="font-mono text-slate-200 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#c5a059]" />
-                  <span>Primary Boutique Location / Address (Singapore HQ)</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={contactForm.address || ''}
-                  onChange={(e) => setContactForm({ ...contactForm, address: e.target.value })}
-                  placeholder="High Street Centre, 1 North Bridge Road, Singapore 179094"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                />
-              </div>
+                {/* Top Header WhatsApp Custom Link */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
+                    <span>Top Header WhatsApp Link (Auto-generated or Custom URL)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={
+                      contactForm.topHeaderWhatsappLink ||
+                      (contactForm.topHeaderWhatsappNumber
+                        ? `https://wa.me/${contactForm.topHeaderWhatsappNumber}`
+                        : contactForm.whatsappLink || '')
+                    }
+                    onChange={(e) =>
+                      setContactForm({ ...contactForm, topHeaderWhatsappLink: e.target.value })
+                    }
+                    placeholder="https://wa.me/8801327426905"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                  <p className="text-[10px] text-slate-400">Target URL opened when clicking "WhatsApp Direct" in the top header.</p>
+                </div>
 
-              {/* Secondary Address */}
-              <div className="space-y-2 md:col-span-2">
-                <label className="font-mono text-slate-200 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Secondary Location / Regional Concierge Hub</span>
-                </label>
-                <input
-                  type="text"
-                  value={contactForm.secondaryAddress || ''}
-                  onChange={(e) => setContactForm({ ...contactForm, secondaryAddress: e.target.value })}
-                  placeholder="Gulshan-2, Dhaka, Bangladesh"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                />
+                {/* Top Announcement Bar Message */}
+                <div className="space-y-1.5 md:col-span-2">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#c5a059]" />
+                    <span>Top Header Announcement Message</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={contactForm.announcement || ''}
+                    onChange={(e) =>
+                      setContactForm({ ...contactForm, announcement: e.target.value })
+                    }
+                    placeholder="Complimentary Insured Delivery on Selected Orders across Bangladesh"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                </div>
               </div>
-
-              {/* Instagram */}
-              <div className="space-y-2">
-                <label className="font-mono text-slate-200">Instagram Handle / URL</label>
-                <input
-                  type="text"
-                  value={contactForm.instagram || ''}
-                  onChange={(e) => setContactForm({ ...contactForm, instagram: e.target.value })}
-                  placeholder="https://instagram.com/goodtime_watch_sg"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                />
-              </div>
-
-              {/* Facebook */}
-              <div className="space-y-2">
-                <label className="font-mono text-slate-200">Facebook Page URL</label>
-                <input
-                  type="text"
-                  value={contactForm.facebook || ''}
-                  onChange={(e) => setContactForm({ ...contactForm, facebook: e.target.value })}
-                  placeholder="https://facebook.com/goodtimewatchsg"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
-                />
-              </div>
-
             </div>
 
-            <div className="pt-6 border-t border-white/10 flex items-center justify-end gap-3">
+            {/* 2. FLOATING WHATSAPP DESK WIDGET SETTINGS */}
+            <div className="rounded-2xl border border-emerald-500/30 bg-gradient-to-b from-[#0a1510] to-[#0c0f16] p-6 sm:p-8 space-y-5 shadow-2xl relative overflow-hidden">
+              <div className="border-b border-emerald-500/20 pb-3 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                    <MessageCircle className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif-luxury text-base font-bold text-white">
+                      2. Floating WhatsApp Desk Widget (Pinned Bottom-Right)
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      The floating gold & emerald interactive button that stays pinned at the bottom-right corner of the screen.
+                    </p>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-950/80 text-emerald-400 border border-emerald-500/30">
+                  Floating Widget
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                {/* Floating Widget Display Text */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Floating Widget Display Text / Number</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={contactForm.floatingWhatsappDisplay || contactForm.phoneDisplay || ''}
+                    onChange={(e) =>
+                      setContactForm({ ...contactForm, floatingWhatsappDisplay: e.target.value })
+                    }
+                    placeholder="01327-426905"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-emerald-400"
+                  />
+                  <p className="text-[10px] text-slate-400">Number shown beside the WhatsApp Desk icon when expanded or hovered.</p>
+                </div>
+
+                {/* Floating Widget WhatsApp Number */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Floating Widget Target WhatsApp Number</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={contactForm.floatingWhatsappNumber || contactForm.whatsappNumber || ''}
+                    onChange={(e) =>
+                      setContactForm({
+                        ...contactForm,
+                        floatingWhatsappNumber: e.target.value,
+                        floatingWhatsappLink: `https://wa.me/${e.target.value}`
+                      })
+                    }
+                    placeholder="8801327426905"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-emerald-400"
+                  />
+                  <p className="text-[10px] text-slate-400">Target phone number used to open the instant WhatsApp chat.</p>
+                </div>
+
+                {/* Floating Widget Custom Link */}
+                <div className="space-y-1.5 md:col-span-2">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <Globe className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Floating Widget Custom Link (Optional)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={
+                      contactForm.floatingWhatsappLink ||
+                      (contactForm.floatingWhatsappNumber
+                        ? `https://wa.me/${contactForm.floatingWhatsappNumber}`
+                        : contactForm.whatsappLink || '')
+                    }
+                    onChange={(e) =>
+                      setContactForm({ ...contactForm, floatingWhatsappLink: e.target.value })
+                    }
+                    placeholder="https://wa.me/8801327426905"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-emerald-400"
+                  />
+                  <p className="text-[10px] text-slate-400">Leave blank to use https://wa.me/&lt;target-number&gt; automatically.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. INDIVIDUAL PAGE-SPECIFIC CONTACT NUMBERS */}
+            <div className="rounded-2xl border border-white/10 bg-[#0c0f16] p-6 sm:p-8 space-y-6 shadow-xl">
+              <div className="border-b border-white/10 pb-3 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
+                    <Layers className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif-luxury text-base font-bold text-white">
+                      3. Individual Page Contact Numbers
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Individually customize numbers for specific storefront pages. Blank fields will use the main hotline.
+                    </p>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-white/5 text-slate-300 border border-white/10">
+                  Page Overrides
+                </span>
+              </div>
+
+              <div className="space-y-5">
+                {/* Sell & Exchange Page */}
+                <div className="p-4 rounded-xl bg-black/40 border border-white/5 space-y-3">
+                  <span className="text-xs font-mono font-bold text-[#e6ca85] uppercase tracking-wider block">
+                    • Sell & Exchange Concierge Page
+                  </span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-[11px] text-slate-300 font-mono">Display Phone Number</label>
+                      <input
+                        type="text"
+                        value={contactForm.sellExchangePhone || ''}
+                        onChange={(e) =>
+                          setContactForm({ ...contactForm, sellExchangePhone: e.target.value })
+                        }
+                        placeholder={contactForm.phoneDisplay || '01327-426905'}
+                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[11px] text-slate-300 font-mono">WhatsApp Target Number</label>
+                      <input
+                        type="text"
+                        value={contactForm.sellExchangeWhatsapp || ''}
+                        onChange={(e) =>
+                          setContactForm({ ...contactForm, sellExchangeWhatsapp: e.target.value })
+                        }
+                        placeholder={contactForm.whatsappNumber || '8801327426905'}
+                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* About Us Page */}
+                <div className="p-4 rounded-xl bg-black/40 border border-white/5 space-y-3">
+                  <span className="text-xs font-mono font-bold text-[#e6ca85] uppercase tracking-wider block">
+                    • About Us Page
+                  </span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-[11px] text-slate-300 font-mono">Helpline Display Phone</label>
+                      <input
+                        type="text"
+                        value={contactForm.aboutPhone || ''}
+                        onChange={(e) =>
+                          setContactForm({ ...contactForm, aboutPhone: e.target.value })
+                        }
+                        placeholder={contactForm.phoneDisplay || '01327-426905'}
+                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[11px] text-slate-300 font-mono">WhatsApp Target Number</label>
+                      <input
+                        type="text"
+                        value={contactForm.aboutWhatsapp || ''}
+                        onChange={(e) =>
+                          setContactForm({ ...contactForm, aboutWhatsapp: e.target.value })
+                        }
+                        placeholder={contactForm.whatsappNumber || '8801327426905'}
+                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Successfully Delivered Page */}
+                <div className="p-4 rounded-xl bg-black/40 border border-white/5 space-y-3">
+                  <span className="text-xs font-mono font-bold text-[#e6ca85] uppercase tracking-wider block">
+                    • Successfully Delivered Archive Page
+                  </span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-[11px] text-slate-300 font-mono">Inquiry Desk Phone</label>
+                      <input
+                        type="text"
+                        value={contactForm.deliveredPhone || ''}
+                        onChange={(e) =>
+                          setContactForm({ ...contactForm, deliveredPhone: e.target.value })
+                        }
+                        placeholder={contactForm.phoneDisplay || '01327-426905'}
+                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[11px] text-slate-300 font-mono">WhatsApp Target Number</label>
+                      <input
+                        type="text"
+                        value={contactForm.deliveredWhatsapp || ''}
+                        onChange={(e) =>
+                          setContactForm({ ...contactForm, deliveredWhatsapp: e.target.value })
+                        }
+                        placeholder={contactForm.whatsappNumber || '8801327426905'}
+                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Section */}
+                <div className="p-4 rounded-xl bg-black/40 border border-white/5 space-y-3">
+                  <span className="text-xs font-mono font-bold text-[#e6ca85] uppercase tracking-wider block">
+                    • Footer Section Contact
+                  </span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-[11px] text-slate-300 font-mono">Footer Helpline Phone</label>
+                      <input
+                        type="text"
+                        value={contactForm.footerPhone || ''}
+                        onChange={(e) =>
+                          setContactForm({ ...contactForm, footerPhone: e.target.value })
+                        }
+                        placeholder={contactForm.phoneDisplay || '01327-426905'}
+                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[11px] text-slate-300 font-mono">Footer WhatsApp Number</label>
+                      <input
+                        type="text"
+                        value={contactForm.footerWhatsapp || ''}
+                        onChange={(e) =>
+                          setContactForm({ ...contactForm, footerWhatsapp: e.target.value })
+                        }
+                        placeholder={contactForm.whatsappNumber || '8801327426905'}
+                        className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 4. GENERAL BOUTIQUE DIRECTORY, HOURS & SOCIALS */}
+            <div className="rounded-2xl border border-white/10 bg-[#0c0f16] p-6 sm:p-8 space-y-5 shadow-xl">
+              <div className="border-b border-white/10 pb-3 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400">
+                    <MapPin className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif-luxury text-base font-bold text-white">
+                      4. Boutique Addresses, Concierge Email & Operating Hours
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Physical salon addresses, official email, opening hours, and verified social media accounts.
+                    </p>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-white/5 text-slate-300 border border-white/10">
+                  Locations & Social
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                {/* Email */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <Mail className="w-3.5 h-3.5 text-[#c5a059]" />
+                    <span>Official Concierge Email Address</span>
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={contactForm.email || ''}
+                    onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                    placeholder="concierge@goodtime-sg.com"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                </div>
+
+                {/* Opening Hours */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-[#c5a059]" />
+                    <span>Operating & Appointment Hours</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={contactForm.openingHours || ''}
+                    onChange={(e) =>
+                      setContactForm({ ...contactForm, openingHours: e.target.value })
+                    }
+                    placeholder="Mon - Sun: 11:00 AM - 8:00 PM (By Appointment)"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                </div>
+
+                {/* Primary Address */}
+                <div className="space-y-1.5 md:col-span-2">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-[#c5a059]" />
+                    <span>Primary Boutique Location / Address (Singapore HQ)</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={contactForm.address || ''}
+                    onChange={(e) => setContactForm({ ...contactForm, address: e.target.value })}
+                    placeholder="High Street Centre, 1 North Bridge Road, Singapore 179094"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                </div>
+
+                {/* Secondary Address */}
+                <div className="space-y-1.5 md:col-span-2">
+                  <label className="font-mono text-slate-200 flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                    <span>Secondary Location / Regional Concierge Hub</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={contactForm.secondaryAddress || ''}
+                    onChange={(e) =>
+                      setContactForm({ ...contactForm, secondaryAddress: e.target.value })
+                    }
+                    placeholder="Gulshan-2, Dhaka, Bangladesh"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                </div>
+
+                {/* Instagram */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-slate-200">Instagram Handle / URL</label>
+                  <input
+                    type="text"
+                    value={contactForm.instagram || ''}
+                    onChange={(e) => setContactForm({ ...contactForm, instagram: e.target.value })}
+                    placeholder="https://instagram.com/goodtime_watch_sg"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                </div>
+
+                {/* Facebook */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-slate-200">Facebook Page URL</label>
+                  <input
+                    type="text"
+                    value={contactForm.facebook || ''}
+                    onChange={(e) => setContactForm({ ...contactForm, facebook: e.target.value })}
+                    placeholder="https://facebook.com/goodtimewatchsg"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Save Button */}
+            <div className="sticky bottom-4 z-20 pt-4 flex items-center justify-end">
               <button
                 type="submit"
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] text-black text-xs font-bold hover:brightness-110 shadow-lg flex items-center gap-2"
+                className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] text-black text-xs font-bold hover:brightness-110 shadow-2xl flex items-center gap-2 transition-transform active:scale-95 cursor-pointer"
               >
                 <Check className="w-4 h-4" />
-                <span>Save Contact & Concierge Information</span>
+                <span>Save All Contact & Concierge Information</span>
               </button>
             </div>
           </form>
