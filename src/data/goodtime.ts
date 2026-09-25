@@ -4,13 +4,39 @@ export const SITE_INFO: SiteInfo = {
   name: "Goodtime Watch SG",
   domain: "https://goodtimewatchsg.com/",
   email: "goodtimewatchsg@gmail.com",
+  phone: "01327-426905",
   phoneDisplay: "01327-426905",
   phoneIntl: "+8801327426905",
   whatsappNumber: "8801327426905",
   whatsappLink: "https://wa.me/8801327426905",
   location: "Dhaka, Bangladesh",
-  announcement: "Complimentary Insured Delivery on Selected Orders across Bangladesh"
+  announcement: "Complimentary Insured Delivery on Selected Orders across Bangladesh",
+  address: "High Street Centre, 1 North Bridge Road, Singapore 179094",
+  secondaryAddress: "Gulshan-2, Dhaka, Bangladesh",
+  openingHours: "Mon - Sun: 11:00 AM - 8:00 PM (By Appointment)",
+
+  // Top Header Contact Numbers
+  topHeaderHotlineDisplay: "01327-426905",
+  topHeaderHotlineDial: "+8801327426905",
+  topHeaderWhatsappNumber: "8801327426905",
+  topHeaderWhatsappLink: "https://wa.me/8801327426905",
+
+  // Floating WhatsApp Desk Widget
+  floatingWhatsappDisplay: "01327-426905",
+  floatingWhatsappNumber: "8801327426905",
+  floatingWhatsappLink: "https://wa.me/8801327426905",
+
+  // Individual Page Numbers
+  sellExchangePhone: "01327-426905",
+  sellExchangeWhatsapp: "8801327426905",
+  aboutPhone: "01327-426905",
+  aboutWhatsapp: "8801327426905",
+  deliveredPhone: "01327-426905",
+  deliveredWhatsapp: "8801327426905",
+  footerPhone: "01327-426905",
+  footerWhatsapp: "8801327426905"
 };
+
 
 export const ALL_PRODUCTS: WatchProduct[] = [
   {
