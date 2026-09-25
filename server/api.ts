@@ -334,6 +334,7 @@ export const getSiteSettings = async (): Promise<SiteInfo> => {
     sellExchangeWhatsapp: r.sell_exchange_whatsapp || SITE_INFO.sellExchangeWhatsapp,
     aboutPhone: r.about_phone || SITE_INFO.aboutPhone,
     aboutWhatsapp: r.about_whatsapp || SITE_INFO.aboutWhatsapp,
+    aboutHeroWhatsapp: r.about_hero_whatsapp || SITE_INFO.aboutHeroWhatsapp,
     deliveredPhone: r.delivered_phone || SITE_INFO.deliveredPhone,
     deliveredWhatsapp: r.delivered_whatsapp || SITE_INFO.deliveredWhatsapp,
     footerPhone: r.footer_phone || SITE_INFO.footerPhone,
@@ -353,8 +354,8 @@ export const saveSiteSettings = async (s: SiteInfo): Promise<void> => {
       floating_whatsapp_number, floating_whatsapp_link, product_inquiry_phone,
       product_inquiry_whatsapp, product_inquiry_display, prebook_phone,
       prebook_whatsapp, prebook_display, sell_exchange_phone,
-      sell_exchange_whatsapp, about_phone, about_whatsapp, delivered_phone,
-      delivered_whatsapp, footer_phone, footer_whatsapp
+      sell_exchange_whatsapp, about_phone, about_whatsapp, about_hero_whatsapp,
+      delivered_phone, delivered_whatsapp, footer_phone, footer_whatsapp
     ) VALUES (
       'current', ${s.name}, ${s.domain}, ${s.email}, ${s.location}, ${s.announcement},
       ${s.address || ''}, ${s.secondaryAddress || ''}, ${s.openingHours || ''},
@@ -377,6 +378,7 @@ export const saveSiteSettings = async (s: SiteInfo): Promise<void> => {
       ${s.sellExchangeWhatsapp || s.whatsappNumber},
       ${s.aboutPhone || s.phoneDisplay},
       ${s.aboutWhatsapp || s.whatsappNumber},
+      ${s.aboutHeroWhatsapp || s.aboutWhatsapp || s.whatsappNumber},
       ${s.deliveredPhone || s.phoneDisplay},
       ${s.deliveredWhatsapp || s.whatsappNumber},
       ${s.footerPhone || s.phoneDisplay},
@@ -415,6 +417,7 @@ export const saveSiteSettings = async (s: SiteInfo): Promise<void> => {
       sell_exchange_whatsapp = EXCLUDED.sell_exchange_whatsapp,
       about_phone = EXCLUDED.about_phone,
       about_whatsapp = EXCLUDED.about_whatsapp,
+      about_hero_whatsapp = EXCLUDED.about_hero_whatsapp,
       delivered_phone = EXCLUDED.delivered_phone,
       delivered_whatsapp = EXCLUDED.delivered_whatsapp,
       footer_phone = EXCLUDED.footer_phone,
