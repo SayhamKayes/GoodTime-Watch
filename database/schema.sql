@@ -164,6 +164,7 @@ CREATE TABLE IF NOT EXISTS site_settings (
     sell_exchange_whatsapp TEXT DEFAULT '8801327426905',
     about_phone TEXT DEFAULT '01327-426905',
     about_whatsapp TEXT DEFAULT '8801327426905',
+    about_hero_whatsapp TEXT DEFAULT '8801327426905',
     delivered_phone TEXT DEFAULT '01327-426905',
     delivered_whatsapp TEXT DEFAULT '8801327426905',
     footer_phone TEXT DEFAULT '01327-426905',
