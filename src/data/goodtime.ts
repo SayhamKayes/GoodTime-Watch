@@ -26,6 +26,14 @@ export const SITE_INFO: SiteInfo = {
   floatingWhatsappNumber: "8801327426905",
   floatingWhatsappLink: "https://wa.me/8801327426905",
 
+  // Dedicated Product Inquiry & Pre-Book WhatsApp
+  productInquiryWhatsapp: "8801327426905",
+  productInquiryPhone: "01327-426905",
+  productInquiryDisplay: "01327-426905",
+  prebookWhatsapp: "8801327426905",
+  prebookPhone: "01327-426905",
+  prebookDisplay: "01327-426905",
+
   // Individual Page Numbers
   sellExchangePhone: "01327-426905",
   sellExchangeWhatsapp: "8801327426905",
