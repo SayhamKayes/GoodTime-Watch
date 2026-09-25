@@ -107,4 +107,26 @@ export interface SiteInfo {
   openingHours?: string;
   instagram?: string;
   facebook?: string;
+
+  // Top Header Contact Numbers (Placed at top of Admin Contact & Concierge)
+  topHeaderHotlineDisplay?: string;
+  topHeaderHotlineDial?: string;
+  topHeaderWhatsappNumber?: string;
+  topHeaderWhatsappLink?: string;
+
+  // Floating WhatsApp Desk Widget Contact Number
+  floatingWhatsappDisplay?: string;
+  floatingWhatsappNumber?: string;
+  floatingWhatsappLink?: string;
+
+  // Individual Page Contact Numbers
+  sellExchangePhone?: string;
+  sellExchangeWhatsapp?: string;
+  aboutPhone?: string;
+  aboutWhatsapp?: string;
+  deliveredPhone?: string;
+  deliveredWhatsapp?: string;
+  footerPhone?: string;
+  footerWhatsapp?: string;
 }
+
