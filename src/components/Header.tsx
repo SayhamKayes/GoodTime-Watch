@@ -51,15 +51,20 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onSelectTab, siteInfo
           </p>
           <div className="flex items-center gap-4 text-slate-300 text-[11px]">
             <a
-              href={`tel:${currentSiteInfo.phoneIntl}`}
+              href={`tel:${currentSiteInfo.topHeaderHotlineDial || currentSiteInfo.phoneIntl}`}
               className="hover:text-[#c5a059] flex items-center gap-1 transition-colors"
             >
               <Phone className="w-3 h-3 text-[#c5a059]" />
-              <span>{currentSiteInfo.phoneDisplay}</span>
+              <span>{currentSiteInfo.topHeaderHotlineDisplay || currentSiteInfo.phoneDisplay}</span>
             </a>
             <span className="text-white/20 hidden sm:inline">|</span>
             <a
-              href={currentSiteInfo.whatsappLink}
+              href={
+                currentSiteInfo.topHeaderWhatsappLink ||
+                (currentSiteInfo.topHeaderWhatsappNumber
+                  ? `https://wa.me/${currentSiteInfo.topHeaderWhatsappNumber}`
+                  : currentSiteInfo.whatsappLink)
+              }
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#25D366] hover:underline flex items-center gap-1 font-medium"
@@ -123,19 +128,6 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onSelectTab, siteInfo
               );
             })}
           </nav>
-
-          {/* Header Action: WhatsApp Direct Button */}
-          {/* <div className="hidden sm:flex items-center gap-3">
-            <a
-              href={currentSiteInfo.whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold text-black bg-gradient-to-r from-[#e6ca85] via-[#d4af37] to-[#c5a059] hover:brightness-110 shadow-md transition-all active:scale-95"
-            >
-              <MessageCircle className="w-3.5 h-3.5 fill-black/20" />
-              <span>WhatsApp: {currentSiteInfo.phoneDisplay}</span>
-            </a>
-          </div> */}
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center">
