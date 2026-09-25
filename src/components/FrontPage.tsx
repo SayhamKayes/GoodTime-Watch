@@ -800,7 +800,7 @@ export const FrontPage: React.FC<FrontPageProps> = ({
                   <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-3">
                     <span className="text-[11px] text-slate-400 font-light">Looking for similar?</span>
                     <a
-                      href={`https://wa.me/${currentSiteInfo.whatsappNumber}?text=${encodeURIComponent(
+                      href={`https://wa.me/${currentSiteInfo.deliveredWhatsapp || currentSiteInfo.whatsappNumber}?text=${encodeURIComponent(
                         `Hello Goodtime Watch SG,\n\nI saw your delivered ${item.brand} ${item.model} (Ref: ${item.reference}) on your website and would like to inquire about sourcing another piece.`
                       )}`}
                       target="_blank"
